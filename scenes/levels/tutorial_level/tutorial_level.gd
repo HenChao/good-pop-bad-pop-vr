@@ -2,6 +2,9 @@
 class_name TutorialLevel
 extends Node3D
 
+@onready var dad_speech_bubble: SpeechBubble = $InterrogationTable/SpeechBubble
+@onready var mom_speech_bubble: SpeechBubble = $ComputerScreen/SpeechBubble
+
 var script_manager: ScriptManager
 
 const intro_scene: String = """
@@ -33,8 +36,8 @@ Baby: Cookie? What's a cookie? Never heard of any cookies.
 
 
 func _enter_tree() -> void:
-	if not script_manager:
-		push_error("Script manager not set for Tutorial level!")
+	assert(script_manager, "Script manager not set for Tutorial level!")
+	script_manager.set_speech_bubbles(mom_speech_bubble, dad_speech_bubble, null)
 	await script_manager.start_scene(intro_scene)
 
 

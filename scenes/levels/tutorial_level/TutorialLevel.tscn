@@ -15,3 +15,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13598, 0)
 
 [node name="ComputerScreen" parent="." instance=ExtResource("3_3ee13")]
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
+
+[editable path="InterrogationTable"]
+[editable path="InterrogationTable/SpeechBubble"]
+[editable path="InterrogationTable/SpeechBubble/curved_box"]
+[editable path="ComputerScreen"]
+[editable path="ComputerScreen/computer_monitor"]
+[editable path="ComputerScreen/SpeechBubble"]
+[editable path="ComputerScreen/SpeechBubble/curved_box"]

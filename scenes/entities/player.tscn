@@ -1,16 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbddfyasu7hwi"]
+[gd_scene load_steps=5 format=3 uid="uid://cbddfyasu7hwi"]
 
 [ext_resource type="Script" uid="uid://dhv7co4bj5sk3" path="res://scenes/entities/player.gd" id="1_1ie0h"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_ucweq"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_08t41"]
-[ext_resource type="PackedScene" uid="uid://b7vic2dqnsb2g" path="res://scenes/ui/speech_bubble/speech_bubble.tscn" id="3_5u6hq"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_42nxq"]
-[ext_resource type="Shader" uid="uid://b61ybel7usgua" path="res://scenes/ui/speech_bubble/speech_bubble_shader.tres" id="4_d4qa6"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ss7kx"]
-render_priority = 0
-shader = ExtResource("4_d4qa6")
-shader_parameter/BubbleColor = Color(0.12, 0.306667, 0.4, 1)
 
 [node name="Player" type="XROrigin3D"]
 script = ExtResource("1_1ie0h")
@@ -35,18 +28,5 @@ laser_length = 1
 
 [node name="PlayerBody" parent="." instance=ExtResource("4_42nxq")]
 
-[node name="SpeechBubble" parent="." groups=["DadSpeechBubble"] instance=ExtResource("3_5u6hq")]
-transform = Transform3D(0.2, 0, 0, 0, 0.192263, 0.0550897, 0, -0.0550897, 0.192263, 0, -0.2, -0.698)
-speaker_name = "Dad"
-
-[node name="Cube" parent="SpeechBubble/curved_box" index="0"]
-surface_material_override/0 = SubResource("ShaderMaterial_ss7kx")
-
-[node name="SpeakerLabel" parent="SpeechBubble" index="1"]
-text = "Dad"
-
 [connection signal="pointing_event" from="XRController3D_Left/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]
 [connection signal="pointing_event" from="XRController3D_Right/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]
-
-[editable path="SpeechBubble"]
-[editable path="SpeechBubble/curved_box"]

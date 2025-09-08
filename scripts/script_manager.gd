@@ -7,18 +7,23 @@ signal scene_complete
 @export var left_controller: XRController3D
 @export var right_controller: XRController3D
 
-@export_group("Speech Bubbles")
-@export var dad_speech_bubble: SpeechBubble
-@export var mom_speech_bubble: SpeechBubble
-@export var baby_speech_bubble: SpeechBubble
+var _dad_speech_bubble: SpeechBubble
+var _mom_speech_bubble: SpeechBubble
+var _baby_speech_bubble: SpeechBubble
 
 var _last_active_speaker: Dialogue.Speakers
 
 
+func set_speech_bubbles(mom: SpeechBubble, dad: SpeechBubble, baby: SpeechBubble) -> void:
+	_mom_speech_bubble = mom
+	_dad_speech_bubble = dad
+	_baby_speech_bubble = baby
+
+
 func start_scene(scene_text: String) -> Signal:
-	dad_speech_bubble.visible = false
-	mom_speech_bubble.visisble = false
-	baby_speech_bubble.visible = false
+	_mom_speech_bubble.visisble = false
+	_dad_speech_bubble.visible = false
+	_baby_speech_bubble.visible = false
 
 	var parsed_script: Array[Dialogue] = _parse_script(scene_text)
 	for dialogue in parsed_script:
@@ -65,11 +70,11 @@ func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 func _get_speech_bubble(speaker: Dialogue.Speakers) -> SpeechBubble:
 	match speaker:
 		Dialogue.Speakers.MOM:
-			return mom_speech_bubble
+			return _mom_speech_bubble
 		Dialogue.Speakers.DAD:
-			return dad_speech_bubble
+			return _dad_speech_bubble
 		Dialogue.Speakers.BABY:
-			return baby_speech_bubble
+			return _baby_speech_bubble
 	return null
 
 

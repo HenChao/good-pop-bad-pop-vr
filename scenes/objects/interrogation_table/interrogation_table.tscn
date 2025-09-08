@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdjftn4b2mqbp"]
+[gd_scene load_steps=6 format=3 uid="uid://cdjftn4b2mqbp"]
 
 [ext_resource type="Shader" uid="uid://fjmiow3x22j" path="res://scenes/objects/interrogation_table/interrogation_table.tres" id="1_niuqm"]
+[ext_resource type="PackedScene" uid="uid://b7vic2dqnsb2g" path="res://scenes/ui/speech_bubble/speech_bubble.tscn" id="2_cgjij"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tm5w5"]
 size = Vector3(2, 0.2, 1)
@@ -20,3 +21,10 @@ shape = SubResource("BoxShape3D_tm5w5")
 [node name="TableMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_niuqm")
 surface_material_override/0 = SubResource("ShaderMaterial_cgjij")
+
+[node name="SpeechBubble" parent="." instance=ExtResource("2_cgjij")]
+transform = Transform3D(0.2, 0, 0, 0, 0.187526, 0.0695279, 0, -0.0695279, 0.187526, 0, 0.264222, 0.364831)
+billboard = true
+
+[editable path="SpeechBubble"]
+[editable path="SpeechBubble/curved_box"]

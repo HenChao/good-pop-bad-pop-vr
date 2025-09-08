@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjyq1ici8dgth"]
+[gd_scene load_steps=8 format=3 uid="uid://bjyq1ici8dgth"]
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://cbddfyasu7hwi" path="res://scenes/entities/player.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://b7d56dxk37frb" path="res://scripts/level_manager.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bsbv7nkwxoh1" path="res://scenes/ui/main_menu/main_menu.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bolsca47s82wm" path="res://scenes/levels/tutorial_level/TutorialLevel.tscn" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://bicrwbd7kk5kt" path="res://scripts/script_manager.gd" id="5_tefeu"]
 
 [sub_resource type="Environment" id="Environment_o5qli"]
 background_mode = 1
@@ -22,9 +23,18 @@ environment = SubResource("Environment_o5qli")
 [node name="Player" parent="." instance=ExtResource("2_0wfyh")]
 unique_name_in_owner = true
 
+[node name="SpeechBubble" parent="Player" index="4"]
+transform = Transform3D(0.2, 0, 0, 0, 0.192263, 0.0550897, 0, -0.0550897, 0.192263, 0, -0.2, -0.698)
+
 [node name="LevelManager" type="Node3D" parent="."]
 script = ExtResource("3_jyhfs")
 TutorialLevel = ExtResource("4_tbgi4")
+
+[node name="ScriptManager" type="Node3D" parent="." node_paths=PackedStringArray("left_controller", "right_controller", "dad_speech_bubble")]
+script = ExtResource("5_tefeu")
+left_controller = NodePath("../Player/XRController3D_Left")
+right_controller = NodePath("../Player/XRController3D_Right")
+dad_speech_bubble = NodePath("../Player/SpeechBubble")
 
 [node name="GameObjects" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -34,3 +44,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
 player_body = NodePath("../../Player/PlayerBody")
 
 [editable path="Player"]
+[editable path="Player/SpeechBubble"]
+[editable path="Player/SpeechBubble/curved_box"]

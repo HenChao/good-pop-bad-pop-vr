@@ -29,6 +29,11 @@ window/size/viewport_height=600
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
+[global_group]
+
+DadSpeechBubble=""
+MomSpeechBubble=""
+
 [layer_names]
 
 3d_physics/layer_1="Static World"

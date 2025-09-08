@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://buiq0cg8kxrtr"]
+
+[ext_resource type="Shader" uid="uid://b61ybel7usgua" path="res://scenes/ui/speech_bubble/speech_bubble_shader.tres" id="1_3oask"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_3oask")
+shader_parameter/BubbleColor = Color(0.1, 0.25, 0.125, 1)

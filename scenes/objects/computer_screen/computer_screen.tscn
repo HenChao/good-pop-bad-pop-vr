@@ -1,7 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhc2iutvt1kg3"]
+[gd_scene load_steps=19 format=3 uid="uid://bhc2iutvt1kg3"]
 
 [ext_resource type="PackedScene" uid="uid://bkimvne12ewqt" path="res://resources/computer_monitor.glb" id="1_6upp4"]
 [ext_resource type="Shader" uid="uid://c3glpjgt37v8d" path="res://scenes/objects/computer_screen/screenbody.tres" id="1_agxf3"]
+[ext_resource type="Texture2D" uid="uid://cr4nmb14opgqo" path="res://resources/textures/chief_of_police.png" id="3_85tyx"]
+[ext_resource type="Texture2D" uid="uid://btahqi36cvrbn" path="res://resources/textures/chief_of_police_eyes_normal.png" id="4_fkh0m"]
+[ext_resource type="Texture2D" uid="uid://ymufnmitfrh2" path="res://resources/textures/chief_of_police_mouth.png" id="5_injx0"]
+[ext_resource type="Texture2D" uid="uid://dh7djnfkue6y6" path="res://resources/textures/chief_of_police_side_eyes.png" id="6_injx0"]
+[ext_resource type="PackedScene" uid="uid://b7vic2dqnsb2g" path="res://scenes/ui/speech_bubble/speech_bubble.tscn" id="7_652pl"]
+[ext_resource type="Shader" uid="uid://b61ybel7usgua" path="res://scenes/ui/speech_bubble/speech_bubble_shader.tres" id="8_rnt6i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8gq4u"]
 size = Vector3(0.6, 0.4, 0.2)
@@ -13,6 +19,57 @@ shader = ExtResource("1_agxf3")
 [sub_resource type="PlaneMesh" id="PlaneMesh_85tyx"]
 size = Vector2(0.5, 0.3)
 orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xpwu8"]
+albedo_texture = ExtResource("3_85tyx")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_652pl"]
+atlas = ExtResource("5_injx0")
+region = Rect2(0, 0, 500, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnt6i"]
+atlas = ExtResource("5_injx0")
+region = Rect2(500, 0, 500, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uv0j"]
+atlas = ExtResource("5_injx0")
+region = Rect2(1000, 0, 500, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhtu7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_652pl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rnt6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0uv0j")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_652pl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_fkh0m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_injx0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0uv0j"]
+render_priority = 0
+shader = ExtResource("8_rnt6i")
+shader_parameter/BubbleColor = Color(0.331333, 0.35, 0.07, 1)
 
 [node name="ComputerScreen" type="Node3D"]
 
@@ -29,5 +86,34 @@ surface_material_override/0 = SubResource("ShaderMaterial_85tyx")
 [node name="ScreenMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0857154)
 mesh = SubResource("PlaneMesh_85tyx")
+surface_material_override/0 = SubResource("StandardMaterial3D_xpwu8")
+
+[node name="MouthSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09)
+pixel_size = 0.001
+sprite_frames = SubResource("SpriteFrames_hhtu7")
+animation = &"talking"
+frame_progress = 0.065298
+
+[node name="EyesSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09)
+pixel_size = 0.001
+sprite_frames = SubResource("SpriteFrames_652pl")
+
+[node name="SpeechBubble" parent="." groups=["MomSpeechBubble"] instance=ExtResource("7_652pl")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.451665, 0.484653, 0)
+speaker_name = "Chief of Police Mom"
+example_text = "Get on the case!"
+
+[node name="Cube" parent="SpeechBubble/curved_box" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_0uv0j")
+
+[node name="SpeakerLabel" parent="SpeechBubble" index="1"]
+text = "Chief of Police Mom"
+
+[node name="TextLabel" parent="SpeechBubble" index="2"]
+text = "Get on the case!"
 
 [editable path="computer_monitor"]
+[editable path="SpeechBubble"]
+[editable path="SpeechBubble/curved_box"]

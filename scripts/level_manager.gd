@@ -3,6 +3,7 @@ extends Node3D
 
 @onready var game_objects: Node3D = %GameObjects
 @onready var player_body: XRToolsPlayerBody = $"../Player/PlayerBody"
+@onready var script_manager: ScriptManager = $"../ScriptManager"
 
 @export_group("Levels")
 @export var TutorialLevel: PackedScene
@@ -23,6 +24,7 @@ func set_level(level: Levels) -> void:
 		Levels.TUTORIAL_LEVEL:
 			new_level = TutorialLevel.instantiate()
 	
+	new_level.set_script_manager(script_manager)
 	game_objects.add_child(new_level)
 	# Position the objects in front of the player.
 	new_level.global_position = player_body.global_position + Vector3(0.0, player_body.player_head_height/2.0, -0.2)

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdjftn4b2mqbp"]
+
+[ext_resource type="Shader" uid="uid://fjmiow3x22j" path="res://scenes/objects/interrogation_table/interrogation_table.tres" id="1_niuqm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tm5w5"]
+size = Vector3(2, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_niuqm"]
+size = Vector3(2, 0.2, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cgjij"]
+render_priority = 0
+shader = ExtResource("1_niuqm")
+
+[node name="InterrogationTable" type="StaticBody3D"]
+
+[node name="TableBody" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_tm5w5")
+
+[node name="TableMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_niuqm")
+surface_material_override/0 = SubResource("ShaderMaterial_cgjij")

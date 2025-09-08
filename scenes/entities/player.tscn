@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbddfyasu7hwi"]
+
+[ext_resource type="Script" uid="uid://dhv7co4bj5sk3" path="res://scenes/entities/player.gd" id="1_1ie0h"]
+[ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_ucweq"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_08t41"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_42nxq"]
+
+[node name="Player" type="XROrigin3D"]
+script = ExtResource("1_1ie0h")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+
+[node name="VRCommonShaderCache" parent="XRCamera3D" instance=ExtResource("1_ucweq")]
+
+[node name="XRController3D_Left" type="XRController3D" parent="."]
+tracker = &"left_hand"
+
+[node name="FunctionPointer" parent="XRController3D_Left" instance=ExtResource("2_08t41")]
+show_laser = 2
+laser_length = 1
+
+[node name="XRController3D_Right" type="XRController3D" parent="."]
+tracker = &"right_hand"
+
+[node name="FunctionPointer" parent="XRController3D_Right" instance=ExtResource("2_08t41")]
+show_laser = 2
+laser_length = 1
+
+[node name="PlayerBody" parent="." instance=ExtResource("4_42nxq")]
+
+[connection signal="pointing_event" from="XRController3D_Left/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]
+[connection signal="pointing_event" from="XRController3D_Right/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsbv7nkwxoh1"]
+
+[ext_resource type="Script" uid="uid://dh4dpfq6n5wx5" path="res://scenes/ui/main_menu/main_menu.gd" id="1_e8t4i"]
+[ext_resource type="FontFile" uid="uid://85203nd61s7c" path="res://resources/Funnel_Sans/static/FunnelSans-ExtraBold.ttf" id="2_e8t4i"]
+[ext_resource type="PackedScene" uid="uid://cemvix3bvnnyc" path="res://scenes/ui/button/ui_button.tscn" id="3_qt1dd"]
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_e8t4i")
+
+[node name="TitleLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.23095, 0)
+double_sided = false
+text = "Good Pop, Bad Pop"
+font = ExtResource("2_e8t4i")
+font_size = 100
+outline_size = 24
+
+[node name="StartButton" parent="." instance=ExtResource("3_qt1dd")]
+initial_text = "Start"
+
+[node name="SetHeightButton" parent="." instance=ExtResource("3_qt1dd")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -5, 0, 1)
+initial_text = "Reset Player Height"
+
+[node name="QuitButton" parent="." instance=ExtResource("3_qt1dd")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 5, 0, 1)
+initial_text = "Quit Game"
+
+[connection signal="button_pressed" from="StartButton" to="." method="_on_start_button_button_pressed"]
+[connection signal="button_pressed" from="SetHeightButton" to="." method="_on_set_height_button_button_pressed"]
+[connection signal="button_pressed" from="QuitButton" to="." method="_on_quit_button_button_pressed"]

@@ -1,0 +1,14 @@
+[gd_resource type="VisualShader" format=3 uid="uid://fjmiow3x22j"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_schlick_ggx, unshaded, shadows_disabled, ambient_light_disabled;
+
+
+
+"
+graph_offset = Vector2(-47.286, -34.7934)
+modes/diffuse = 3
+flags/unshaded = true
+flags/shadows_disabled = true
+flags/ambient_light_disabled = true

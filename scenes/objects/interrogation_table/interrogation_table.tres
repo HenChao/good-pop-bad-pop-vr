@@ -1,14 +1,51 @@
-[gd_resource type="VisualShader" format=3 uid="uid://fjmiow3x22j"]
+[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://fjmiow3x22j"]
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_lmape"]
+constant = Color(0.24, 0.24, 0.24, 1)
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_buhku"]
+constant = 1.0
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_3vyj5"]
+constant = 1.0
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_schlick_ggx, unshaded, shadows_disabled, ambient_light_disabled;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_schlick_ggx, shadows_disabled, ambient_light_disabled;
 
 
 
+
+void fragment() {
+// ColorConstant:2
+	vec4 n_out2p0 = vec4(0.240000, 0.240000, 0.240000, 1.000000);
+
+
+// FloatConstant:3
+	float n_out3p0 = 1.000000;
+
+
+// FloatConstant:4
+	float n_out4p0 = 1.000000;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	METALLIC = n_out3p0;
+	ROUGHNESS = n_out4p0;
+
+
+}
 "
-graph_offset = Vector2(-47.286, -34.7934)
+graph_offset = Vector2(-47.286, 14.656)
 modes/diffuse = 3
-flags/unshaded = true
 flags/shadows_disabled = true
 flags/ambient_light_disabled = true
+nodes/fragment/0/position = Vector2(480, 180)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_lmape")
+nodes/fragment/2/position = Vector2(20, 140)
+nodes/fragment/3/node = SubResource("VisualShaderNodeFloatConstant_buhku")
+nodes/fragment/3/position = Vector2(60, 280)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatConstant_3vyj5")
+nodes/fragment/4/position = Vector2(160, 380)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 0, 2, 4, 0, 0, 3)

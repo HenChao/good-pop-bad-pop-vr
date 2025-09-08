@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://b28tv5rnfncm1"]
+
+[ext_resource type="Script" uid="uid://biwl5by0syfgs" path="res://addons/godot-xr-tools/objects/pickable.gd" id="1_l4i1h"]
+[ext_resource type="Shader" uid="uid://bc6085lx2a8ha" path="res://scenes/objects/overhead_light/lightbodyshader.tres" id="2_xcne0"]
+[ext_resource type="Shader" uid="uid://buih17g713p48" path="res://scenes/objects/overhead_light/lighthandleshader.tres" id="3_yc4jk"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_qmbj8"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_bwkto"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l4i1h"]
+top_radius = 0.1
+bottom_radius = 0.3
+height = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yc4jk"]
+render_priority = 0
+shader = ExtResource("2_xcne0")
+
+[sub_resource type="BoxMesh" id="BoxMesh_xpgkg"]
+size = Vector3(0.05, 0.05, 0.2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qmbj8"]
+render_priority = 0
+shader = ExtResource("3_yc4jk")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xcne0"]
+points = PackedVector3Array(0.0918341, -0.149264, 0.284887, -0.0551333, -0.149354, -0.294275, -0.0534802, -0.135872, -0.285451, -0.294275, -0.149354, 0.0551333, -0.0711304, 0.149087, 0.0711304, 0.294275, -0.149354, -0.0551333, 0.096082, 0.146494, -0.0349091, -0.0711304, 0.149087, -0.0711304, -0.154749, -0.147851, 0.254911, 0.154749, -0.147851, -0.254911, -0.254911, -0.147851, -0.154749, 0.254911, -0.147851, 0.154749, 0.0348666, 0.146544, 0.0960611, 0.0175627, 0.139015, -0.105763, -0.0551329, -0.149353, 0.294273, -0.105759, 0.139009, -0.0176172, 0.0960797, 0.14649, 0.0349082, -0.181707, -0.147551, -0.236242, -0.236239, -0.147585, 0.181749, 0.236239, -0.147585, -0.181749, 0.211953, -0.149688, 0.211953, 0.0551329, -0.149353, -0.294273, -0.294273, -0.149353, -0.0551329, 0.294273, -0.149353, 0.0551329, 0.0710881, 0.149115, -0.0711438, -0.0176172, 0.139009, 0.105759, -0.0960523, 0.146531, 0.0349181, -0.0349181, 0.146531, -0.0960523, 0.0350173, -0.124832, 0.280798, 0.0710881, 0.149115, 0.0711438, 0.154749, -0.147851, 0.254911, 0.274172, -0.148437, -0.118762)
+
+[node name="OverheadLight" type="RigidBody3D"]
+script = ExtResource("1_l4i1h")
+metadata/_custom_type_script = "uid://biwl5by0syfgs"
+
+[node name="LightBodyMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_l4i1h")
+surface_material_override/0 = SubResource("ShaderMaterial_yc4jk")
+
+[node name="LightHandleMeshLeft" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, -0.15, 0)
+mesh = SubResource("BoxMesh_xpgkg")
+surface_material_override/0 = SubResource("ShaderMaterial_qmbj8")
+
+[node name="GrabPointHandLeft" parent="LightHandleMeshLeft" instance=ExtResource("4_qmbj8")]
+
+[node name="LightHandleMeshRight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.15, 0)
+mesh = SubResource("BoxMesh_xpgkg")
+surface_material_override/0 = SubResource("ShaderMaterial_qmbj8")
+
+[node name="GrabPointHandRight" parent="LightHandleMeshRight" instance=ExtResource("5_bwkto")]
+
+[node name="LightCollisionBody" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_xcne0")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="TopLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425228, 0)
+omni_range = 0.6
+
+[node name="BottomLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.195339, 0)
+omni_range = 0.6

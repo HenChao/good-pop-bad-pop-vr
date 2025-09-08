@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhc2iutvt1kg3"]
+
+[ext_resource type="PackedScene" uid="uid://bkimvne12ewqt" path="res://resources/computer_monitor.glb" id="1_6upp4"]
+[ext_resource type="Shader" uid="uid://c3glpjgt37v8d" path="res://scenes/objects/computer_screen/screenbody.tres" id="1_agxf3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8gq4u"]
+size = Vector3(0.6, 0.4, 0.2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_85tyx"]
+render_priority = 0
+shader = ExtResource("1_agxf3")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_85tyx"]
+size = Vector2(0.5, 0.3)
+orientation = 2
+
+[node name="ComputerScreen" type="Node3D"]
+
+[node name="StaticBody" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody"]
+shape = SubResource("BoxShape3D_8gq4u")
+
+[node name="computer_monitor" parent="." instance=ExtResource("1_6upp4")]
+
+[node name="ComputerMonitor" parent="computer_monitor" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_85tyx")
+
+[node name="ScreenMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0857154)
+mesh = SubResource("PlaneMesh_85tyx")
+
+[editable path="computer_monitor"]

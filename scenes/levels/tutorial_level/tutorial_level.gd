@@ -46,6 +46,7 @@ func start_level() -> void:
 	# Bring in the suspect.
 	baby.visible = true
 	await script_manager.start_scene(first_round)
+	baby.start_interrogation()
 
 
 func set_script_manager(sm: ScriptManager) -> void:

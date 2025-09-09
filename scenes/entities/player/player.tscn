@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cbddfyasu7hwi"]
 
-[ext_resource type="Script" uid="uid://dhv7co4bj5sk3" path="res://scenes/entities/player.gd" id="1_1ie0h"]
+[ext_resource type="Script" uid="uid://dhv7co4bj5sk3" path="res://scenes/entities/player/player.gd" id="1_1ie0h"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_ucweq"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_08t41"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_42nxq"]

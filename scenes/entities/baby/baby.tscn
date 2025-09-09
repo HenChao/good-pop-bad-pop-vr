@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dstu4u4xea1r8"]
+[gd_scene load_steps=16 format=3 uid="uid://dstu4u4xea1r8"]
 
-[ext_resource type="Shader" uid="uid://ddrpmnosfw8p7" path="res://scenes/entities/baby.tres" id="1_r3wtf"]
-[ext_resource type="Script" uid="uid://bsme3d5bjidqq" path="res://scenes/entities/baby.gd" id="1_vecyw"]
+[ext_resource type="Shader" uid="uid://ddrpmnosfw8p7" path="res://scenes/entities/baby/baby.tres" id="1_r3wtf"]
+[ext_resource type="Script" uid="uid://bsme3d5bjidqq" path="res://scenes/entities/baby/baby.gd" id="1_vecyw"]
 [ext_resource type="PackedScene" uid="uid://b7vic2dqnsb2g" path="res://scenes/ui/speech_bubble/speech_bubble.tscn" id="3_31d5v"]
 [ext_resource type="FontFile" uid="uid://85203nd61s7c" path="res://resources/Funnel_Sans/static/FunnelSans-ExtraBold.ttf" id="3_akj6c"]
+[ext_resource type="Shader" uid="uid://dqxvsnu26xk27" path="res://scenes/entities/baby/baby_energy_bar.tres" id="5_fplr8"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_31d5v"]
 radius = 0.1
@@ -71,13 +72,20 @@ render_priority = 0
 shader = SubResource("VisualShader_7b0pr")
 shader_parameter/BubbleColor = Color(0.22, 0.1, 0.25, 1)
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_akj6c"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7b0pr"]
+render_priority = 0
+shader = ExtResource("5_fplr8")
+shader_parameter/EnergyPercentage = 1.0
+
 [node name="Baby" type="Node3D"]
 script = ExtResource("1_vecyw")
-current_mood = null
-current_energy = null
-base_energy_rate = null
-entertained_energy_rate = null
-fearful_energy_rate = null
+max_energy = null
+is_being_interrogated = null
 
 [node name="HeadMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -121,6 +129,19 @@ text = "I goo, therefore, I ga."
 
 [node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
 text = "Press a/x to continue"
+
+[node name="EnergyBar" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.271999, 0.465185, 0)
+mesh = SubResource("CylinderMesh_akj6c")
+surface_material_override/0 = SubResource("ShaderMaterial_7b0pr")
+
+[node name="ZZZLabel" type="Label3D" parent="EnergyBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.318285, 0)
+modulate = Color(0.560784, 1, 0.568627, 1)
+text = "ZZZ"
+font = ExtResource("3_akj6c")
+font_size = 16
 
 [editable path="SpeechBubble"]
 [editable path="SpeechBubble/curved_box"]

@@ -100,7 +100,7 @@ pixel_size = 0.001
 sprite_frames = SubResource("SpriteFrames_hhtu7")
 animation = &"talking"
 autoplay = "talking"
-frame_progress = 0.891461
+frame_progress = 0.219174
 
 [node name="EyesSprite3D" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
@@ -115,6 +115,7 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.451665, 0.484653, 0)
 visible = false
 speaker_name = "Chief of Police Mom"
 example_text = "Get on the case!"
+billboard = true
 
 [node name="Cube" parent="SpeechBubble/curved_box" index="0"]
 surface_material_override/0 = SubResource("ShaderMaterial_0uv0j")

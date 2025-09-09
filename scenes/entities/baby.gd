@@ -3,24 +3,42 @@ class_name Baby
 extends Node3D
 
 @onready var speech_bubble: SpeechBubble = %SpeechBubble
+@onready var eyes: Label3D = %Eyes
+@onready var mouth: Label3D = %Mouth
 
-enum STATES { SILENT, TALKING }
-@export var current_state: STATES:
+enum States { SILENT, TALKING }
+@export var current_state: States:
 	set = set_state
+@export var current_expression: Dialogue.Expressions:
+	set = set_expression
 
+var _speech_pattern: Array[String] = ["-", "=", "o", "~"]
+var _speech_cycle: int = 0
+var _speech_time: float = 0.0
+var _speech_rate: float = 1.0
 
 func _ready() -> void:
-	set_state(STATES.SILENT)
+	set_state(States.SILENT)
 
 
-func set_state(new_state: STATES) -> void:
+func _physics_process(delta: float) -> void:
+	if current_state == States.TALKING:
+		_speech_time += delta
+		if _speech_time >= _speech_rate:
+			_speech_time = 0.0
+			mouth.text = _speech_pattern[_speech_cycle]
+			_speech_cycle = (_speech_cycle + 1) % _speech_pattern.size()
+
+
+func set_state(new_state: States) -> void:
 	if new_state == current_state:
 		return
 	
 	match new_state:
-		STATES.SILENT:
+		States.SILENT:
 			speech_bubble.visible = false
-		STATES.TALKING:
+			set_expression(current_expression)
+		States.TALKING:
 			speech_bubble.visible = true
 	current_state = new_state
 
@@ -32,16 +50,38 @@ func get_speech_bubble() -> SpeechBubble:
 func set_expression(expression: Dialogue.Expressions) -> void:
 	match expression:
 		Dialogue.Expressions.CRYING:
-			pass
+			eyes.text  = "><"
+			mouth.text = "~"
+			mouth.font_size = 16
+			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.SCARED:
-			pass
+			eyes.text  = "~~"
+			mouth.text = "-"
+			mouth.font_size = 16
+			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.ANNOYED:
-			pass
+			eyes.text  = "¬¬"
+			mouth.text = "-"
+			mouth.font_size = 16
+			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.NEUTRAL:
-			pass
+			eyes.text  = "--"
+			mouth.text = "-"
+			mouth.font_size = 16
+			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.SURPRISED:
-			pass
+			eyes.text  = "oo"
+			mouth.text = "o"
+			mouth.font_size = 16
+			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.SMILING:
-			pass
+			eyes.text  = "^^"
+			mouth.text = ")"
+			mouth.font_size = 16
+			mouth.rotation_degrees = Vector3(0, 0, -90)
 		Dialogue.Expressions.JOYFUL:
-			pass
+			eyes.text  = "><"
+			mouth.text = "D"
+			mouth.font_size = 16
+			mouth.rotation_degrees = Vector3(0, 0, -90)
+	current_expression = expression

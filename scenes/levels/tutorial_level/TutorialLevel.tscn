@@ -12,25 +12,28 @@ script = ExtResource("1_au04w")
 [node name="InterrogationTable" parent="." instance=ExtResource("1_hrctv")]
 
 [node name="PressToContinueLabel" parent="InterrogationTable/SpeechBubble" index="3"]
-text = "Press a/x to continue"
+text = "Press a/x to continue."
 
 [node name="OverheadLight" parent="." instance=ExtResource("2_wta6x")]
-transform = Transform3D(1, 0, 0, 0, 0.99316, -0.116757, 0, 0.116757, 0.99316, 0, 1.71706, 0.140048)
+transform = Transform3D(1, 0, 0, 0, 0.99316, -0.116757, 0, 0.116757, 0.99316, 0, 1.30433, 0.140048)
 
 [node name="ComputerScreen" parent="." instance=ExtResource("3_3ee13")]
 unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
+current_state = 0
 
 [node name="MouthSprite3D" parent="ComputerScreen" index="3"]
-frame_progress = 0.104762
+frame_progress = 0.82493
 
 [node name="Baby" parent="." instance=ExtResource("5_v8k53")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273414, -1.52243)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0628099, -0.731166)
+
+[node name="SpeechBubble" parent="Baby" index="2"]
+visible = true
 
 [node name="PressToContinueLabel" parent="Baby/SpeechBubble" index="3"]
-text = "Press a/x to continue"
+text = "Press a/x to continue."
 
 [editable path="InterrogationTable"]
 [editable path="InterrogationTable/SpeechBubble"]

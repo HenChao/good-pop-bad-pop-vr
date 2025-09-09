@@ -19,11 +19,12 @@ unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
 [node name="MouthSprite3D" parent="ComputerScreen" index="3"]
-frame_progress = 0.0936885
+frame_progress = 0.696766
 
 [node name="Baby" parent="." instance=ExtResource("5_v8k53")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273414, -1.52243)
+visible = false
 
 [editable path="InterrogationTable"]
 [editable path="InterrogationTable/SpeechBubble"]

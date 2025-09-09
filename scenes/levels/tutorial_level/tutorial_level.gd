@@ -30,14 +30,18 @@ Mom::Good. We'll bring in the suspect now.
 
 const first_round: String = """
 Dad::Well well well, I had a feeling I'd see you in here again one of these days.
-Baby::I know I got in trouble before, but I didn't do anything.
+Baby::I know I've been in trouble before, but I didn't do anything!
 Dad::We'll see about that. What do you know about the cookie from the cookie jar?
 Baby::Cookie? What's a cookie? Never heard of any cookies.
 """
 
 
 func start_level() -> void:
+	# Play the intro dialogue.
 	await script_manager.start_scene(intro_scene)
+	# Bring in the suspect.
+	baby.visible = true
+	await script_manager.start_scene(first_round)
 
 
 func set_script_manager(sm: ScriptManager) -> void:

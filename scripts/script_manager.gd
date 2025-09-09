@@ -32,6 +32,11 @@ func start_scene(scene_text: String) -> Signal:
 	return scene_complete
 
 
+## All text for a given string, passed in as one long string.
+## Each line should be separated by new lines.
+## Line will come in the following format:
+## Speaker:Expression:Speech line
+## Expressions are optional. Otherwise the speaker will default to a NEUTRAL expression.
 func _parse_script(scene_text: String) -> Array[Dialogue]:
 	var script: Array[Dialogue] = []
 	var lines: PackedStringArray = scene_text.split("\n")
@@ -48,7 +53,9 @@ func _parse_script(scene_text: String) -> Array[Dialogue]:
 				dialogue.speaker = Dialogue.Speakers.DAD
 			"Baby":
 				dialogue.speaker = Dialogue.Speakers.BABY
-		dialogue.line = split_line[1]
+		if split_line[1]:
+			dialogue.expression = split_line[1]
+		dialogue.line = split_line[2]
 		script.append(dialogue)
 	return script
 
@@ -61,9 +68,10 @@ func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 		# New speaker for this line, so hide last speaker's speech bubble
 		var prev_speech_bubble: SpeechBubble = _silence_speaker(_last_active_speaker)
 		_unbind_controller_inputs_to_speech_bubble(prev_speech_bubble)
-	var active_speech_bubble: SpeechBubble = _get_speech_bubble(dialogue.speaker)
+	var active_speech_bubble: SpeechBubble = _set_active_dialogue(dialogue)
 	active_speech_bubble.set_text(dialogue.line)
 	_bind_controller_inputs_to_speech_bubble(active_speech_bubble)
+	_last_active_speaker = dialogue.speaker
 	return active_speech_bubble.confirmed_input
 
 
@@ -81,16 +89,18 @@ func _silence_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
 	return null
 
 
-func _set_active_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
-	match speaker:
+func _set_active_dialogue(dialogue: Dialogue) -> SpeechBubble:
+	match dialogue.speaker:
 		Dialogue.Speakers.MOM:
 			_mom_puter.set_state(ComputerScreen.STATES.TALKING)
+			_mom_puter.set_expression(dialogue.expression)
 			return _mom_puter.get_speech_bubble()
 		Dialogue.Speakers.DAD:
 			_dad_speech_bubble.visible = true
 			return _dad_speech_bubble
 		Dialogue.Speakers.BABY:
 			_baby.set_state(Baby.STATES.TALKING)
+			_baby.set_expression(dialogue.expression)
 			return _baby.get_speech_bubble()
 	return null
 

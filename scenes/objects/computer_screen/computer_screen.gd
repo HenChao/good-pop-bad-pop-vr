@@ -41,3 +41,21 @@ func set_state(new_state: STATES) -> void:
 
 func get_speech_bubble() -> SpeechBubble:
 	return speech_bubble
+
+
+func set_expression(expression: Dialogue.Expressions) -> void:
+	match expression:
+		Dialogue.Expressions.CRYING:
+			pass
+		Dialogue.Expressions.SCARED:
+			pass
+		Dialogue.Expressions.ANNOYED:
+			eyes_sprite_3d.frame = 1
+		Dialogue.Expressions.NEUTRAL:
+			eyes_sprite_3d.frame = 0
+		Dialogue.Expressions.SURPRISED:
+			pass
+		Dialogue.Expressions.SMILING:
+			pass
+		Dialogue.Expressions.JOYFUL:
+			pass

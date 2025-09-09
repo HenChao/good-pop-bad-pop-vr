@@ -3,6 +3,7 @@ class_name Baby
 extends Node3D
 
 @onready var speech_bubble: SpeechBubble = %SpeechBubble
+@onready var head_mesh: MeshInstance3D = %HeadMesh
 @onready var eyes: Label3D = %Eyes
 @onready var mouth: Label3D = %Mouth
 
@@ -22,6 +23,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if not Engine.is_editor_hint():
+		head_mesh.look_at(get_viewport().get_camera_3d().global_position, Vector3.UP, true)
 	if current_state == States.TALKING:
 		_speech_time += delta
 		if _speech_time >= _speech_rate:

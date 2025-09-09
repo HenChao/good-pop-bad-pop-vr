@@ -73,9 +73,9 @@ shader_parameter/BubbleColor = Color(0.22, 0.1, 0.25, 1)
 
 [node name="Baby" type="Node3D"]
 script = ExtResource("1_vecyw")
-current_expression = 3
 
 [node name="HeadMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.334121, 0)
 mesh = SubResource("SphereMesh_31d5v")
 surface_material_override/0 = SubResource("ShaderMaterial_akj6c")
@@ -84,7 +84,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_akj6c")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0458008, 0.0964422)
 modulate = Color(0.729412, 0.729412, 0.729412, 1)
-text = "--"
+text = "><"
 font = ExtResource("3_akj6c")
 font_size = 20
 
@@ -92,7 +92,7 @@ font_size = 20
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0157096, 0.0555415)
 modulate = Color(0.729412, 0.729412, 0.729412, 1)
-text = "-"
+text = "~"
 font_size = 16
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
@@ -115,7 +115,7 @@ text = "Baby"
 text = "I goo, therefore, I ga."
 
 [node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
-text = "Press a/x to continue..."
+text = "Press a/x to continue"
 
 [editable path="SpeechBubble"]
 [editable path="SpeechBubble/curved_box"]

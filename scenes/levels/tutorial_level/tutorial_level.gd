@@ -36,6 +36,10 @@ Baby::Cookie? What's a cookie? Never heard of any cookies.
 """
 
 
+func _ready() -> void:
+	baby.visible = false
+
+
 func start_level() -> void:
 	# Play the intro dialogue.
 	await script_manager.start_scene(intro_scene)

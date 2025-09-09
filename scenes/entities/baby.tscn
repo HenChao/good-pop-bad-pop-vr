@@ -67,6 +67,7 @@ mesh = SubResource("CapsuleMesh_31d5v")
 [node name="SpeechBubble" parent="." instance=ExtResource("3_31d5v")]
 unique_name_in_owner = true
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 1.14475, 1.53922, 0)
+visible = false
 speaker_name = "Baby"
 example_text = "I goo, therefore, I ga."
 
@@ -78,6 +79,9 @@ text = "Baby"
 
 [node name="TextLabel" parent="SpeechBubble" index="2"]
 text = "I goo, therefore, I ga."
+
+[node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
+text = "Press a/x to continue..."
 
 [editable path="SpeechBubble"]
 [editable path="SpeechBubble/curved_box"]

@@ -88,31 +88,27 @@ surface_material_override/0 = SubResource("ShaderMaterial_85tyx")
 [node name="ScreenMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0857154)
-visible = false
 mesh = SubResource("PlaneMesh_85tyx")
 surface_material_override/0 = SubResource("StandardMaterial3D_xpwu8")
 
 [node name="MouthSprite3D" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09)
-visible = false
 pixel_size = 0.001
 sprite_frames = SubResource("SpriteFrames_hhtu7")
 animation = &"talking"
 autoplay = "talking"
-frame_progress = 0.219174
+frame_progress = 0.286311
 
 [node name="EyesSprite3D" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09)
-visible = false
 pixel_size = 0.001
 sprite_frames = SubResource("SpriteFrames_652pl")
 
 [node name="SpeechBubble" parent="." groups=["MomSpeechBubble"] instance=ExtResource("7_652pl")]
 unique_name_in_owner = true
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.451665, 0.484653, 0)
-visible = false
 speaker_name = "Chief of Police Mom"
 example_text = "Get on the case!"
 billboard = true
@@ -125,6 +121,9 @@ text = "Chief of Police Mom"
 
 [node name="TextLabel" parent="SpeechBubble" index="2"]
 text = "Get on the case!"
+
+[node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
+text = "Press a/x to continue"
 
 [editable path="computer_monitor"]
 [editable path="SpeechBubble"]

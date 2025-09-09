@@ -69,7 +69,7 @@ mesh = SubResource("BoxMesh_niuqm")
 surface_material_override/0 = SubResource("ShaderMaterial_cgjij")
 
 [node name="SpeechBubble" parent="." instance=ExtResource("2_cgjij")]
-transform = Transform3D(0.2, 0, 0, 0, 0.187526, 0.0695279, 0, -0.0695279, 0.187526, 0, 0.264222, 0.364831)
+transform = Transform3D(0.2, 0, 0, 0, 0.187526, 0.0695279, 0, -0.0695279, 0.187526, 0, 0.327513, 0.364831)
 speaker_name = "Dad"
 example_text = "What?"
 billboard = true

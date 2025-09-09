@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bolsca47s82wm"]
+[gd_scene load_steps=6 format=3 uid="uid://bolsca47s82wm"]
 
 [ext_resource type="Script" uid="uid://d0quyyui5hkie" path="res://scenes/levels/tutorial_level/tutorial_level.gd" id="1_au04w"]
 [ext_resource type="PackedScene" uid="uid://cdjftn4b2mqbp" path="res://scenes/objects/interrogation_table/interrogation_table.tscn" id="1_hrctv"]
 [ext_resource type="PackedScene" uid="uid://b28tv5rnfncm1" path="res://scenes/objects/overhead_light/overhead_light.tscn" id="2_wta6x"]
 [ext_resource type="PackedScene" uid="uid://bhc2iutvt1kg3" path="res://scenes/objects/computer_screen/computer_screen.tscn" id="3_3ee13"]
+[ext_resource type="PackedScene" uid="uid://dstu4u4xea1r8" path="res://scenes/entities/baby.tscn" id="5_v8k53"]
 
 [node name="TutorialLevel" type="Node3D"]
 script = ExtResource("1_au04w")
@@ -11,10 +12,18 @@ script = ExtResource("1_au04w")
 [node name="InterrogationTable" parent="." instance=ExtResource("1_hrctv")]
 
 [node name="OverheadLight" parent="." instance=ExtResource("2_wta6x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13598, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99316, -0.116757, 0, 0.116757, 0.99316, 0, 1.71706, 0.140048)
 
 [node name="ComputerScreen" parent="." instance=ExtResource("3_3ee13")]
+unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
+
+[node name="MouthSprite3D" parent="ComputerScreen" index="3"]
+frame_progress = 0.0936885
+
+[node name="Baby" parent="." instance=ExtResource("5_v8k53")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273414, -1.52243)
 
 [editable path="InterrogationTable"]
 [editable path="InterrogationTable/SpeechBubble"]
@@ -23,3 +32,6 @@ transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, 
 [editable path="ComputerScreen/computer_monitor"]
 [editable path="ComputerScreen/SpeechBubble"]
 [editable path="ComputerScreen/SpeechBubble/curved_box"]
+[editable path="Baby"]
+[editable path="Baby/SpeechBubble"]
+[editable path="Baby/SpeechBubble/curved_box"]

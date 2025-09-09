@@ -1,6 +1,7 @@
 [gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://b61ybel7usgua"]
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_8o2sd"]
+constant = 0.6
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_8o2sd"]
 parameter_name = "BubbleColor"
@@ -21,7 +22,7 @@ void fragment() {
 
 
 // FloatConstant:2
-	float n_out2p0 = 0.000000;
+	float n_out2p0 = 0.600000;
 
 
 // Output:0
@@ -31,7 +32,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-468.055, -120.566)
+graph_offset = Vector2(-33.4546, -15.3091)
 modes/diffuse = 3
 flags/unshaded = true
 nodes/fragment/0/position = Vector2(600, 120)

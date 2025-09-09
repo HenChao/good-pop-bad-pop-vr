@@ -8,22 +8,22 @@ signal scene_complete
 @export var right_controller: XRController3D
 
 var _dad_speech_bubble: SpeechBubble
-var _mom_speech_bubble: SpeechBubble
-var _baby_speech_bubble: SpeechBubble
+var _mom_puter: ComputerScreen
+var _baby: Baby
 
 var _last_active_speaker: Dialogue.Speakers
 
 
-func set_speech_bubbles(mom: SpeechBubble, dad: SpeechBubble, baby: SpeechBubble) -> void:
-	_mom_speech_bubble = mom
+func set_actors(mom: ComputerScreen, dad: SpeechBubble, baby: Baby) -> void:
+	_mom_puter = mom
 	_dad_speech_bubble = dad
-	_baby_speech_bubble = baby
+	_baby = baby
 
 
 func start_scene(scene_text: String) -> Signal:
-	_mom_speech_bubble.visible = false
+	_mom_puter.set_state(ComputerScreen.STATES.SILENT)
 	_dad_speech_bubble.visible = false
-	_baby_speech_bubble.visible = false
+	_baby.set_state(Baby.STATES.SILENT)
 
 	var parsed_script: Array[Dialogue] = _parse_script(scene_text)
 	for dialogue in parsed_script:
@@ -59,28 +59,45 @@ func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 		_last_active_speaker = dialogue.speaker
 	elif _last_active_speaker != dialogue.speaker:
 		# New speaker for this line, so hide last speaker's speech bubble
-		var prev_speech_bubble: SpeechBubble = _get_speech_bubble(_last_active_speaker)
-		prev_speech_bubble.visible = false
+		var prev_speech_bubble: SpeechBubble = _silence_speaker(_last_active_speaker)
 		_unbind_controller_inputs_to_speech_bubble(prev_speech_bubble)
 	var active_speech_bubble: SpeechBubble = _get_speech_bubble(dialogue.speaker)
-	active_speech_bubble.visible = true
 	active_speech_bubble.set_text(dialogue.line)
 	_bind_controller_inputs_to_speech_bubble(active_speech_bubble)
 	return active_speech_bubble.confirmed_input
 
 
-func _get_speech_bubble(speaker: Dialogue.Speakers) -> SpeechBubble:
+func _silence_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
 	match speaker:
 		Dialogue.Speakers.MOM:
-			return _mom_speech_bubble
+			_mom_puter.set_state(ComputerScreen.STATES.SILENT)
+			return _mom_puter.get_speech_bubble()
 		Dialogue.Speakers.DAD:
+			_dad_speech_bubble.visible = false
 			return _dad_speech_bubble
 		Dialogue.Speakers.BABY:
-			return _baby_speech_bubble
+			_baby.set_state(Baby.STATES.SILENT)
+			return _baby.get_speech_bubble()
+	return null
+
+
+func _set_active_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
+	match speaker:
+		Dialogue.Speakers.MOM:
+			_mom_puter.set_state(ComputerScreen.STATES.TALKING)
+			return _mom_puter.get_speech_bubble()
+		Dialogue.Speakers.DAD:
+			_dad_speech_bubble.visible = true
+			return _dad_speech_bubble
+		Dialogue.Speakers.BABY:
+			_baby.set_state(Baby.STATES.TALKING)
+			return _baby.get_speech_bubble()
 	return null
 
 
 func _bind_controller_inputs_to_speech_bubble(speech_bubble: SpeechBubble) -> void:
+	if not speech_bubble:
+		return
 	if not left_controller.button_pressed.is_connected(speech_bubble.on_controller_input):
 		left_controller.button_pressed.connect(speech_bubble.on_controller_input)
 	if not right_controller.button_pressed.is_connected(speech_bubble.on_controller_input):
@@ -88,6 +105,8 @@ func _bind_controller_inputs_to_speech_bubble(speech_bubble: SpeechBubble) -> vo
 
 
 func _unbind_controller_inputs_to_speech_bubble(speech_bubble: SpeechBubble) -> void:
+	if not speech_bubble:
+		return
 	if left_controller.button_pressed.is_connected(speech_bubble.on_controller_input):
 		left_controller.button_pressed.disconnect(speech_bubble.on_controller_input)
 	if right_controller.button_pressed.is_connected(speech_bubble.on_controller_input):

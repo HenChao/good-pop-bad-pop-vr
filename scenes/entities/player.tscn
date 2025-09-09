@@ -24,6 +24,7 @@ script = ExtResource("1_1ie0h")
 [node name="VRCommonShaderCache" parent="XRCamera3D" instance=ExtResource("1_ucweq")]
 
 [node name="XRController3D_Left" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.3)
 tracker = &"left_hand"
 
 [node name="FunctionPointer" parent="XRController3D_Left" instance=ExtResource("2_08t41")]
@@ -32,6 +33,7 @@ tracker = &"left_hand"
 hand_material_override = SubResource("ShaderMaterial_dnykm")
 
 [node name="XRController3D_Right" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.2)
 tracker = &"right_hand"
 
 [node name="FunctionPointer" parent="XRController3D_Right" instance=ExtResource("2_08t41")]

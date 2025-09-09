@@ -9,6 +9,10 @@ enum STATES { SILENT, TALKING }
 	set = set_state
 
 
+func _ready() -> void:
+	set_state(STATES.SILENT)
+
+
 func set_state(new_state: STATES) -> void:
 	if new_state == current_state:
 		return

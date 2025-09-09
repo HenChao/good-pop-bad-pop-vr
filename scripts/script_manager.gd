@@ -10,7 +10,6 @@ signal scene_complete
 var _dad_speech_bubble: SpeechBubble
 var _mom_puter: ComputerScreen
 var _baby: Baby
-
 var _last_active_speaker: Dialogue.Speakers
 
 
@@ -28,6 +27,7 @@ func start_scene(scene_text: String) -> Signal:
 	var parsed_script: Array[Dialogue] = _parse_script(scene_text)
 	for dialogue in parsed_script:
 		await _display_speech_bubble(dialogue)
+	_silence_all_actors()
 	call_deferred("emit_signal", scene_complete)
 	return scene_complete
 
@@ -62,9 +62,7 @@ func _parse_script(scene_text: String) -> Array[Dialogue]:
 
 func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 	# Determine who is talking, and set the appropriate visibility to their speech bubble.
-	if not _last_active_speaker:
-		_last_active_speaker = dialogue.speaker
-	elif _last_active_speaker != dialogue.speaker:
+	if _last_active_speaker != dialogue.speaker:
 		# New speaker for this line, so hide last speaker's speech bubble
 		var prev_speech_bubble: SpeechBubble = _silence_speaker(_last_active_speaker)
 		_unbind_controller_inputs_to_speech_bubble(prev_speech_bubble)
@@ -121,3 +119,9 @@ func _unbind_controller_inputs_to_speech_bubble(speech_bubble: SpeechBubble) -> 
 		left_controller.button_pressed.disconnect(speech_bubble.on_controller_input)
 	if right_controller.button_pressed.is_connected(speech_bubble.on_controller_input):
 		right_controller.button_pressed.disconnect(speech_bubble.on_controller_input)
+
+
+func _silence_all_actors() -> void:
+	_mom_puter.set_state(ComputerScreen.STATES.SILENT)
+	_dad_speech_bubble.visible = false
+	_baby.set_state(Baby.STATES.SILENT)

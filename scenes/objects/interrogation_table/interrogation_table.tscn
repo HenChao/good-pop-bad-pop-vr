@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdjftn4b2mqbp"]
+[gd_scene load_steps=10 format=3 uid="uid://cdjftn4b2mqbp"]
 
 [ext_resource type="Shader" uid="uid://fjmiow3x22j" path="res://scenes/objects/interrogation_table/interrogation_table.tres" id="1_niuqm"]
+[ext_resource type="PackedScene" uid="uid://b7vic2dqnsb2g" path="res://scenes/ui/speech_bubble/speech_bubble.tscn" id="2_cgjij"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tm5w5"]
 size = Vector3(2, 0.2, 1)
@@ -12,6 +13,52 @@ size = Vector3(2, 0.2, 1)
 render_priority = 0
 shader = ExtResource("1_niuqm")
 
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_cgjij"]
+constant = 0.6
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_tjkvw"]
+parameter_name = "BubbleColor"
+default_value_enabled = true
+default_value = Color(0.1, 0.25, 0.125, 1)
+
+[sub_resource type="VisualShader" id="VisualShader_sjbtl"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_schlick_ggx, unshaded;
+
+uniform vec4 BubbleColor : source_color = vec4(0.100000, 0.250000, 0.125000, 1.000000);
+
+
+
+void fragment() {
+// ColorParameter:3
+	vec4 n_out3p0 = BubbleColor;
+
+
+// FloatConstant:2
+	float n_out2p0 = 0.600000;
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	ALPHA = n_out2p0;
+
+
+}
+"
+modes/diffuse = 3
+flags/unshaded = true
+nodes/fragment/0/position = Vector2(600, 120)
+nodes/fragment/2/node = SubResource("VisualShaderNodeFloatConstant_cgjij")
+nodes/fragment/2/position = Vector2(-20, 360)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_tjkvw")
+nodes/fragment/3/position = Vector2(40, 40)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 1, 3, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oo5fw"]
+render_priority = 0
+shader = SubResource("VisualShader_sjbtl")
+shader_parameter/BubbleColor = Color(0.1, 0.125, 0.25, 1)
+
 [node name="InterrogationTable" type="StaticBody3D"]
 
 [node name="TableBody" type="CollisionShape3D" parent="."]
@@ -20,3 +67,21 @@ shape = SubResource("BoxShape3D_tm5w5")
 [node name="TableMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_niuqm")
 surface_material_override/0 = SubResource("ShaderMaterial_cgjij")
+
+[node name="SpeechBubble" parent="." instance=ExtResource("2_cgjij")]
+transform = Transform3D(0.2, 0, 0, 0, 0.187526, 0.0695279, 0, -0.0695279, 0.187526, 0, 0.327513, 0.364831)
+speaker_name = "Dad"
+example_text = "What?"
+billboard = true
+
+[node name="Cube" parent="SpeechBubble/curved_box" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_oo5fw")
+
+[node name="SpeakerLabel" parent="SpeechBubble" index="1"]
+text = "Dad"
+
+[node name="TextLabel" parent="SpeechBubble" index="2"]
+text = "What?"
+
+[editable path="SpeechBubble"]
+[editable path="SpeechBubble/curved_box"]

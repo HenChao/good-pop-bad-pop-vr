@@ -1,0 +1,43 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://b61ybel7usgua"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_8o2sd"]
+constant = 0.6
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_8o2sd"]
+parameter_name = "BubbleColor"
+default_value_enabled = true
+default_value = Color(0.1, 0.25, 0.125, 1)
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_schlick_ggx, unshaded;
+
+uniform vec4 BubbleColor : source_color = vec4(0.100000, 0.250000, 0.125000, 1.000000);
+
+
+
+void fragment() {
+// ColorParameter:3
+	vec4 n_out3p0 = BubbleColor;
+
+
+// FloatConstant:2
+	float n_out2p0 = 0.600000;
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	ALPHA = n_out2p0;
+
+
+}
+"
+graph_offset = Vector2(-33.4546, -15.3091)
+modes/diffuse = 3
+flags/unshaded = true
+nodes/fragment/0/position = Vector2(600, 120)
+nodes/fragment/2/node = SubResource("VisualShaderNodeFloatConstant_8o2sd")
+nodes/fragment/2/position = Vector2(-20, 360)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_8o2sd")
+nodes/fragment/3/position = Vector2(40, 40)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 1, 3, 0, 0, 0)

@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7vic2dqnsb2g"]
+
+[ext_resource type="PackedScene" uid="uid://doeuravgu5rwu" path="res://resources/curved_box.glb" id="1_jibl7"]
+[ext_resource type="Script" uid="uid://caf1tai1xi6h" path="res://scenes/ui/speech_bubble/speech_bubble.gd" id="1_phcb1"]
+[ext_resource type="FontFile" uid="uid://b265opj1lmq2m" path="res://resources/Funnel_Sans/static/FunnelSans-Bold.ttf" id="2_lwmgc"]
+[ext_resource type="Material" uid="uid://buiq0cg8kxrtr" path="res://scenes/ui/speech_bubble/speech_bubble_material.tres" id="2_phcb1"]
+
+[node name="SpeechBubble" type="Node3D"]
+script = ExtResource("1_phcb1")
+speaker_name = "Example Speaker"
+example_text = "Example text."
+billboard = false
+
+[node name="curved_box" parent="." instance=ExtResource("1_jibl7")]
+unique_name_in_owner = true
+
+[node name="Cube" parent="curved_box" index="0"]
+surface_material_override/0 = ExtResource("2_phcb1")
+
+[node name="SpeakerLabel" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0.8, 0.22)
+text = "Example"
+font = ExtResource("2_lwmgc")
+font_size = 64
+horizontal_alignment = 0
+vertical_alignment = 0
+
+[node name="TextLabel" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, 0.272428, 0.22)
+text = "Our first case is a 211, straight B and E. It looks like someone stole a cookie from the cookie jar."
+font = ExtResource("2_lwmgc")
+font_size = 44
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 3
+width = 700.0
+
+[node name="PressToContinueLabel" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, -0.872, 0.22)
+text = "Press a/x to continue.."
+horizontal_alignment = 0
+
+[editable path="curved_box"]

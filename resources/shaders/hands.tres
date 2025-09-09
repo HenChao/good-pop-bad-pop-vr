@@ -1,0 +1,11 @@
+[gd_resource type="VisualShader" format=3 uid="uid://dubqcnpalvti8"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_toon, specular_schlick_ggx, unshaded;
+
+
+
+"
+modes/diffuse = 3
+flags/unshaded = true

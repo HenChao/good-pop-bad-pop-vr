@@ -21,7 +21,7 @@ func set_speech_bubbles(mom: SpeechBubble, dad: SpeechBubble, baby: SpeechBubble
 
 
 func start_scene(scene_text: String) -> Signal:
-	_mom_speech_bubble.visisble = false
+	_mom_speech_bubble.visible = false
 	_dad_speech_bubble.visible = false
 	_baby_speech_bubble.visible = false
 
@@ -34,19 +34,21 @@ func start_scene(scene_text: String) -> Signal:
 
 func _parse_script(scene_text: String) -> Array[Dialogue]:
 	var script: Array[Dialogue] = []
-	var lines: Array[String] = scene_text.split("\n")
+	var lines: PackedStringArray = scene_text.split("\n")
 	
 	for line in lines:
+		if not line: # Skip an empty line.
+			continue
 		var dialogue = Dialogue.new()
-		line.split(":")
-		match line[0]:
+		var split_line: PackedStringArray = line.split(":")
+		match split_line[0]:
 			"Mom":
 				dialogue.speaker = Dialogue.Speakers.MOM
 			"Dad":
 				dialogue.speaker = Dialogue.Speakers.DAD
 			"Baby":
 				dialogue.speaker = Dialogue.Speakers.BABY
-		dialogue.line = line[1]
+		dialogue.line = split_line[1]
 		script.append(dialogue)
 	return script
 

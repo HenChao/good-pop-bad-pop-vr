@@ -31,12 +31,12 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-134.939, -45.3899)
+graph_offset = Vector2(-468.055, -120.566)
 modes/diffuse = 3
 flags/unshaded = true
-nodes/fragment/0/position = Vector2(480, 180)
+nodes/fragment/0/position = Vector2(600, 120)
 nodes/fragment/2/node = SubResource("VisualShaderNodeFloatConstant_8o2sd")
 nodes/fragment/2/position = Vector2(-20, 360)
 nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_8o2sd")
-nodes/fragment/3/position = Vector2(-20, 40)
+nodes/fragment/3/position = Vector2(40, 40)
 nodes/fragment/connections = PackedInt32Array(2, 0, 0, 1, 3, 0, 0, 0)

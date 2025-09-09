@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjyq1ici8dgth"]
+[gd_scene load_steps=9 format=3 uid="uid://bjyq1ici8dgth"]
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://cbddfyasu7hwi" path="res://scenes/entities/player.tscn" id="2_0wfyh"]
@@ -13,6 +13,8 @@ background_energy_multiplier = 0.0
 ambient_light_source = 1
 reflected_light_source = 1
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tefeu"]
+
 [node name="Main" type="Node3D"]
 
 [node name="StartXR" parent="." instance=ExtResource("1_o5qli")]
@@ -20,21 +22,23 @@ reflected_light_source = 1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o5qli")
 
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="FloorShape" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_tefeu")
+
 [node name="Player" parent="." instance=ExtResource("2_0wfyh")]
 unique_name_in_owner = true
 
-[node name="SpeechBubble" parent="Player" index="4"]
-transform = Transform3D(0.2, 0, 0, 0, 0.192263, 0.0550897, 0, -0.0550897, 0.192263, 0, -0.2, -0.698)
-
-[node name="LevelManager" type="Node3D" parent="."]
+[node name="LevelManager" type="Node3D" parent="." node_paths=PackedStringArray("xr_camera_3d")]
 script = ExtResource("3_jyhfs")
-TutorialLevel = ExtResource("4_tbgi4")
+xr_camera_3d = NodePath("../Player/XRCamera3D")
+tutorial_level_scene = ExtResource("4_tbgi4")
 
-[node name="ScriptManager" type="Node3D" parent="." node_paths=PackedStringArray("left_controller", "right_controller", "dad_speech_bubble")]
+[node name="ScriptManager" type="Node3D" parent="." node_paths=PackedStringArray("left_controller", "right_controller")]
 script = ExtResource("5_tefeu")
 left_controller = NodePath("../Player/XRController3D_Left")
 right_controller = NodePath("../Player/XRController3D_Right")
-dad_speech_bubble = NodePath("../Player/SpeechBubble")
 
 [node name="GameObjects" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -44,5 +48,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
 player_body = NodePath("../../Player/PlayerBody")
 
 [editable path="Player"]
-[editable path="Player/SpeechBubble"]
-[editable path="Player/SpeechBubble/curved_box"]

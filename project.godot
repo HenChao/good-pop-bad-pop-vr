@@ -65,3 +65,4 @@ openxr/enabled=true
 openxr/foveation_dynamic=true
 openxr/startup_alert=false
 shaders/enabled=true
+openxr/extensions/meta/color_space/starting_color_space=3

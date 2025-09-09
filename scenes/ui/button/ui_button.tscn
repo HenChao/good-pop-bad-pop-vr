@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://df8qp76rd1lsh" path="res://scenes/ui/button/ui_button.gd" id="1_cjkhj"]
 [ext_resource type="PackedScene" uid="uid://doeuravgu5rwu" path="res://resources/curved_box.glb" id="2_fd516"]
-[ext_resource type="Shader" uid="uid://b7it3xoc2eqhs" path="res://scenes/ui/panel.tres" id="3_lv2hr"]
+[ext_resource type="Shader" uid="uid://b7it3xoc2eqhs" path="res://scenes/ui/panel.tres" id="3_cjkhj"]
 [ext_resource type="FontFile" uid="uid://b265opj1lmq2m" path="res://resources/Funnel_Sans/static/FunnelSans-Bold.ttf" id="4_cjkhj"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmleh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fd516"]
 render_priority = 0
-shader = ExtResource("3_lv2hr")
+shader = ExtResource("3_cjkhj")
 shader_parameter/PrimaryColor = Color(1, 0, 0, 1)
 shader_parameter/BackgroundColor = Color(0.2, 0, 0, 1)
 shader_parameter/CursorPosition = Vector3(0, 0, 0)
@@ -24,7 +24,7 @@ script = ExtResource("1_cjkhj")
 unique_name_in_owner = true
 
 [node name="Cube" parent="curved_box" index="0"]
-surface_material_override/0 = SubResource("ShaderMaterial_lmleh")
+surface_material_override/0 = SubResource("ShaderMaterial_fd516")
 
 [node name="ButtonLabel" type="Label3D" parent="."]
 unique_name_in_owner = true
@@ -34,6 +34,8 @@ font = ExtResource("4_cjkhj")
 font_size = 80
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 5242880
+collision_mask = 0
 
 [node name="BoxShape" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_fs6q6")

@@ -35,11 +35,10 @@ Baby: Cookie? What's a cookie? Never heard of any cookies.
 """
 
 
-func _enter_tree() -> void:
-	assert(script_manager, "Script manager not set for Tutorial level!")
-	script_manager.set_speech_bubbles(mom_speech_bubble, dad_speech_bubble, null)
+func start_level() -> void:
 	await script_manager.start_scene(intro_scene)
 
 
 func set_script_manager(sm: ScriptManager) -> void:
 	script_manager = sm
+	sm.set_speech_bubbles(mom_speech_bubble, dad_speech_bubble, dad_speech_bubble)

@@ -2,6 +2,9 @@
 class_name Baby
 extends Node3D
 
+signal out_of_energy
+signal too_afraid
+
 @onready var speech_bubble: SpeechBubble = %SpeechBubble
 @onready var head_mesh: MeshInstance3D = %HeadMesh
 @onready var eyes: Label3D = %Eyes
@@ -12,6 +15,15 @@ enum States { SILENT, TALKING }
 	set = set_state
 @export var current_expression: Dialogue.Expressions:
 	set = set_expression
+	
+@export_group("Baby stats")
+@export var current_mood: float = 50.0
+@export var current_energy: float = 100.0
+@export var base_energy_rate: float = -5.0
+@export var entertained_energy_rate: float = 2.0
+@export var fearful_energy_rate: float = -2.0
+var _is_entertained: bool = false
+var _is_afraid: bool = false
 
 var _speech_pattern: Array[String] = ["-", "=", "o", "~"]
 var _speech_cycle: int = 0
@@ -23,8 +35,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not Engine.is_editor_hint():
-		head_mesh.look_at(get_viewport().get_camera_3d().global_position, Vector3.UP, true)
 	if current_state == States.TALKING:
 		_speech_time += delta
 		if _speech_time >= _speech_rate:
@@ -32,6 +42,20 @@ func _physics_process(delta: float) -> void:
 			mouth.text = _speech_pattern[_speech_cycle]
 			_speech_cycle = (_speech_cycle + 1) % _speech_pattern.size()
 
+	if Engine.is_editor_hint():
+		return
+	# Always look at dad
+	head_mesh.look_at(get_viewport().get_camera_3d().global_position, Vector3.UP, true)
+	# Recalculate mood based on entertainment level
+	_determine_mood()
+	
+	# Calculate energy level
+	var energy_modifier: float = base_energy_rate
+	energy_modifier += entertained_energy_rate if _is_entertained else 0.0
+	energy_modifier += fearful_energy_rate if _is_afraid else 0.0
+	current_energy += energy_modifier / delta
+	if current_energy <= 0.0:
+		out_of_energy.emit()
 
 func set_state(new_state: States) -> void:
 	if new_state == current_state:
@@ -88,3 +112,31 @@ func set_expression(expression: Dialogue.Expressions) -> void:
 			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, -90)
 	current_expression = expression
+
+
+func _determine_mood() -> void:
+	if current_mood <= 0.0:
+		too_afraid.emit()
+		return
+	if current_mood >= 100:
+		current_mood = 100 # Set hard limit for current_mood
+
+	if _is_between(current_mood, 0.0, 10.0):
+		set_expression(Dialogue.Expressions.CRYING)
+	elif _is_between(current_mood, 10.0, 25.0):
+		set_expression(Dialogue.Expressions.SCARED)
+	elif _is_between(current_mood, 25.0, 40.0):
+		set_expression(Dialogue.Expressions.ANNOYED)
+	elif _is_between(current_mood, 40.0, 60.0):
+		set_expression(Dialogue.Expressions.NEUTRAL)
+	elif _is_between(current_mood, 60.0, 75.0):
+		set_expression(Dialogue.Expressions.SURPRISED)
+	elif _is_between(current_mood, 75.0, 85.0):
+		set_expression(Dialogue.Expressions.SMILING)
+	elif _is_between(current_mood, 85.0, 100.0):
+		set_expression(Dialogue.Expressions.JOYFUL)
+
+
+## Helper function to determine if value is between lower (exclusive) and upper (inclusive)
+func _is_between(value: float, lower: float, upper: float) -> bool:
+	return value > lower and value <= upper

@@ -29,17 +29,18 @@ func _ready() -> void:
 	assert(points_randomizer_timer, "No timer defined in %s of %s" % [name, get_parent().name])
 	assert(active_component, "No Active Component defined in %s of %s" % [name, get_parent().name])
 	assert(audio_component, "No Audio Component defined in %s of %s" % [name, get_parent().name])
-	assert(haptics_component, "No Haptics Component defined in %s of %s" % [name, get_parent().name])
+	assert(
+		haptics_component, "No Haptics Component defined in %s of %s" % [name, get_parent().name]
+	)
 	_set_random_points_value()
-	
+
 	# Setup timer to periodically randomize the points value, to keep folks on their toes.
-	points_randomizer_timer.timeout.connect(func():
-		_set_random_points_value())
+	points_randomizer_timer.timeout.connect(func(): _set_random_points_value())
 	points_randomizer_timer.one_shot = false
 	points_randomizer_timer.start(timer_timeout)
-	
+
 	active_component.activated.connect(_on_toy_activation)
-	
+
 	# Connect to pickable signals to play the appropriate haptics control
 	grabbed.connect(_on_hand_grab)
 	released.connect(_on_hand_release)
@@ -63,6 +64,8 @@ func _on_hand_release(_pickable: Variant, by: Variant) -> void:
 
 
 func _on_toy_activation(intensity: float) -> void:
-	activated.emit(_current_entertained_points if Player.is_currently_good_pop else _current_afraid_points)
+	activated.emit(
+		_current_entertained_points if Player.is_currently_good_pop else _current_afraid_points
+	)
 	audio_component.play_sound()
 	haptics_component.rumble_controller(_currently_held_hand, intensity)

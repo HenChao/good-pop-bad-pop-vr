@@ -18,7 +18,7 @@ enum States { SILENT, TALKING }
 	set = set_state
 @export var current_expression: Dialogue.Expressions:
 	set = set_expression
-	
+
 @export_group("Baby stats")
 @export var current_mood: float = 50.0
 @export var interrogation_mood_threshold: float = 95.0
@@ -57,20 +57,24 @@ func _physics_process(delta: float) -> void:
 
 	if Engine.is_editor_hint():
 		return
-	
+
 	_update_tracking_timing += delta
 	if _update_tracking_timing >= _update_tracking_period:
 		_update_tracking_timing = 0.0
 		# Look at dad, unless held toy enters field of view
-		var look_at_target_position: Vector3 = _tracked_toy.global_position if _tracked_toy else get_viewport().get_camera_3d().global_position
+		var look_at_target_position: Vector3 = (
+			_tracked_toy.global_position
+			if _tracked_toy
+			else get_viewport().get_camera_3d().global_position
+		)
 		head_mesh.look_at(look_at_target_position, Vector3.UP, true)
-	
+
 	# Only perform next block if is actively interrogated.
 	if not is_being_interrogated:
 		return
 	# Recalculate mood based on entertainment level
 	_determine_mood()
-	
+
 	# Calculate energy level
 	var energy_modifier: float = base_energy_rate
 	energy_modifier += entertained_energy_rate if _is_entertained else 0.0
@@ -85,7 +89,7 @@ func _physics_process(delta: float) -> void:
 func set_state(new_state: States) -> void:
 	if new_state == current_state:
 		return
-	
+
 	match new_state:
 		States.SILENT:
 			speech_bubble.visible = false
@@ -102,37 +106,37 @@ func get_speech_bubble() -> SpeechBubble:
 func set_expression(expression: Dialogue.Expressions) -> void:
 	match expression:
 		Dialogue.Expressions.CRYING:
-			eyes.text  = "><"
+			eyes.text = "><"
 			mouth.text = "~"
 			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.SCARED:
-			eyes.text  = "~~"
+			eyes.text = "~~"
 			mouth.text = "-"
 			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.ANNOYED:
-			eyes.text  = "¬¬"
+			eyes.text = "¬¬"
 			mouth.text = "-"
 			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.NEUTRAL:
-			eyes.text  = "--"
+			eyes.text = "--"
 			mouth.text = "-"
 			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.SURPRISED:
-			eyes.text  = "oo"
+			eyes.text = "oo"
 			mouth.text = "o"
 			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.SMILING:
-			eyes.text  = "^^"
+			eyes.text = "^^"
 			mouth.text = ")"
 			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, -90)
 		Dialogue.Expressions.JOYFUL:
-			eyes.text  = "><"
+			eyes.text = "><"
 			mouth.text = "D"
 			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, -90)
@@ -158,7 +162,7 @@ func _determine_mood() -> void:
 		sufficiently_entertained.emit()
 		stop_interrogation()
 	elif current_mood >= 100:
-		current_mood = 100 # Set hard limit for current_mood
+		current_mood = 100  # Set hard limit for current_mood
 
 	if _is_between(current_mood, 0.0, 10.0):
 		set_expression(Dialogue.Expressions.CRYING)

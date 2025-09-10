@@ -48,9 +48,9 @@ func start_scene(scene_text: String) -> Signal:
 func _parse_script(scene_text: String) -> Array[Dialogue]:
 	var script: Array[Dialogue] = []
 	var lines: PackedStringArray = scene_text.split("\n")
-	
+
 	for line in lines:
-		if not line: # Skip an empty line.
+		if not line:  # Skip an empty line.
 			continue
 		var dialogue = Dialogue.new()
 		var split_line: PackedStringArray = line.split(":")

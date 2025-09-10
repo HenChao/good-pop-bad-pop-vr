@@ -17,6 +17,7 @@ var _last_velocity_magnitude: float = 0.0
 ## Acceleration threshold value at which the toy is considered shaken.
 var _acceleration_threshold: float = 0.5
 
+
 func _ready() -> void:
 	## Connect to controllers to listen for player input
 	var controllers: Array[XRController3D] = Player.get_controllers()
@@ -49,7 +50,9 @@ func _is_upside_down() -> bool:
 ## Helper function to determine if object is being shaken.
 func _is_shaking(delta: float) -> bool:
 	var current_velocity_magnitude: float = accelerometer.linear_velocity.length_squared()
-	var current_acceleration: float = abs(_last_velocity_magnitude - current_velocity_magnitude) / delta
+	var current_acceleration: float = (
+		abs(_last_velocity_magnitude - current_velocity_magnitude) / delta
+	)
 	_last_velocity_magnitude = current_velocity_magnitude
 	return current_acceleration >= _acceleration_threshold
 

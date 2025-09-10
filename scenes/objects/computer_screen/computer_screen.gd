@@ -19,7 +19,7 @@ func _ready() -> void:
 func set_state(new_state: States) -> void:
 	if new_state == current_state:
 		return
-	
+
 	match new_state:
 		States.OFF_SCREEN:
 			screen_mesh.visible = false

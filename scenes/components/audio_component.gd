@@ -12,5 +12,5 @@ func _ready() -> void:
 func play_sound() -> void:
 	if audio_stream_player_3d.playing:
 		return
-	audio_stream_player_3d.pitch_scale = randf_range(0.8, 1.2) # Randomize pitch to avoid repetitive sounds.
+	audio_stream_player_3d.pitch_scale = randf_range(0.8, 1.2)  # Randomize pitch to avoid repetitive sounds.
 	audio_stream_player_3d.play()

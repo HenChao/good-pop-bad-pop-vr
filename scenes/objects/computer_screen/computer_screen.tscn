@@ -109,7 +109,7 @@ visible = false
 pixel_size = 0.001
 sprite_frames = SubResource("SpriteFrames_652pl")
 
-[node name="SpeechBubble" parent="." groups=["MomSpeechBubble"] instance=ExtResource("7_652pl")]
+[node name="SpeechBubble" parent="." instance=ExtResource("7_652pl")]
 unique_name_in_owner = true
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.779476, 0.187146, 0)
 visible = false

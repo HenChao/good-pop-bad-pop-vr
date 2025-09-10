@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=3 uid="uid://dukpkgl3k7t4s"]
+
+[ext_resource type="PackedScene" uid="uid://crupjky8drd3a" path="res://resources/rubber_duck_toy_1k.gltf/rubber_duck_toy_1k.gltf" id="1_0m7mn"]
+[ext_resource type="Script" uid="uid://cy63rik3kjg82" path="res://scripts/custom_classes/toy.gd" id="1_po5dv"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="2_yq8or"]
+[ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="4_ajw5x"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_po5dv"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_qrgwl"]
+[ext_resource type="PackedScene" uid="uid://850q10sj8ogl" path="res://scenes/components/activate_component.tscn" id="7_qrgwl"]
+[ext_resource type="PackedScene" uid="uid://b080583xv1kh5" path="res://scenes/components/audio_component.tscn" id="8_snwx8"]
+[ext_resource type="PackedScene" uid="uid://bikkxsbo8x7sd" path="res://addons/godot-xr-tools/audio/pickable_audio.tscn" id="9_wrian"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_po5dv"]
+radius = 0.07
+
+[node name="RubberDuck" type="RigidBody3D" node_paths=PackedStringArray("active_component", "audio_component", "points_randomizer_timer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_po5dv")
+active_component = NodePath("ActivateComponent")
+audio_component = NodePath("AudioComponent")
+points_randomizer_timer = NodePath("PointsRandomizerTimer")
+metadata/_custom_type_script = "uid://biwl5by0syfgs"
+
+[node name="blend_export" parent="." instance=ExtResource("1_0m7mn")]
+transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0, 0, 0)
+
+[node name="SphereCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0712228, 0)
+shape = SubResource("SphereShape3D_po5dv")
+
+[node name="HighlightRing" parent="." instance=ExtResource("4_ajw5x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0670567, 0)
+
+[node name="GrabPointSnap" parent="." instance=ExtResource("2_yq8or")]
+require_group = "ToySlot"
+exclude_group = "Handle"
+
+[node name="GrabPointHandLeft" parent="." instance=ExtResource("5_po5dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0.05, -0.08)
+
+[node name="GrabPointHandRight" parent="." instance=ExtResource("6_qrgwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.05, -0.08)
+
+[node name="PointsRandomizerTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 30.0
+
+[node name="ActivateComponent" parent="." instance=ExtResource("7_qrgwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.067, 0)
+is_squeezed = true
+
+[node name="AudioComponent" parent="." instance=ExtResource("8_snwx8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.067, 0)
+
+[node name="PickableAudio" parent="." instance=ExtResource("9_wrian")]

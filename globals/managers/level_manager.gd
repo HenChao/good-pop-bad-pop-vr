@@ -1,14 +1,14 @@
 class_name LevelManager
 extends Node3D
 
-@onready var game_objects: Node3D = %GameObjects
-@onready var script_manager: ScriptManager = $"../ScriptManager"
+enum Levels { TUTORIAL_LEVEL }
 
 @export var xr_camera_3d: XRCamera3D
 @export_group("Levels")
 @export var tutorial_level_scene: PackedScene
 
-enum Levels { TUTORIAL_LEVEL }
+@onready var game_objects: Node3D = %GameObjects
+@onready var script_manager: ScriptManager = $"../ScriptManager"
 
 
 func _ready() -> void:

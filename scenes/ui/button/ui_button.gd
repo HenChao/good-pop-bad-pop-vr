@@ -15,7 +15,8 @@ func _ready() -> void:
 		set_button_text(initial_text)
 
 
-## Called when player hand is pointing to button. Sets the global position of the collision point to pass into shader.
+## Called when player hand is pointing to button.
+## Sets the global position of the collision point to pass into shader.
 func update_cursor_position(cursor_position: Vector3) -> void:
 	(cube.get_surface_override_material(0) as ShaderMaterial).set_shader_parameter(
 		"CursorPosition", cursor_position

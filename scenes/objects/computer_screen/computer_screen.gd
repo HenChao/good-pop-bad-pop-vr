@@ -2,14 +2,15 @@
 class_name ComputerScreen
 extends Node3D
 
+enum States { OFF_SCREEN, SILENT, TALKING }
+
+@export var current_state: States:
+	set = set_state
+
 @onready var screen_mesh: MeshInstance3D = %ScreenMesh
 @onready var mouth_sprite_3d: AnimatedSprite3D = %MouthSprite3D
 @onready var eyes_sprite_3d: AnimatedSprite3D = %EyesSprite3D
 @onready var speech_bubble: SpeechBubble = %SpeechBubble
-
-enum States { OFF_SCREEN, SILENT, TALKING }
-@export var current_state: States:
-	set = set_state
 
 
 func _ready() -> void:

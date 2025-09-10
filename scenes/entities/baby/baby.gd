@@ -6,14 +6,8 @@ signal out_of_energy
 signal too_afraid
 signal sufficiently_entertained
 
-@onready var speech_bubble: SpeechBubble = %SpeechBubble
-@onready var head_mesh: MeshInstance3D = %HeadMesh
-@onready var eyes: Label3D = %Eyes
-@onready var mouth: Label3D = %Mouth
-@onready var energy_bar: MeshInstance3D = %EnergyBar
-@onready var energy_bar_shader_material: ShaderMaterial
-
 enum States { SILENT, TALKING }
+
 @export var current_state: States:
 	set = set_state
 @export var current_expression: Dialogue.Expressions:
@@ -28,6 +22,7 @@ enum States { SILENT, TALKING }
 @export var entertained_energy_rate: float = 2.0
 @export var fearful_energy_rate: float = -2.0
 @export var is_being_interrogated: bool = false
+
 var _is_entertained: bool = false
 var _is_afraid: bool = false
 
@@ -39,6 +34,13 @@ var _speech_rate: float = 1.0
 var _tracked_toy: Toy
 var _update_tracking_timing: float = 0.0
 var _update_tracking_period: float = 2.0
+
+@onready var speech_bubble: SpeechBubble = %SpeechBubble
+@onready var head_mesh: MeshInstance3D = %HeadMesh
+@onready var eyes: Label3D = %Eyes
+@onready var mouth: Label3D = %Mouth
+@onready var energy_bar: MeshInstance3D = %EnergyBar
+@onready var energy_bar_shader_material: ShaderMaterial
 
 
 func _ready() -> void:

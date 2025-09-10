@@ -3,9 +3,6 @@ extends Node3D
 
 signal activated(intensity: float)
 
-@onready var debounce_timer: Timer = %DebounceTimer
-@onready var accelerometer: RigidBody3D = %Accelerometer
-
 @export_group("Activation Type")
 @export var is_squeezed: bool = false
 @export var is_flipped: bool = false
@@ -16,6 +13,9 @@ signal activated(intensity: float)
 var _last_velocity_magnitude: float = 0.0
 ## Acceleration threshold value at which the toy is considered shaken.
 var _acceleration_threshold: float = 0.5
+
+@onready var debounce_timer: Timer = %DebounceTimer
+@onready var accelerometer: RigidBody3D = %Accelerometer
 
 
 func _ready() -> void:

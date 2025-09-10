@@ -2,8 +2,9 @@
 class_name MainMenu
 extends Node3D
 
-@onready var level_manager: LevelManager = $"../../LevelManager"
 @export var player_body: XRToolsPlayerBody
+
+@onready var level_manager: LevelManager = $"../../LevelManager"
 
 
 func _on_start_button_button_pressed() -> void:

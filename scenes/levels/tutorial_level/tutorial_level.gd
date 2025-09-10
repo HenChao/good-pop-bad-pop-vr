@@ -2,13 +2,8 @@
 class_name TutorialLevel
 extends Node3D
 
-@onready var dad_speech_bubble: SpeechBubble = $InterrogationTable/SpeechBubble
-@onready var mom_puter: ComputerScreen = %ComputerScreen
-@onready var baby: Baby = %Baby
-
-var script_manager: ScriptManager
-
-const intro_scene: String = """
+# gdlint: disable=max-line-length
+const INTRO_SCENE: String = """
 Mom::Well Dad, it's shaping up to be another busy night tonight.
 Dad::It always is around here. Sometimes I wonder if what we do makes any difference.
 Mom::Of course it does. Never forget that we're the last line between order and chaos.
@@ -28,12 +23,19 @@ Dad::Sounds good, I think I'm ready to start.
 Mom::Good. We'll bring in the suspect now.
 """
 
-const first_round: String = """
+const FIRST_ROUND: String = """
 Dad::Well well well, I had a feeling I'd see you in here again one of these days.
 Baby::I know I've been in trouble before, but I didn't do anything!
 Dad::We'll see about that. What do you know about the cookie from the cookie jar?
 Baby::Cookie? What's a cookie? Never heard of any cookies.
 """
+# gdlint: enable=max-line-length
+
+var script_manager: ScriptManager
+
+@onready var dad_speech_bubble: SpeechBubble = $InterrogationTable/SpeechBubble
+@onready var mom_puter: ComputerScreen = %ComputerScreen
+@onready var baby: Baby = %Baby
 
 
 func _ready() -> void:
@@ -42,10 +44,10 @@ func _ready() -> void:
 
 func start_level() -> void:
 	# Play the intro dialogue.
-	await script_manager.start_scene(intro_scene)
+	await script_manager.start_scene(INTRO_SCENE)
 	# Bring in the suspect.
 	baby.visible = true
-	await script_manager.start_scene(first_round)
+	await script_manager.start_scene(FIRST_ROUND)
 	baby.start_interrogation()
 
 

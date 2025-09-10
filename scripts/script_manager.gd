@@ -20,9 +20,9 @@ func set_actors(mom: ComputerScreen, dad: SpeechBubble, baby: Baby) -> void:
 
 
 func start_scene(scene_text: String) -> Signal:
-	_mom_puter.set_state(ComputerScreen.STATES.SILENT)
+	_mom_puter.set_state(ComputerScreen.States.SILENT)
 	_dad_speech_bubble.visible = false
-	_baby.set_state(Baby.STATES.SILENT)
+	_baby.set_state(Baby.States.SILENT)
 
 	var parsed_script: Array[Dialogue] = _parse_script(scene_text)
 	for dialogue in parsed_script:
@@ -76,13 +76,13 @@ func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 func _silence_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
 	match speaker:
 		Dialogue.Speakers.MOM:
-			_mom_puter.set_state(ComputerScreen.STATES.SILENT)
+			_mom_puter.set_state(ComputerScreen.States.SILENT)
 			return _mom_puter.get_speech_bubble()
 		Dialogue.Speakers.DAD:
 			_dad_speech_bubble.visible = false
 			return _dad_speech_bubble
 		Dialogue.Speakers.BABY:
-			_baby.set_state(Baby.STATES.SILENT)
+			_baby.set_state(Baby.States.SILENT)
 			return _baby.get_speech_bubble()
 	return null
 
@@ -90,14 +90,14 @@ func _silence_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
 func _set_active_dialogue(dialogue: Dialogue) -> SpeechBubble:
 	match dialogue.speaker:
 		Dialogue.Speakers.MOM:
-			_mom_puter.set_state(ComputerScreen.STATES.TALKING)
+			_mom_puter.set_state(ComputerScreen.States.TALKING)
 			_mom_puter.set_expression(dialogue.expression)
 			return _mom_puter.get_speech_bubble()
 		Dialogue.Speakers.DAD:
 			_dad_speech_bubble.visible = true
 			return _dad_speech_bubble
 		Dialogue.Speakers.BABY:
-			_baby.set_state(Baby.STATES.TALKING)
+			_baby.set_state(Baby.States.TALKING)
 			_baby.set_expression(dialogue.expression)
 			return _baby.get_speech_bubble()
 	return null
@@ -122,6 +122,6 @@ func _unbind_controller_inputs_to_speech_bubble(speech_bubble: SpeechBubble) -> 
 
 
 func _silence_all_actors() -> void:
-	_mom_puter.set_state(ComputerScreen.STATES.SILENT)
+	_mom_puter.set_state(ComputerScreen.States.SILENT)
 	_dad_speech_bubble.visible = false
-	_baby.set_state(Baby.STATES.SILENT)
+	_baby.set_state(Baby.States.SILENT)

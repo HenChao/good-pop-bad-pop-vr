@@ -1,7 +1,7 @@
 class_name ActivateComponent
 extends Node3D
 
-signal activated
+signal activated(intensity: float)
 
 @onready var debounce_timer: Timer = %DebounceTimer
 @onready var accelerometer: RigidBody3D = %Accelerometer
@@ -22,24 +22,24 @@ func _ready() -> void:
 	var controllers: Array[XRController3D] = Player.get_controllers()
 	if controllers.size() > 0:
 		for controller in controllers:
-			controller.input_float_changed.connect(_on_controller_input_grip)
+			controller.input_float_changed.connect(_on_controller_input_trigger)
 
 
 func _physics_process(delta: float) -> void:
 	if is_flipped and _is_upside_down():
-		_debounce_signal()
+		_debounce_signal("upside_down")
 	if is_shaken and _is_shaking(delta):
-		_debounce_signal()
+		_debounce_signal("shaking")
 
 
-func _on_controller_input_grip(input_name: String, input_value: float) -> void:
-	if is_squeezed and input_name == "grip" and input_value >= 0.5:
-		activated.emit()
+func _on_controller_input_trigger(input_name: String, input_value: float) -> void:
+	if is_squeezed and input_name == "trigger" and input_value >= 0.5:
+		activated.emit(input_value)
 
 
 func _on_activation_area_area_entered(area: Area3D) -> void:
 	if is_in_area and area.is_in_group("PlayerMouth"):
-		activated.emit()
+		activated.emit(1.0)
 
 
 func _is_upside_down() -> bool:
@@ -55,7 +55,9 @@ func _is_shaking(delta: float) -> bool:
 
 
 ## Helper function to avoid emitting the signal too often.
-func _debounce_signal() -> void:
+## type = [shaking, upside_down]
+## Emit the last recorded velcity if shaking, 1.0 otherwise.
+func _debounce_signal(type: String) -> void:
 	if debounce_timer.is_stopped():
 		debounce_timer.start()
-		activated.emit()
+		activated.emit(_last_velocity_magnitude if type == "shaking" else 1.0)

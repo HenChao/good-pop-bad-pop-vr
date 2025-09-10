@@ -36,6 +36,11 @@ var _speech_cycle: int = 0
 var _speech_time: float = 0.0
 var _speech_rate: float = 1.0
 
+var _tracked_toy: Toy
+var _update_tracking_timing: float = 0.0
+var _update_tracking_period: float = 2.0
+
+
 func _ready() -> void:
 	set_state(States.SILENT)
 	energy_bar.visible = false
@@ -52,8 +57,13 @@ func _physics_process(delta: float) -> void:
 
 	if Engine.is_editor_hint():
 		return
-	# Always look at dad
-	head_mesh.look_at(get_viewport().get_camera_3d().global_position, Vector3.UP, true)
+	
+	_update_tracking_timing += delta
+	if _update_tracking_timing >= _update_tracking_period:
+		_update_tracking_timing = 0.0
+		# Look at dad, unless held toy enters field of view
+		var look_at_target_position: Vector3 = _tracked_toy.global_position if _tracked_toy else get_viewport().get_camera_3d().global_position
+		head_mesh.look_at(look_at_target_position, Vector3.UP, true)
 	
 	# Only perform next block if is actively interrogated.
 	if not is_being_interrogated:
@@ -173,3 +183,13 @@ func _is_between(value: float, lower: float, upper: float) -> bool:
 
 func _update_energy_bar() -> void:
 	energy_bar_shader_material.set_shader_parameter("EnergyPercentage", current_energy / max_energy)
+
+
+func _on_field_of_view_body_entered(body: Node3D) -> void:
+	if body is Toy:
+		_tracked_toy = body
+
+
+func _on_field_of_view_body_exited(body: Node3D) -> void:
+	if body == _tracked_toy:
+		_tracked_toy = null

@@ -7,6 +7,12 @@ signal scene_complete
 @export var left_controller: XRController3D
 @export var right_controller: XRController3D
 
+@export_group("Audio Resources")
+@export var audio_player: AudioStreamPlayer
+@export var dad_sound: AudioStreamWAV
+@export var mom_sound: AudioStreamWAV
+@export var baby_sound: AudioStreamWAV
+
 var _dad_speech_bubble: SpeechBubble
 var _mom_puter: ComputerScreen
 var _baby: Baby
@@ -27,6 +33,8 @@ func start_scene(scene_text: String) -> Signal:
 	var parsed_script: Array[Dialogue] = _parse_script(scene_text)
 	for dialogue in parsed_script:
 		await _display_speech_bubble(dialogue)
+		if audio_player.playing:
+			audio_player.stop()
 	_silence_all_actors()
 	call_deferred("emit_signal", scene_complete)
 	return scene_complete
@@ -69,6 +77,8 @@ func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 	var active_speech_bubble: SpeechBubble = _set_active_dialogue(dialogue)
 	active_speech_bubble.set_text(dialogue.line)
 	_bind_controller_inputs_to_speech_bubble(active_speech_bubble)
+	for _cycle in randi_range(1, 3):
+		await _play_audio(dialogue.speaker)
 	_last_active_speaker = dialogue.speaker
 	return active_speech_bubble.confirmed_input
 
@@ -85,6 +95,23 @@ func _silence_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
 			_baby.set_state(Baby.States.SILENT)
 			return _baby.get_speech_bubble()
 	return null
+
+
+func _play_audio(speaker: Dialogue.Speakers) -> Signal:
+	var stream: AudioStreamWAV
+	match speaker:
+		Dialogue.Speakers.MOM:
+			stream = mom_sound
+			audio_player.pitch_scale = randf_range(0.8, 1.2)
+		Dialogue.Speakers.DAD:
+			stream = dad_sound
+			audio_player.pitch_scale = randf_range(0.4, 0.6)
+		Dialogue.Speakers.BABY:
+			stream = baby_sound
+			audio_player.pitch_scale = randf_range(1.8, 2.2)
+	audio_player.stream = stream
+	audio_player.play()
+	return audio_player.finished
 
 
 func _set_active_dialogue(dialogue: Dialogue) -> SpeechBubble:

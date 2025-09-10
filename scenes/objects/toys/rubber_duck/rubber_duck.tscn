@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dukpkgl3k7t4s"]
+[gd_scene load_steps=18 format=3 uid="uid://dukpkgl3k7t4s"]
 
 [ext_resource type="PackedScene" uid="uid://crupjky8drd3a" path="res://resources/rubber_duck_toy_1k.gltf/rubber_duck_toy_1k.gltf" id="1_0m7mn"]
 [ext_resource type="Script" uid="uid://cy63rik3kjg82" path="res://scripts/custom_classes/toy.gd" id="1_po5dv"]
@@ -7,13 +7,22 @@
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_po5dv"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_qrgwl"]
 [ext_resource type="PackedScene" uid="uid://850q10sj8ogl" path="res://scenes/components/activate_component.tscn" id="7_qrgwl"]
+[ext_resource type="AudioStream" uid="uid://ckw7sp5svtgbu" path="res://resources/sfx/pop-268648.wav" id="8_01vww"]
 [ext_resource type="PackedScene" uid="uid://b080583xv1kh5" path="res://scenes/components/audio_component.tscn" id="8_snwx8"]
+[ext_resource type="Script" uid="uid://cnowmlwvpkkym" path="res://addons/godot-xr-tools/audio/pickable_audio_type.gd" id="9_o5pgs"]
 [ext_resource type="PackedScene" uid="uid://bikkxsbo8x7sd" path="res://addons/godot-xr-tools/audio/pickable_audio.tscn" id="9_wrian"]
 [ext_resource type="PackedScene" uid="uid://b3n3o0k81ajqi" path="res://scenes/components/haptics_component.tscn" id="10_wrian"]
 [ext_resource type="Script" uid="uid://nq23qxmu5sxt" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="11_ua01p"]
+[ext_resource type="AudioStream" uid="uid://bxqc41yd44mxg" path="res://resources/sfx/075176_duck-quack-40345.wav" id="12_o5pgs"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_po5dv"]
 radius = 0.07
+
+[sub_resource type="Resource" id="Resource_k8lhu"]
+script = ExtResource("9_o5pgs")
+name = ""
+grab_sound = ExtResource("8_01vww")
+metadata/_custom_type_script = "uid://cnowmlwvpkkym"
 
 [sub_resource type="Resource" id="Resource_ot5ll"]
 script = ExtResource("11_ua01p")
@@ -54,6 +63,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0.05, -0.08)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.05, -0.08)
 
 [node name="PickableAudio" parent="." instance=ExtResource("9_wrian")]
+pickable_audio_type = SubResource("Resource_k8lhu")
 
 [node name="PointsRandomizerTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -65,6 +75,7 @@ is_squeezed = true
 
 [node name="AudioComponent" parent="." instance=ExtResource("8_snwx8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.067, 0)
+audio_stream = ExtResource("12_o5pgs")
 
 [node name="HapticsComponent" parent="." instance=ExtResource("10_wrian")]
 rumble_event = SubResource("Resource_ot5ll")

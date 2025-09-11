@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdjftn4b2mqbp"]
+[gd_scene load_steps=13 format=3 uid="uid://cdjftn4b2mqbp"]
 
 [ext_resource type="Shader" uid="uid://fjmiow3x22j" path="res://scenes/objects/interrogation_table/interrogation_table.tres" id="1_niuqm"]
+[ext_resource type="Script" uid="uid://ds7x335b0dy5c" path="res://scenes/objects/interrogation_table/interrogation_table.gd" id="1_sjbtl"]
 [ext_resource type="PackedScene" uid="uid://b7vic2dqnsb2g" path="res://scenes/ui/speech_bubble/speech_bubble.tscn" id="2_cgjij"]
+[ext_resource type="Script" uid="uid://dhnuxmks8hsn8" path="res://addons/godot-xr-tools/objects/snap_zone.gd" id="3_tjkvw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tm5w5"]
 size = Vector3(2, 0.2, 1)
@@ -59,7 +61,11 @@ render_priority = 0
 shader = SubResource("VisualShader_sjbtl")
 shader_parameter/BubbleColor = Color(0.1, 0.125, 0.25, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_tjkvw"]
+size = Vector3(0.1, 0.1, 0.1)
+
 [node name="InterrogationTable" type="StaticBody3D"]
+script = ExtResource("1_sjbtl")
 
 [node name="TableBody" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_tm5w5")
@@ -69,7 +75,7 @@ mesh = SubResource("BoxMesh_niuqm")
 surface_material_override/0 = SubResource("ShaderMaterial_cgjij")
 
 [node name="SpeechBubble" parent="." instance=ExtResource("2_cgjij")]
-transform = Transform3D(0.2, 0, 0, 0, 0.187526, 0.0695279, 0, -0.0695279, 0.187526, 0, 0.327513, 0.364831)
+transform = Transform3D(0.1, 0, 0, 0, 0.0937628, 0.0347639, 0, -0.0347639, 0.0937628, 0, 0.327513, 0.364831)
 speaker_name = "Dad"
 example_text = "What?"
 billboard = true
@@ -82,6 +88,45 @@ text = "Dad"
 
 [node name="TextLabel" parent="SpeechBubble" index="2"]
 text = "What?"
+
+[node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
+text = "Press a/x to continue..."
+
+[node name="ToySnapZone1" type="Area3D" parent="." groups=["ToySlot"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.15, 0.3)
+collision_layer = 4
+collision_mask = 65540
+script = ExtResource("3_tjkvw")
+metadata/_custom_type_script = "uid://dhnuxmks8hsn8"
+
+[node name="BoxShape" type="CollisionShape3D" parent="ToySnapZone1"]
+shape = SubResource("BoxShape3D_tjkvw")
+
+[node name="ToySnapZone2" type="Area3D" parent="." groups=["ToySlot"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.3)
+collision_layer = 0
+collision_mask = 65536
+script = ExtResource("3_tjkvw")
+metadata/_custom_type_script = "uid://dhnuxmks8hsn8"
+
+[node name="BoxShape" type="CollisionShape3D" parent="ToySnapZone2"]
+shape = SubResource("BoxShape3D_tjkvw")
+
+[node name="ToySnapZone3" type="Area3D" parent="." groups=["ToySlot"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.15, 0.3)
+collision_layer = 0
+collision_mask = 65536
+script = ExtResource("3_tjkvw")
+metadata/_custom_type_script = "uid://dhnuxmks8hsn8"
+
+[node name="BoxShape" type="CollisionShape3D" parent="ToySnapZone3"]
+shape = SubResource("BoxShape3D_tjkvw")
+
+[node name="ToysTree" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [editable path="SpeechBubble"]
 [editable path="SpeechBubble/curved_box"]

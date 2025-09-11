@@ -36,7 +36,7 @@ func start_scene(scene_text: String) -> Signal:
 		if audio_player.playing:
 			audio_player.stop()
 	_silence_all_actors()
-	call_deferred("emit_signal", scene_complete)
+	scene_complete.emit()
 	return scene_complete
 
 

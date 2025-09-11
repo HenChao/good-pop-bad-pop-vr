@@ -1,18 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://bolsca47s82wm"]
+[gd_scene load_steps=7 format=3 uid="uid://bolsca47s82wm"]
 
 [ext_resource type="Script" uid="uid://d0quyyui5hkie" path="res://scenes/levels/tutorial_level/tutorial_level.gd" id="1_au04w"]
 [ext_resource type="PackedScene" uid="uid://cdjftn4b2mqbp" path="res://scenes/objects/interrogation_table/interrogation_table.tscn" id="1_hrctv"]
 [ext_resource type="PackedScene" uid="uid://b28tv5rnfncm1" path="res://scenes/objects/overhead_light/overhead_light.tscn" id="2_wta6x"]
 [ext_resource type="PackedScene" uid="uid://bhc2iutvt1kg3" path="res://scenes/objects/computer_screen/computer_screen.tscn" id="3_3ee13"]
+[ext_resource type="PackedScene" uid="uid://dukpkgl3k7t4s" path="res://scenes/objects/toys/rubber_duck/rubber_duck.tscn" id="3_pbmwr"]
 [ext_resource type="PackedScene" uid="uid://dstu4u4xea1r8" path="res://scenes/entities/baby/baby.tscn" id="5_v8k53"]
 
 [node name="TutorialLevel" type="Node3D"]
 script = ExtResource("1_au04w")
 
 [node name="InterrogationTable" parent="." instance=ExtResource("1_hrctv")]
+unique_name_in_owner = true
+toys_array = Array[PackedScene]([ExtResource("3_pbmwr"), ExtResource("3_pbmwr"), ExtResource("3_pbmwr")])
+
+[node name="SpeechBubble" parent="InterrogationTable" index="2"]
+transform = Transform3D(0.1, 0, 0, 0, 0.0937628, 0.0347639, 0, -0.0347639, 0.0937628, 0, 0.327513, 0.364831)
 
 [node name="PressToContinueLabel" parent="InterrogationTable/SpeechBubble" index="3"]
-text = "Press a/x to continue..."
+text = "Press a/x to continue"
+
+[node name="ToySnapZone1" parent="InterrogationTable" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.15, 0.3)
+
+[node name="ToySnapZone2" parent="InterrogationTable" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.3)
+
+[node name="ToySnapZone3" parent="InterrogationTable" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.15, 0.3)
 
 [node name="OverheadLight" parent="." instance=ExtResource("2_wta6x")]
 transform = Transform3D(0.999264, 0.0107134, -0.0368437, -0.0276293, 0.867202, -0.497189, 0.0266244, 0.49784, 0.86686, 0.23516, 1.0625, 0.361253)
@@ -22,7 +37,10 @@ unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
 [node name="MouthSprite3D" parent="ComputerScreen" index="3"]
-frame_progress = 0.67793
+frame_progress = 0.504814
+
+[node name="PressToContinueLabel" parent="ComputerScreen/SpeechBubble" index="3"]
+text = "Press a/x to continue"
 
 [node name="Baby" parent="." instance=ExtResource("5_v8k53")]
 unique_name_in_owner = true
@@ -36,7 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0467941, 0.0555415)
 billboard = true
 
 [node name="PressToContinueLabel" parent="Baby/SpeechBubble" index="3"]
-text = "Press a/x to continue..."
+text = "Press a/x to continue"
 
 [editable path="InterrogationTable"]
 [editable path="InterrogationTable/SpeechBubble"]

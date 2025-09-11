@@ -36,6 +36,7 @@ var script_manager: ScriptManager
 @onready var dad_speech_bubble: SpeechBubble = $InterrogationTable/SpeechBubble
 @onready var mom_puter: ComputerScreen = %ComputerScreen
 @onready var baby: Baby = %Baby
+@onready var interrogation_table: InterrogationTable = %InterrogationTable
 
 
 func _ready() -> void:
@@ -49,6 +50,7 @@ func start_level() -> void:
 	baby.visible = true
 	await script_manager.start_scene(FIRST_ROUND)
 	baby.start_interrogation()
+	interrogation_table.initialize_toys()
 
 
 func set_script_manager(sm: ScriptManager) -> void:

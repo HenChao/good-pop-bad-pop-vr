@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dukpkgl3k7t4s"]
+[gd_scene load_steps=19 format=3 uid="uid://dukpkgl3k7t4s"]
 
 [ext_resource type="PackedScene" uid="uid://crupjky8drd3a" path="res://resources/rubber_duck_toy_1k.gltf/rubber_duck_toy_1k.gltf" id="1_0m7mn"]
 [ext_resource type="Script" uid="uid://cy63rik3kjg82" path="res://globals/custom_classes/toy.gd" id="1_po5dv"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b3n3o0k81ajqi" path="res://scenes/components/haptics_component.tscn" id="10_wrian"]
 [ext_resource type="Script" uid="uid://nq23qxmu5sxt" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="11_ua01p"]
 [ext_resource type="AudioStream" uid="uid://bxqc41yd44mxg" path="res://resources/sfx/075176_duck-quack-40345.wav" id="12_o5pgs"]
+[ext_resource type="Script" uid="uid://bptmedpopls3j" path="res://addons/godot-xr-tools/objects/return_to_snap_zone.gd" id="15_k8lhu"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_po5dv"]
 radius = 0.07
@@ -32,13 +33,14 @@ indefinite = false
 duration_ms = 300
 metadata/_custom_type_script = "uid://nq23qxmu5sxt"
 
-[node name="RubberDuck" type="RigidBody3D" node_paths=PackedStringArray("active_component", "audio_component", "haptics_component", "points_randomizer_timer")]
+[node name="RubberDuck" type="RigidBody3D" node_paths=PackedStringArray("active_component", "audio_component", "haptics_component", "return_to_snap_zone_node", "points_randomizer_timer")]
 collision_layer = 4
 collision_mask = 65543
 script = ExtResource("1_po5dv")
 active_component = NodePath("ActivateComponent")
 audio_component = NodePath("AudioComponent")
 haptics_component = NodePath("HapticsComponent")
+return_to_snap_zone_node = NodePath("XRToolsReturnToSnapZone")
 points_randomizer_timer = NodePath("PointsRandomizerTimer")
 metadata/_custom_type_script = "uid://biwl5by0syfgs"
 
@@ -79,3 +81,8 @@ audio_stream = ExtResource("12_o5pgs")
 
 [node name="HapticsComponent" parent="." instance=ExtResource("10_wrian")]
 rumble_event = SubResource("Resource_ot5ll")
+
+[node name="XRToolsReturnToSnapZone" type="Node" parent="."]
+script = ExtResource("15_k8lhu")
+return_delay = 3.0
+metadata/_custom_type_script = "uid://bptmedpopls3j"

@@ -37,7 +37,6 @@ void fragment() {
 	var_debug_vector_length = 0.0;
 }
 "
-graph_offset = Vector2(541.282, 137.104)
 flags/unshaded = true
 varyings/debug_vector_length = "1,0"
 nodes/fragment/0/position = Vector2(920, 240)

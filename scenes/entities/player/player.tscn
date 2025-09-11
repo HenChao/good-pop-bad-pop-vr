@@ -20,7 +20,7 @@ shader = ExtResource("5_dnykm")
 render_priority = 0
 shader = ExtResource("5_dnykm")
 
-[node name="Player" type="XROrigin3D"]
+[node name="Player" type="XROrigin3D" groups=["Player"]]
 current = true
 script = ExtResource("1_1ie0h")
 
@@ -37,7 +37,7 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XRCamera3D/MouthArea"]
 shape = SubResource("SphereShape3D_bj7e2")
 
-[node name="XRController3D_Left" type="XRController3D" parent="."]
+[node name="XRController3D_Left" type="XRController3D" parent="." groups=["XRController"]]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.452461, -0.3)
 tracker = &"left_hand"
@@ -51,7 +51,7 @@ hand_material_override = SubResource("ShaderMaterial_dnykm")
 
 [node name="FunctionPickup" parent="XRController3D_Left" instance=ExtResource("6_1murt")]
 
-[node name="XRController3D_Right" type="XRController3D" parent="."]
+[node name="XRController3D_Right" type="XRController3D" parent="." groups=["XRController"]]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.452461, -0.2)
 tracker = &"right_hand"
@@ -69,7 +69,5 @@ hand_material_override = SubResource("ShaderMaterial_c5rqy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.523194, 0)
 push_rigid_bodies = false
 
-[connection signal="input_float_changed" from="XRController3D_Left" to="." method="_on_xr_controller_3d_left_input_float_changed"]
 [connection signal="pointing_event" from="XRController3D_Left/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]
-[connection signal="input_float_changed" from="XRController3D_Right" to="." method="_on_xr_controller_3d_right_input_float_changed"]
 [connection signal="pointing_event" from="XRController3D_Right/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]

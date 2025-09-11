@@ -34,6 +34,9 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 ToySlot="SnapZones containing toys."
 Handle="Grap Points for player hands."
 PlayerMouth="Area location of the Player's mouth"
+Toy=""
+XRController=""
+Player=""
 
 [layer_names]
 

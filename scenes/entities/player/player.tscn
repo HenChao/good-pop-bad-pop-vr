@@ -43,6 +43,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.452461, -0.3)
 tracker = &"left_hand"
 
 [node name="FunctionPointer" parent="XRController3D_Left" instance=ExtResource("2_08t41")]
+show_laser = 2
+laser_length = 1
 
 [node name="LeftHand" parent="XRController3D_Left" instance=ExtResource("4_d4qa6")]
 hand_material_override = SubResource("ShaderMaterial_dnykm")
@@ -55,6 +57,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.452461, -0.2)
 tracker = &"right_hand"
 
 [node name="FunctionPointer" parent="XRController3D_Right" instance=ExtResource("2_08t41")]
+show_laser = 2
+laser_length = 1
 
 [node name="RightHand" parent="XRController3D_Right" instance=ExtResource("5_ss7kx")]
 hand_material_override = SubResource("ShaderMaterial_c5rqy")
@@ -65,5 +69,7 @@ hand_material_override = SubResource("ShaderMaterial_c5rqy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.523194, 0)
 push_rigid_bodies = false
 
+[connection signal="input_float_changed" from="XRController3D_Left" to="." method="_on_xr_controller_3d_left_input_float_changed"]
 [connection signal="pointing_event" from="XRController3D_Left/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]
+[connection signal="input_float_changed" from="XRController3D_Right" to="." method="_on_xr_controller_3d_right_input_float_changed"]
 [connection signal="pointing_event" from="XRController3D_Right/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]

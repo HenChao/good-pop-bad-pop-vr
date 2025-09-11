@@ -11,3 +11,4 @@ func _on_function_pointer_pointing_event(event: Variant) -> void:
 			button_target.update_cursor_position(event.last_position)
 		elif event.event_type == event.Type.PRESSED:
 			button_target.press_button()
+			(event.pointer as XRToolsFunctionPointer).get_node("Laser").visible = false

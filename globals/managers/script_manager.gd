@@ -77,8 +77,7 @@ func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 	var active_speech_bubble: SpeechBubble = _set_active_dialogue(dialogue)
 	active_speech_bubble.set_text(dialogue.line)
 	_bind_controller_inputs_to_speech_bubble(active_speech_bubble)
-	for _cycle in randi_range(1, 3):
-		await _play_audio(dialogue.speaker)
+	_play_audio(dialogue.speaker)
 	_last_active_speaker = dialogue.speaker
 	return active_speech_bubble.confirmed_input
 
@@ -97,21 +96,20 @@ func _silence_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
 	return null
 
 
-func _play_audio(speaker: Dialogue.Speakers) -> Signal:
+func _play_audio(speaker: Dialogue.Speakers) -> void:
 	var stream: AudioStreamWAV
 	match speaker:
 		Dialogue.Speakers.MOM:
 			stream = mom_sound
-			audio_player.pitch_scale = randf_range(0.8, 1.2)
+			audio_player.pitch_scale = randf_range(0.9, 1.1)
 		Dialogue.Speakers.DAD:
 			stream = dad_sound
-			audio_player.pitch_scale = randf_range(0.4, 0.6)
+			audio_player.pitch_scale = randf_range(0.5, 0.6)
 		Dialogue.Speakers.BABY:
 			stream = baby_sound
-			audio_player.pitch_scale = randf_range(1.8, 2.2)
+			audio_player.pitch_scale = randf_range(1.9, 2.0)
 	audio_player.stream = stream
 	audio_player.play()
-	return audio_player.finished
 
 
 func _set_active_dialogue(dialogue: Dialogue) -> SpeechBubble:
@@ -152,3 +150,5 @@ func _silence_all_actors() -> void:
 	_mom_puter.set_state(ComputerScreen.States.SILENT)
 	_dad_speech_bubble.visible = false
 	_baby.set_state(Baby.States.SILENT)
+	if audio_player.playing:
+		audio_player.stop()

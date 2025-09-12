@@ -1,18 +1,14 @@
 @tool
-class_name MainMenu
+class_name PausedMenu
 extends Node3D
 
+signal resume_game_button_pressed
+
 @export var player_body: XRToolsPlayerBody
-@export var level_manager: LevelManager
 
 
 func _ready() -> void:
 	assert(player_body, "Player Body Node not assigned.")
-	assert(level_manager, "Level manager node not assigned.")
-
-
-func _on_start_button_button_pressed() -> void:
-	level_manager.set_level(LevelManager.Levels.TUTORIAL_LEVEL)
 
 
 func _on_set_height_button_button_pressed() -> void:
@@ -22,3 +18,7 @@ func _on_set_height_button_button_pressed() -> void:
 
 func _on_quit_button_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_resume_button_button_pressed() -> void:
+	resume_game_button_pressed.emit()

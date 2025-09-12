@@ -14,9 +14,6 @@ script = ExtResource("1_au04w")
 unique_name_in_owner = true
 toys_array = Array[PackedScene]([ExtResource("3_pbmwr"), ExtResource("3_pbmwr"), ExtResource("3_pbmwr")])
 
-[node name="PressToContinueLabel" parent="InterrogationTable/SpeechBubble" index="3"]
-text = "Press a/x to continue"
-
 [node name="OverheadLight" parent="." instance=ExtResource("2_wta6x")]
 transform = Transform3D(0.999264, 0.0107134, -0.0368437, -0.0276293, 0.867202, -0.497189, 0.0266244, 0.49784, 0.86686, 0.23516, 1.0625, 0.361253)
 

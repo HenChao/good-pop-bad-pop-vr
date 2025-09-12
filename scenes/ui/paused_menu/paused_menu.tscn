@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6hs5yojarnhh"]
+
+[ext_resource type="Script" uid="uid://od1uvwsf0ndy" path="res://scenes/ui/paused_menu/paused_menu.gd" id="1_kmhfw"]
+[ext_resource type="FontFile" uid="uid://85203nd61s7c" path="res://resources/Funnel_Sans/static/FunnelSans-ExtraBold.ttf" id="1_s8bst"]
+[ext_resource type="PackedScene" uid="uid://cemvix3bvnnyc" path="res://scenes/ui/button/ui_button.tscn" id="2_kmhfw"]
+
+[node name="PausedMenu" type="Node3D"]
+script = ExtResource("1_kmhfw")
+
+[node name="PauseMenuLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.23095, 0)
+double_sided = false
+text = "Game Paused"
+font = ExtResource("1_s8bst")
+font_size = 100
+outline_size = 24
+
+[node name="ResumeButton" parent="." instance=ExtResource("2_kmhfw")]
+initial_text = "Resume"
+
+[node name="SetHeightButton" parent="." instance=ExtResource("2_kmhfw")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -5, 0, 1)
+initial_text = "Reset Player Height"
+
+[node name="QuitButton" parent="." instance=ExtResource("2_kmhfw")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 5, 0, 1)
+initial_text = "Quit Game"
+
+[connection signal="button_pressed" from="ResumeButton" to="." method="_on_resume_button_button_pressed"]
+[connection signal="button_pressed" from="SetHeightButton" to="." method="_on_set_height_button_button_pressed"]
+[connection signal="button_pressed" from="QuitButton" to="." method="_on_quit_button_button_pressed"]

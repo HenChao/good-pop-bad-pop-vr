@@ -1,6 +1,8 @@
 class_name Player
 extends XROrigin3D
 
+signal menu_button_hit
+
 static var is_currently_good_pop: bool = true
 
 
@@ -12,3 +14,8 @@ func _on_function_pointer_pointing_event(event: Variant) -> void:
 		elif event.event_type == event.Type.PRESSED:
 			button_target.press_button()
 			(event.pointer as XRToolsFunctionPointer).get_node("Laser").visible = false
+
+
+func _on_xr_controller_3d_left_button_pressed(input_name: String) -> void:
+	if input_name == "menu_button":
+		menu_button_hit.emit()

@@ -49,5 +49,5 @@ func set_speaker_name(speaker: String) -> void:
 
 
 func on_controller_input(input_name: String) -> void:
-	if input_name == "ax_button":
+	if not get_tree().paused and input_name == "ax_button":
 		confirmed_input.emit()

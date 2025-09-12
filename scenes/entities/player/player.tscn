@@ -69,5 +69,6 @@ hand_material_override = SubResource("ShaderMaterial_c5rqy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.523194, 0)
 push_rigid_bodies = false
 
+[connection signal="button_pressed" from="XRController3D_Left" to="." method="_on_xr_controller_3d_left_button_pressed"]
 [connection signal="pointing_event" from="XRController3D_Left/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]
 [connection signal="pointing_event" from="XRController3D_Right/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]

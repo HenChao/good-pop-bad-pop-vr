@@ -3,10 +3,10 @@
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_t1l5u"]
 parameter_name = "PrimaryColor"
 default_value_enabled = true
-default_value = Color(1, 0, 0, 1)
+default_value = Color(0.53, 1, 0.984333, 1)
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_tsyrg"]
-constant = 0.6
+constant = 0.3
 
 [resource]
 code = "shader_type spatial;
@@ -16,7 +16,7 @@ render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_s
 // Varyings
 varying float var_debug_vector_length;
 
-uniform vec4 PrimaryColor : source_color = vec4(1.000000, 0.000000, 0.000000, 1.000000);
+uniform vec4 PrimaryColor : source_color = vec4(0.530000, 1.000000, 0.984333, 1.000000);
 
 
 
@@ -26,7 +26,7 @@ void fragment() {
 
 
 // FloatConstant:13
-	float n_out13p0 = 0.600000;
+	float n_out13p0 = 0.300000;
 
 
 // Output:0

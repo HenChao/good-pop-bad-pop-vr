@@ -42,6 +42,7 @@ audio_component = NodePath("AudioComponent")
 haptics_component = NodePath("HapticsComponent")
 return_to_snap_zone_node = NodePath("XRToolsReturnToSnapZone")
 points_randomizer_timer = NodePath("PointsRandomizerTimer")
+ranged_grab_method = 2
 metadata/_custom_type_script = "uid://biwl5by0syfgs"
 
 [node name="blend_export" parent="." instance=ExtResource("1_0m7mn")]

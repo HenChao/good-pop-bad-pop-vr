@@ -40,7 +40,7 @@ width = 700.0
 [node name="PressToContinueLabel" type="Label3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7, -0.872, 0.22)
-text = "Press a/x to continue..."
+text = "Press a/x to continue."
 horizontal_alignment = 0
 
 [editable path="curved_box"]

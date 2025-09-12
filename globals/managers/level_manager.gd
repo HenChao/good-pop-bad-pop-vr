@@ -4,6 +4,7 @@ extends Node3D
 enum Levels { TUTORIAL_LEVEL }
 
 @export var xr_camera_3d: XRCamera3D
+@export var player: Player
 @export_group("Levels")
 @export var tutorial_level_scene: PackedScene
 
@@ -27,6 +28,7 @@ func set_level(level: Levels) -> void:
 
 	game_objects.add_child(new_level)
 	new_level.set_script_manager(script_manager)
+	new_level.set_player_reference(player)
 	# Position the objects in front of the player.
 	new_level.global_position = (
 		xr_camera_3d.global_position + Vector3(0.0, -0.35 * xr_camera_3d.global_position.y, -1.0)

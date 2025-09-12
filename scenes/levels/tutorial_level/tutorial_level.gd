@@ -47,6 +47,20 @@ Mom::Once you think you've gotten them sufficiently scared, then play peek-a-boo
 Mom::You should then be able to play with them and get them back to a good spot.
 Dad::Alright Chief, I'll give it a shot.
 """
+
+const SECOND_ROUND_TURNABOUT: String = """
+Baby::Dad, is it getting hot in here, or is it just me?
+Dad::Must be the guilt eating you up inside. Think you're ready to talk now?
+"""
+
+const END_INTERROGATION: String = """
+Baby:Surprised:Oh, you know what, I just remembered. I did eat a cookie today!
+Baby:Joyful:I didn't realize it was from the cookie jar you were asking about. I had my eyes closed while I was getting it.
+Dad::A likely story, but that won't save you from your punishment. You're in for a time-out now mister.
+Baby:Annoyed:You can send me away, but I'll be back on the streets in no time again.
+Mom::Well done Dad, you haven't missed a beat.
+Dad::Thanks Chief, it was a pretty straightforward case, but sometimes that's just how the cookie crumbles.
+"""
 # gdlint: enable=max-line-length
 
 var script_manager: ScriptManager
@@ -68,9 +82,11 @@ func start_level() -> void:
 	# Bring in the suspect.
 	baby.visible = true
 	await script_manager.start_scene(FIRST_ROUND)
+	# Start first round interrogation
 	baby.start_interrogation()
 	interrogation_table.initialize_toys()
 	await baby.sufficiently_entertained
+	# Baby is happy enought, start second round
 	await script_manager.start_scene(SECOND_ROUND)
 	# Set stats for the second round
 	baby.current_mood = 50.0
@@ -79,10 +95,20 @@ func start_level() -> void:
 	baby.max_energy = 200.0
 	baby.current_energy = 200.0
 	baby.start_interrogation()
+	# Hit a wall in the interrogation
 	await baby.happiness_gate_reached
 	baby.stop_interrogation()
 	await script_manager.start_scene(SECOND_ROUND_INTERLUDE)
+	# Continue interrogation, need to be bad pop now
 	baby.start_interrogation()
+	await baby.fearfullness_gate_reached
+	baby.stop_interrogation()
+	await script_manager.start_scene(SECOND_ROUND_TURNABOUT)
+	# Continue interrogation, need to go back to good pop
+	baby.happiness_gate = 110.0
+	baby.start_interrogation()
+	await baby.sufficiently_entertained
+	await script_manager.start_scene(END_INTERROGATION)
 
 
 func set_script_manager(sm: ScriptManager) -> void:

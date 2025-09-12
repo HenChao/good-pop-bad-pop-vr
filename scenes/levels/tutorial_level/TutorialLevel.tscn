@@ -23,7 +23,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
 [node name="MouthSprite3D" parent="ComputerScreen" index="3"]
-frame_progress = 0.956829
+frame_progress = 0.168439
 
 [node name="PressToContinueLabel" parent="ComputerScreen/SpeechBubble" index="3"]
 text = "Press a/x to continue.."

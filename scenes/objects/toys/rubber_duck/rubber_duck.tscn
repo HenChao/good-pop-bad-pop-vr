@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dukpkgl3k7t4s"]
+[gd_scene load_steps=17 format=3 uid="uid://dukpkgl3k7t4s"]
 
 [ext_resource type="PackedScene" uid="uid://crupjky8drd3a" path="res://resources/rubber_duck_toy_1k.gltf/rubber_duck_toy_1k.gltf" id="1_0m7mn"]
 [ext_resource type="Script" uid="uid://cy63rik3kjg82" path="res://globals/custom_classes/toy.gd" id="1_po5dv"]
@@ -13,8 +13,12 @@
 [ext_resource type="AudioStream" uid="uid://bxqc41yd44mxg" path="res://resources/sfx/075176_duck-quack-40345.wav" id="12_o5pgs"]
 [ext_resource type="Script" uid="uid://bptmedpopls3j" path="res://addons/godot-xr-tools/objects/return_to_snap_zone.gd" id="15_k8lhu"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ot5ll"]
+rough = true
+bounce = 0.3
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_po5dv"]
-radius = 0.07
+radius = 0.067893
 
 [sub_resource type="Resource" id="Resource_ot5ll"]
 script = ExtResource("11_ua01p")
@@ -24,9 +28,13 @@ indefinite = false
 duration_ms = 300
 metadata/_custom_type_script = "uid://nq23qxmu5sxt"
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ot5ll"]
+size = Vector3(0.1, 0.1, 0.1)
+
 [node name="RubberDuck" type="RigidBody3D" node_paths=PackedStringArray("active_component", "audio_component", "haptics_component", "return_to_snap_zone_node", "points_randomizer_timer")]
 collision_layer = 4
 collision_mask = 65543
+physics_material_override = SubResource("PhysicsMaterial_ot5ll")
 script = ExtResource("1_po5dv")
 active_component = NodePath("ActivateComponent")
 audio_component = NodePath("AudioComponent")
@@ -75,3 +83,11 @@ rumble_event = SubResource("Resource_ot5ll")
 script = ExtResource("15_k8lhu")
 return_delay = 3.0
 metadata/_custom_type_script = "uid://bptmedpopls3j"
+
+[node name="ToyTrackingArea" type="Area3D" parent="."]
+collision_layer = 65536
+collision_mask = 65536
+
+[node name="BoxShape" type="CollisionShape3D" parent="ToyTrackingArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.070834, 0)
+shape = SubResource("BoxShape3D_ot5ll")

@@ -103,8 +103,8 @@ font = ExtResource("3_akj6c")
 font_size = 30
 
 [node name="FieldOfView" type="Area3D" parent="HeadMesh/Eyes"]
-collision_layer = 65540
-collision_mask = 65540
+collision_layer = 65536
+collision_mask = 65536
 
 [node name="Cone" type="CollisionShape3D" parent="HeadMesh/Eyes/FieldOfView"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 1)
@@ -150,8 +150,8 @@ text = "ZZZ"
 font = ExtResource("3_akj6c")
 font_size = 16
 
-[connection signal="body_entered" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_body_entered"]
-[connection signal="body_exited" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_body_exited"]
+[connection signal="area_entered" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_area_entered"]
+[connection signal="area_exited" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_area_exited"]
 
 [editable path="SpeechBubble"]
 [editable path="SpeechBubble/curved_box"]

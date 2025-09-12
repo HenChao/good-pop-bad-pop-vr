@@ -31,7 +31,7 @@ var _speech_cycle: int = 0
 var _speech_time: float = 0.0
 var _speech_rate: float = 1.0
 
-var _tracked_toy: Toy
+var _tracked_toy_area: Area3D
 var _update_tracking_timing: float = 0.0
 var _update_tracking_period: float = 2.0
 
@@ -65,8 +65,8 @@ func _physics_process(delta: float) -> void:
 		_update_tracking_timing = 0.0
 		# Look at dad, unless held toy enters field of view
 		var look_at_target_position: Vector3 = (
-			_tracked_toy.global_position
-			if _tracked_toy
+			_tracked_toy_area.global_position
+			if _tracked_toy_area
 			else get_viewport().get_camera_3d().global_position
 		)
 		head_mesh.look_at(look_at_target_position, Vector3.UP, true)
@@ -191,11 +191,9 @@ func _update_energy_bar() -> void:
 	energy_bar_shader_material.set_shader_parameter("EnergyPercentage", current_energy / max_energy)
 
 
-func _on_field_of_view_body_entered(body: Node3D) -> void:
-	if body is Toy:
-		_tracked_toy = body
+func _on_field_of_view_area_entered(area: Area3D) -> void:
+	_tracked_toy_area = area
 
 
-func _on_field_of_view_body_exited(body: Node3D) -> void:
-	if body == _tracked_toy:
-		_tracked_toy = null
+func _on_field_of_view_area_exited(_area: Area3D) -> void:
+	_tracked_toy_area = null

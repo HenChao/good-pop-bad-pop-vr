@@ -55,6 +55,7 @@ var script_manager: ScriptManager
 @onready var mom_puter: ComputerScreen = %ComputerScreen
 @onready var baby: Baby = %Baby
 @onready var interrogation_table: InterrogationTable = %InterrogationTable
+@onready var overhead_light: XRToolsPickable = %OverheadLight
 
 
 func _ready() -> void:
@@ -87,3 +88,11 @@ func start_level() -> void:
 func set_script_manager(sm: ScriptManager) -> void:
 	script_manager = sm
 	sm.set_actors(mom_puter, dad_speech_bubble, baby)
+
+
+func set_player_reference(player: Player) -> void:
+	player.player_persona_changed.connect(_on_pop_switch)
+
+
+func _on_pop_switch() -> void:
+	overhead_light.update_lighting()

@@ -196,7 +196,7 @@ func _determine_mood() -> void:
 		set_expression(Dialogue.Expressions.SMILING)
 	elif _is_between(current_mood, 85.0, 100.0):
 		set_expression(Dialogue.Expressions.JOYFUL)
-	
+
 	$Debug.text = "Current mood: %f" % current_mood
 
 
@@ -226,4 +226,4 @@ func _on_toy_interaction(value: float) -> void:
 
 
 func _on_sweat_animation_timer_timeout() -> void:
-	sweat.text = "'" if sweat.text == "\"" else "\""
+	sweat.text = "'" if sweat.text == '"' else '"'

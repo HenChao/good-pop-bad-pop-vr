@@ -22,9 +22,7 @@ func _ready() -> void:
 ## Sets the global position of the collision point to pass into shader.
 func update_cursor_position(cursor_position: Vector3) -> void:
 	var world_position: Vector3 = to_global(cursor_position)
-	_shader_material.set_shader_parameter(
-		"CursorPosition", world_position
-	)
+	_shader_material.set_shader_parameter("CursorPosition", world_position)
 
 
 ## Called when player hand pressed a button from a controller.

@@ -36,7 +36,8 @@ func _ready() -> void:
 		haptics_component, "No Haptics Component defined in %s of %s" % [name, get_parent().name]
 	)
 	assert(
-		return_to_snap_zone_node, "No XRToolsReturnToSnapZone assigned in %s of %s" % [name, get_parent().name]
+		return_to_snap_zone_node,
+		"No XRToolsReturnToSnapZone assigned in %s of %s" % [name, get_parent().name]
 	)
 	assert(
 		toy_tracking_area, "No Toy Tracking Area assigned in %s of %s" % [name, get_parent().name]

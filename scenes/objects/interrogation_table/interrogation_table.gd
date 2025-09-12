@@ -6,18 +6,14 @@ extends StaticBody3D
 @onready var toy_snap_zone_1: XRToolsSnapZone = %ToySnapZone1
 @onready var toy_snap_zone_2: XRToolsSnapZone = %ToySnapZone2
 @onready var toy_snap_zone_3: XRToolsSnapZone = %ToySnapZone3
-@onready var toy_snap_zones: Array[XRToolsSnapZone] = [
-	%ToySnapZone1, %ToySnapZone2, %ToySnapZone3
-]
+@onready var toy_snap_zones: Array[XRToolsSnapZone] = [%ToySnapZone1, %ToySnapZone2, %ToySnapZone3]
 @onready var toys_tree: Node3D = %ToysTree
 
 
 func _ready() -> void:
 	if toys_array.size() < toy_snap_zones.size():
-		assert(
-			false,
-			"Not enough toys assigned to interrogation table in %s" % get_parent().name
-		)
+		assert(false, "Not enough toys assigned to interrogation table in %s" % get_parent().name)
+
 
 func initialize_toys() -> void:
 	toys_array.shuffle()

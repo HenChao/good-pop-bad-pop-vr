@@ -25,9 +25,27 @@ Mom::Good. We'll bring in the suspect now.
 
 const FIRST_ROUND: String = """
 Dad::Well well well, I had a feeling I'd see you in here again one of these days.
-Baby::I know I've been in trouble before, but I didn't do anything!
+Baby:Scared:I know I've been in trouble before, but I didn't do anything!
 Dad::We'll see about that. What do you know about the cookie from the cookie jar?
-Baby::Cookie? What's a cookie? Never heard of any cookies.
+Baby:Annoyed:Cookie? What's a cookie? Never heard of any cookies.
+"""
+
+const SECOND_ROUND: String = """
+Baby:Smiling:Oh, the COOKIE jar you said? Yes I think I remembered seeing someone around the jar tonight.
+Dad::Who did you see?
+Baby:Smiling:It was Jerry, the kitchen mouse. He must have taken the cookie...
+"""
+
+const SECOND_ROUND_INTERLUDE: String = """
+Dad::Chief, I've got a problem here. No matter what I do, I'm not getting any further with the interrogation.
+Mom::Hmm, it might be time for a shift in strategy.
+Mom::Rather than keeping the suspect relaxed, try and apply some pressure to see if they'll break.
+Mom::Raise your hands up to your eyes and play peek-a-boo. When the suspect sees you again, they'll see someone else.
+Mom::Play the role of the bad pop and be more aggressive with your questioning.
+Mom::Just remember, don't take it too far, or else they'll call for their lawyer.
+Mom::Once you think you've gotten them sufficiently scared, then play peek-a-boo again to switch back to good pop.
+Mom::You should then be able to play with them and get them back to a good spot.
+Dad::Alright Chief, I'll give it a shot.
 """
 # gdlint: enable=max-line-length
 
@@ -51,6 +69,19 @@ func start_level() -> void:
 	await script_manager.start_scene(FIRST_ROUND)
 	baby.start_interrogation()
 	interrogation_table.initialize_toys()
+	await baby.sufficiently_entertained
+	await script_manager.start_scene(SECOND_ROUND)
+	# Set stats for the second round
+	baby.current_mood = 50.0
+	baby.happiness_gate = 80.0
+	baby.fearfullness_gate = 30.0
+	baby.max_energy = 200.0
+	baby.current_energy = 200.0
+	baby.start_interrogation()
+	await baby.happiness_gate_reached
+	baby.stop_interrogation()
+	await script_manager.start_scene(SECOND_ROUND_INTERLUDE)
+	baby.start_interrogation()
 
 
 func set_script_manager(sm: ScriptManager) -> void:

@@ -62,7 +62,21 @@ func _parse_script(scene_text: String) -> Array[Dialogue]:
 			"Baby":
 				dialogue.speaker = Dialogue.Speakers.BABY
 		if split_line[1]:
-			dialogue.expression = split_line[1]
+			match split_line[1]:
+				"Crying":
+					dialogue.expression = Dialogue.Expressions.CRYING
+				"Scared":
+					dialogue.expression = Dialogue.Expressions.SCARED
+				"Annoyed":
+					dialogue.expression = Dialogue.Expressions.ANNOYED
+				"Neutral":
+					dialogue.expression = Dialogue.Expressions.NEUTRAL
+				"Surprised":
+					dialogue.expression = Dialogue.Expressions.SURPRISED
+				"Smiling":
+					dialogue.expression = Dialogue.Expressions.SMILING
+				"Joyful":
+					dialogue.expression = Dialogue.Expressions.JOYFUL
 		dialogue.line = split_line[2]
 		script.append(dialogue)
 	return script

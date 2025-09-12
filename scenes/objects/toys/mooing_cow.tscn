@@ -1,0 +1,103 @@
+[gd_scene load_steps=17 format=3 uid="uid://d3k3vrx3x10k3"]
+
+[ext_resource type="Script" uid="uid://cy63rik3kjg82" path="res://globals/custom_classes/toy.gd" id="1_8n1g2"]
+[ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="3_0v325"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="4_0pwtc"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="5_q0o0k"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="6_rno8c"]
+[ext_resource type="PackedScene" uid="uid://850q10sj8ogl" path="res://scenes/components/activate_component.tscn" id="7_tifye"]
+[ext_resource type="PackedScene" uid="uid://b080583xv1kh5" path="res://scenes/components/audio_component.tscn" id="8_anyvt"]
+[ext_resource type="AudioStream" uid="uid://cwxst0qhqsqcl" path="res://resources/sfx/cow-box-96547.wav" id="8_drxdp"]
+[ext_resource type="PackedScene" uid="uid://b3n3o0k81ajqi" path="res://scenes/components/haptics_component.tscn" id="10_hqufm"]
+[ext_resource type="Script" uid="uid://nq23qxmu5sxt" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="11_0papn"]
+[ext_resource type="Script" uid="uid://bptmedpopls3j" path="res://addons/godot-xr-tools/objects/return_to_snap_zone.gd" id="12_nyvee"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ot5ll"]
+rough = true
+bounce = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_drxdp"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8n1g2"]
+height = 0.1
+radius = 0.05
+
+[sub_resource type="Resource" id="Resource_drxdp"]
+script = ExtResource("11_0papn")
+magnitude = 0.3
+active_during_pause = false
+indefinite = false
+duration_ms = 3000
+metadata/_custom_type_script = "uid://nq23qxmu5sxt"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ot5ll"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="MooingCow" type="RigidBody3D" node_paths=PackedStringArray("active_component", "audio_component", "haptics_component", "return_to_snap_zone_node", "toy_tracking_area", "points_randomizer_timer")]
+collision_layer = 4
+collision_mask = 65543
+physics_material_override = SubResource("PhysicsMaterial_ot5ll")
+script = ExtResource("1_8n1g2")
+toy_hint = "Mooing cow
+
+Flip upside down."
+active_component = NodePath("ActivateComponent")
+audio_component = NodePath("AudioComponent")
+haptics_component = NodePath("HapticsComponent")
+return_to_snap_zone_node = NodePath("XRToolsReturnToSnapZone")
+toy_tracking_area = NodePath("ToyTrackingArea")
+points_randomizer_timer = NodePath("PointsRandomizerTimer")
+ranged_grab_method = 2
+metadata/_custom_type_script = "uid://biwl5by0syfgs"
+
+[node name="ToyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("CylinderMesh_drxdp")
+
+[node name="CylinderCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CylinderShape3D_8n1g2")
+
+[node name="HighlightRing" parent="." instance=ExtResource("3_0v325")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="GrabPointSnap" parent="." instance=ExtResource("4_0pwtc")]
+require_group = "ToySlot"
+exclude_group = "Handle"
+
+[node name="GrabPointHandLeft" parent="." instance=ExtResource("5_q0o0k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0.0950519, -0.08)
+
+[node name="GrabPointHandRight" parent="." instance=ExtResource("6_rno8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04, 0.0950519, -0.08)
+
+[node name="PointsRandomizerTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 30.0
+
+[node name="ActivateComponent" parent="." instance=ExtResource("7_tifye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.067, 0)
+is_flipped = true
+
+[node name="AudioComponent" parent="." instance=ExtResource("8_anyvt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.067, 0)
+audio_stream = ExtResource("8_drxdp")
+
+[node name="HapticsComponent" parent="." instance=ExtResource("10_hqufm")]
+rumble_event = SubResource("Resource_drxdp")
+
+[node name="XRToolsReturnToSnapZone" type="Node" parent="."]
+script = ExtResource("12_nyvee")
+return_delay = 3.0
+metadata/_custom_type_script = "uid://bptmedpopls3j"
+
+[node name="ToyTrackingArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+collision_layer = 65536
+collision_mask = 65536
+
+[node name="BoxShape" type="CollisionShape3D" parent="ToyTrackingArea"]
+shape = SubResource("BoxShape3D_ot5ll")

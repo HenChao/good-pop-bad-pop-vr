@@ -84,7 +84,8 @@ func start_level() -> void:
 	await script_manager.start_scene(FIRST_ROUND)
 	# Start first round interrogation
 	baby.start_interrogation()
-	interrogation_table.initialize_toys()
+	mom_puter.set_state(ComputerScreen.States.OFF_SCREEN)
+	_setup_toys()
 	await baby.sufficiently_entertained
 	# Baby is happy enought, start second round
 	await script_manager.start_scene(SECOND_ROUND)
@@ -98,8 +99,10 @@ func start_level() -> void:
 	# Hit a wall in the interrogation
 	await baby.happiness_gate_reached
 	baby.stop_interrogation()
+	mom_puter.set_state(ComputerScreen.States.SILENT)
 	await script_manager.start_scene(SECOND_ROUND_INTERLUDE)
 	# Continue interrogation, need to be bad pop now
+	mom_puter.set_state(ComputerScreen.States.OFF_SCREEN)
 	baby.start_interrogation()
 	await baby.fearfullness_gate_reached
 	baby.stop_interrogation()
@@ -120,5 +123,15 @@ func set_player_reference(player: Player) -> void:
 	player.player_persona_changed.connect(_on_pop_switch)
 
 
+func _setup_toys() -> void:
+	interrogation_table.initialize_toys()
+	for zone in interrogation_table.toy_snap_zones:
+		(zone.picked_up_object as Toy).pick_up_hint.connect(_on_toy_pickup)
+
+
 func _on_pop_switch() -> void:
 	overhead_light.update_lighting()
+
+
+func _on_toy_pickup(hint: String) -> void:
+	mom_puter.toy_hint.text = hint

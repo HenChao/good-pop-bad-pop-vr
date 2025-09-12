@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://bhc2iutvt1kg3"]
+[gd_scene load_steps=21 format=3 uid="uid://bhc2iutvt1kg3"]
 
 [ext_resource type="Script" uid="uid://bsbrkntygd0ba" path="res://scenes/objects/computer_screen/computer_screen.gd" id="1_0uv0j"]
 [ext_resource type="PackedScene" uid="uid://bkimvne12ewqt" path="res://resources/computer_monitor.glb" id="1_6upp4"]
 [ext_resource type="Shader" uid="uid://c3glpjgt37v8d" path="res://scenes/objects/computer_screen/screenbody.tres" id="1_agxf3"]
 [ext_resource type="Texture2D" uid="uid://cr4nmb14opgqo" path="res://resources/textures/chief_of_police.png" id="3_85tyx"]
 [ext_resource type="Texture2D" uid="uid://btahqi36cvrbn" path="res://resources/textures/chief_of_police_eyes_normal.png" id="4_fkh0m"]
+[ext_resource type="FontFile" uid="uid://b265opj1lmq2m" path="res://resources/Funnel_Sans/static/FunnelSans-Bold.ttf" id="4_hhtu7"]
 [ext_resource type="Texture2D" uid="uid://ymufnmitfrh2" path="res://resources/textures/chief_of_police_mouth.png" id="5_injx0"]
 [ext_resource type="Texture2D" uid="uid://dh7djnfkue6y6" path="res://resources/textures/chief_of_police_side_eyes.png" id="6_injx0"]
 [ext_resource type="PackedScene" uid="uid://b7vic2dqnsb2g" path="res://scenes/ui/speech_bubble/speech_bubble.tscn" id="7_652pl"]
@@ -85,6 +86,18 @@ shape = SubResource("BoxShape3D_8gq4u")
 [node name="ComputerMonitor" parent="computer_monitor" index="0"]
 surface_material_override/0 = SubResource("ShaderMaterial_85tyx")
 
+[node name="ToyHint" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.226154, 0.146278, 0.08566)
+visible = false
+font = ExtResource("4_hhtu7")
+font_size = 12
+outline_size = 6
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 2
+width = 100.0
+
 [node name="ScreenMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0857154)
@@ -100,7 +113,7 @@ pixel_size = 0.001
 sprite_frames = SubResource("SpriteFrames_hhtu7")
 animation = &"talking"
 autoplay = "talking"
-frame_progress = 0.672321
+frame_progress = 0.391376
 
 [node name="EyesSprite3D" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
@@ -127,7 +140,7 @@ text = "Chief of Police Mom"
 text = "Get on the case!"
 
 [node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
-text = "Press a/x to continue."
+text = "Press a/x to continue..."
 
 [editable path="computer_monitor"]
 [editable path="SpeechBubble"]

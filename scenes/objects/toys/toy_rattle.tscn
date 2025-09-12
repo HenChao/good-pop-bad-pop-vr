@@ -1,0 +1,114 @@
+[gd_scene load_steps=19 format=3 uid="uid://brm67naqlyh56"]
+
+[ext_resource type="Script" uid="uid://cy63rik3kjg82" path="res://globals/custom_classes/toy.gd" id="1_6lcba"]
+[ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="2_xx1in"]
+[ext_resource type="PackedScene" uid="uid://dh8grd7s3n8kg" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_snap.tscn" id="3_ybrwa"]
+[ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_wjb56"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_sjsli"]
+[ext_resource type="PackedScene" uid="uid://850q10sj8ogl" path="res://scenes/components/activate_component.tscn" id="6_sf14s"]
+[ext_resource type="PackedScene" uid="uid://b080583xv1kh5" path="res://scenes/components/audio_component.tscn" id="7_x4cg2"]
+[ext_resource type="AudioStream" uid="uid://cguvmtmxqp2uh" path="res://resources/sfx/rattle-toy-infant-stuffet-animal_2l-108230.wav" id="8_6lcba"]
+[ext_resource type="PackedScene" uid="uid://b3n3o0k81ajqi" path="res://scenes/components/haptics_component.tscn" id="9_nfjeo"]
+[ext_resource type="Script" uid="uid://nq23qxmu5sxt" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="10_klmhy"]
+[ext_resource type="Script" uid="uid://bptmedpopls3j" path="res://addons/godot-xr-tools/objects/return_to_snap_zone.gd" id="11_xlfpp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ot5ll"]
+rough = true
+bounce = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dlc71"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_6lcba"]
+radius = 0.04
+height = 0.08
+
+[sub_resource type="TorusMesh" id="TorusMesh_dlc71"]
+inner_radius = 0.005
+outer_radius = 0.03
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dlc71"]
+radius = 0.05
+height = 0.2
+
+[sub_resource type="Resource" id="Resource_drxdp"]
+script = ExtResource("10_klmhy")
+magnitude = 0.3
+active_during_pause = false
+indefinite = false
+duration_ms = 1440
+metadata/_custom_type_script = "uid://nq23qxmu5sxt"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ot5ll"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="ToyRattle" type="RigidBody3D" node_paths=PackedStringArray("active_component", "audio_component", "haptics_component", "return_to_snap_zone_node", "toy_tracking_area", "points_randomizer_timer")]
+collision_layer = 4
+collision_mask = 65543
+physics_material_override = SubResource("PhysicsMaterial_ot5ll")
+script = ExtResource("1_6lcba")
+toy_hint = "Toy Rattle
+
+Shake the toy."
+active_component = NodePath("ActivateComponent")
+audio_component = NodePath("AudioComponent")
+haptics_component = NodePath("HapticsComponent")
+return_to_snap_zone_node = NodePath("XRToolsReturnToSnapZone")
+toy_tracking_area = NodePath("ToyTrackingArea")
+points_randomizer_timer = NodePath("PointsRandomizerTimer")
+ranged_grab_method = 2
+metadata/_custom_type_script = "uid://biwl5by0syfgs"
+
+[node name="ToyMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_dlc71")
+
+[node name="HeadMesh" type="MeshInstance3D" parent="ToyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0484842, 0)
+mesh = SubResource("SphereMesh_6lcba")
+
+[node name="TailMesh" type="MeshInstance3D" parent="ToyMesh"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0664953, 0)
+mesh = SubResource("TorusMesh_dlc71")
+
+[node name="CapsuleCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_dlc71")
+
+[node name="HighlightRing" parent="." instance=ExtResource("2_xx1in")]
+
+[node name="GrabPointSnap" parent="." instance=ExtResource("3_ybrwa")]
+require_group = "ToySlot"
+exclude_group = "Handle"
+
+[node name="GrabPointHandLeft" parent="." instance=ExtResource("4_wjb56")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0.01, -0.086)
+
+[node name="GrabPointHandRight" parent="." instance=ExtResource("5_sjsli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0.01, -0.086)
+
+[node name="PointsRandomizerTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 30.0
+
+[node name="ActivateComponent" parent="." instance=ExtResource("6_sf14s")]
+is_shaken = true
+
+[node name="AudioComponent" parent="." instance=ExtResource("7_x4cg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0607302, 0)
+audio_stream = ExtResource("8_6lcba")
+
+[node name="HapticsComponent" parent="." instance=ExtResource("9_nfjeo")]
+rumble_event = SubResource("Resource_drxdp")
+
+[node name="XRToolsReturnToSnapZone" type="Node" parent="."]
+script = ExtResource("11_xlfpp")
+return_delay = 3.0
+metadata/_custom_type_script = "uid://bptmedpopls3j"
+
+[node name="ToyTrackingArea" type="Area3D" parent="."]
+collision_layer = 65536
+collision_mask = 65536
+
+[node name="BoxShape" type="CollisionShape3D" parent="ToyTrackingArea"]
+shape = SubResource("BoxShape3D_ot5ll")

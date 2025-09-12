@@ -4,6 +4,11 @@ extends XRToolsPickable
 
 ## Emit when toy is activated by player. Value is based on if player is good pop or bad pop.
 signal activated(value: float)
+## Emit when picked up by player. Passes the hint text for the toy.
+signal pick_up_hint(hint: String)
+
+## How the toy is activated
+@export_multiline var toy_hint: String
 
 @export_group("Components Parameters")
 @export var active_component: ActivateComponent
@@ -70,10 +75,13 @@ func _on_hand_grab(_pickable: Variant, by: Variant) -> void:
 	if by.get_parent() is XRController3D:
 		_currently_held_hand = by.get_parent()
 		haptics_component.rumble_controller(_currently_held_hand, 0.2, 100)
+		pick_up_hint.emit(toy_hint)
 
 
 func _on_hand_release(_pickable: Variant, by: Variant) -> void:
 	if _currently_held_hand == by.get_parent():
+		haptics_component.stop_rumble(_currently_held_hand)
+		audio_component.stop_sound()
 		_currently_held_hand = null
 
 

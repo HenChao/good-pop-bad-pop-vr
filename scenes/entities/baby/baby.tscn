@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dstu4u4xea1r8"]
+[gd_scene load_steps=17 format=3 uid="uid://dstu4u4xea1r8"]
 
 [ext_resource type="Shader" uid="uid://ddrpmnosfw8p7" path="res://scenes/entities/baby/baby.tres" id="1_r3wtf"]
 [ext_resource type="Script" uid="uid://bsme3d5bjidqq" path="res://scenes/entities/baby/baby.gd" id="1_vecyw"]
@@ -14,6 +14,9 @@ height = 0.2
 render_priority = 0
 shader = ExtResource("1_r3wtf")
 shader_parameter/ColorParameter = Color(1, 0.67, 0.67, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1y16u"]
+radius = 0.12
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vecyw"]
 render_priority = 0
@@ -84,8 +87,6 @@ shader_parameter/EnergyPercentage = 1.0
 
 [node name="Baby" type="Node3D"]
 script = ExtResource("1_vecyw")
-max_energy = null
-is_being_interrogated = null
 
 [node name="HeadMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -99,21 +100,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0458008, 0.0964422)
 modulate = Color(0.729412, 0.729412, 0.729412, 1)
 text = "><"
 font = ExtResource("3_akj6c")
-font_size = 20
+font_size = 30
+
+[node name="FieldOfView" type="Area3D" parent="HeadMesh/Eyes"]
+collision_layer = 65536
+collision_mask = 65536
+
+[node name="Cone" type="CollisionShape3D" parent="HeadMesh/Eyes/FieldOfView"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 1)
+shape = SubResource("CylinderShape3D_1y16u")
 
 [node name="Mouth" type="Label3D" parent="HeadMesh"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0157096, 0.0555415)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0561547, 0.096)
 modulate = Color(0.729412, 0.729412, 0.729412, 1)
 text = "~"
 font_size = 16
+
+[node name="Sweat" type="Label3D" parent="HeadMesh"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114081, 0.0810093, 0.0786652)
+visible = false
+text = "\""
+
+[node name="SweatAnimationTimer" type="Timer" parent="HeadMesh/Sweat"]
+autostart = true
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_31d5v")
 
 [node name="SpeechBubble" parent="." instance=ExtResource("3_31d5v")]
 unique_name_in_owner = true
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.974364, 0.855036, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.457198, 0.758993, 0)
 visible = false
 speaker_name = "Baby"
 example_text = "I goo, therefore, I ga."
@@ -128,11 +146,12 @@ text = "Baby"
 text = "I goo, therefore, I ga."
 
 [node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
-text = "Press a/x to continue"
+text = "Press a/x to continue."
 
 [node name="EnergyBar" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.271999, 0.465185, 0)
+visible = false
 mesh = SubResource("CylinderMesh_akj6c")
 surface_material_override/0 = SubResource("ShaderMaterial_7b0pr")
 
@@ -142,6 +161,15 @@ modulate = Color(0.560784, 1, 0.568627, 1)
 text = "ZZZ"
 font = ExtResource("3_akj6c")
 font_size = 16
+
+[node name="Debug" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.445752, 0.289776, 0)
+visible = false
+text = "Debug"
+
+[connection signal="area_entered" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_area_entered"]
+[connection signal="area_exited" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_area_exited"]
+[connection signal="timeout" from="HeadMesh/Sweat/SweatAnimationTimer" to="." method="_on_sweat_animation_timer_timeout"]
 
 [editable path="SpeechBubble"]
 [editable path="SpeechBubble/curved_box"]

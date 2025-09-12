@@ -2,8 +2,13 @@
 class_name MainMenu
 extends Node3D
 
-@onready var level_manager: LevelManager = $"../../LevelManager"
 @export var player_body: XRToolsPlayerBody
+@export var level_manager: LevelManager
+
+
+func _ready() -> void:
+	assert(player_body, "Player Body Node not assigned.")
+	assert(level_manager, "Level manager node not assigned.")
 
 
 func _on_start_button_button_pressed() -> void:

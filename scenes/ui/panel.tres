@@ -1,61 +1,22 @@
-[gd_resource type="VisualShader" load_steps=15 format=3 uid="uid://b7it3xoc2eqhs"]
-
-[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_tsyrg"]
-parameter_name = "CursorDistanceFactor"
-default_value_enabled = true
-default_value = 10.0
-
-[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_q8yca"]
-operator = 3
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://b7it3xoc2eqhs"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_t1l5u"]
 parameter_name = "PrimaryColor"
 default_value_enabled = true
-default_value = Color(1, 0, 0, 1)
+default_value = Color(0.53, 1, 0.984333, 1)
 
-[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_vxbke"]
-default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(1, 1, 1, 1), 2, Quaternion(0.5, 0.5, 0.5, 0.5)]
-op_type = 5
-
-[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_tsyrg"]
-default_input_values = [0, 0.6, 1, 0.4, 2, 0.5]
-
-[sub_resource type="VisualShaderNodeVec3Parameter" id="VisualShaderNodeVec3Parameter_tsyrg"]
-parameter_name = "CursorPosition"
-
-[sub_resource type="VisualShaderNodeVectorDistance" id="VisualShaderNodeVectorDistance_q8yca"]
-
-[sub_resource type="VisualShaderNodeVec3Parameter" id="VisualShaderNodeVec3Parameter_t1l5u"]
-parameter_name = "ButtonSize"
-
-[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_tsyrg"]
-
-[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_fraqp"]
-parameter_name = "BackgroundColor"
-default_value_enabled = true
-default_value = Color(0.2, 0, 0, 1)
-
-[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_r2hd6"]
-default_input_values = [0, 0.0, 1, 2.0]
-operator = 3
-
-[sub_resource type="VisualShaderNodeVectorLen" id="VisualShaderNodeVectorLen_pod5t"]
-
-[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_lcn1o"]
-input_name = "vertex"
-
-[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_k76qe"]
-operator = 2
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_tsyrg"]
+constant = 0.3
 
 [resource]
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
 
-uniform vec4 PrimaryColor : source_color = vec4(1.000000, 0.000000, 0.000000, 1.000000);
-uniform vec4 BackgroundColor : source_color = vec4(0.200000, 0.000000, 0.000000, 1.000000);
-uniform vec3 CursorPosition;
-uniform float CursorDistanceFactor = 10.0;
-uniform vec3 ButtonSize;
+
+// Varyings
+varying float var_debug_vector_length;
+
+uniform vec4 PrimaryColor : source_color = vec4(0.530000, 1.000000, 0.984333, 1.000000);
 
 
 
@@ -64,99 +25,23 @@ void fragment() {
 	vec4 n_out12p0 = PrimaryColor;
 
 
-// ColorParameter:2
-	vec4 n_out2p0 = BackgroundColor;
-
-
-// Vector3Parameter:16
-	vec3 n_out16p0 = CursorPosition;
-
-
-// Input:8
-	vec3 n_out8p0 = VERTEX;
-
-
-// Distance:17
-	float n_out17p0 = distance(n_out16p0, n_out8p0);
-
-
-// FloatParameter:10
-	float n_out10p0 = CursorDistanceFactor;
-
-
-// FloatOp:9
-	float n_out9p0 = n_out17p0 * n_out10p0;
-
-
-// Vector3Parameter:18
-	vec3 n_out18p0 = ButtonSize;
-
-
-// FloatOp:5
-	float n_in5p1 = 2.00000;
-	float n_out5p0 = n_out18p0.x / n_in5p1;
-
-
-// VectorLen:6
-	float n_out6p0 = length(vec3(n_out5p0));
-
-
-// FloatOp:11
-	float n_out11p0 = n_out9p0 / n_out6p0;
-
-
-// Clamp:19
-	float n_in19p1 = 0.00000;
-	float n_in19p2 = 1.00000;
-	float n_out19p0 = clamp(n_out11p0, n_in19p1, n_in19p2);
-
-
-// Mix:13
-	vec4 n_out13p0 = mix(n_out12p0, n_out2p0, vec4(n_out19p0));
-
-
-// Mix:15
-	float n_in15p0 = 0.60000;
-	float n_in15p1 = 0.40000;
-	float n_out15p0 = mix(n_in15p0, n_in15p1, n_out19p0);
+// FloatConstant:13
+	float n_out13p0 = 0.300000;
 
 
 // Output:0
-	ALBEDO = vec3(n_out13p0.xyz);
-	ALPHA = n_out15p0;
+	ALBEDO = vec3(n_out12p0.xyz);
+	ALPHA = n_out13p0;
 
 
+	var_debug_vector_length = 0.0;
 }
 "
-graph_offset = Vector2(-282.367, -42.437)
 flags/unshaded = true
+varyings/debug_vector_length = "1,0"
 nodes/fragment/0/position = Vector2(920, 240)
-nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_fraqp")
-nodes/fragment/2/position = Vector2(-140, -60)
-nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_r2hd6")
-nodes/fragment/5/position = Vector2(-1240, 360)
-nodes/fragment/6/node = SubResource("VisualShaderNodeVectorLen_pod5t")
-nodes/fragment/6/position = Vector2(-900, 320)
-nodes/fragment/8/node = SubResource("VisualShaderNodeInput_lcn1o")
-nodes/fragment/8/position = Vector2(-1460, -260)
-nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_k76qe")
-nodes/fragment/9/position = Vector2(-700, -60)
-nodes/fragment/10/node = SubResource("VisualShaderNodeFloatParameter_tsyrg")
-nodes/fragment/10/position = Vector2(-1100, -40)
-nodes/fragment/11/node = SubResource("VisualShaderNodeFloatOp_q8yca")
-nodes/fragment/11/position = Vector2(-400, 180)
 nodes/fragment/12/node = SubResource("VisualShaderNodeColorParameter_t1l5u")
-nodes/fragment/12/position = Vector2(-140, -360)
-nodes/fragment/13/node = SubResource("VisualShaderNodeMix_vxbke")
-nodes/fragment/13/position = Vector2(400, 20)
-nodes/fragment/15/node = SubResource("VisualShaderNodeMix_tsyrg")
-nodes/fragment/15/position = Vector2(320, 380)
-nodes/fragment/16/node = SubResource("VisualShaderNodeVec3Parameter_tsyrg")
-nodes/fragment/16/position = Vector2(-1480, -620)
-nodes/fragment/17/node = SubResource("VisualShaderNodeVectorDistance_q8yca")
-nodes/fragment/17/position = Vector2(-964.296, -443.598)
-nodes/fragment/18/node = SubResource("VisualShaderNodeVec3Parameter_t1l5u")
-nodes/fragment/18/position = Vector2(-1660, 220)
-nodes/fragment/19/node = SubResource("VisualShaderNodeClamp_tsyrg")
-nodes/fragment/19/position = Vector2(-80, 260)
-nodes/fragment/connections = PackedInt32Array(5, 0, 6, 0, 10, 0, 9, 1, 12, 0, 13, 0, 2, 0, 13, 1, 6, 0, 11, 1, 9, 0, 11, 0, 13, 0, 0, 0, 15, 0, 0, 1, 16, 0, 17, 0, 8, 0, 17, 1, 17, 0, 9, 0, 18, 0, 5, 0, 11, 0, 19, 0, 19, 0, 13, 2, 19, 0, 15, 2)
+nodes/fragment/12/position = Vector2(600, 160)
+nodes/fragment/13/node = SubResource("VisualShaderNodeFloatConstant_tsyrg")
+nodes/fragment/13/position = Vector2(660, 360)
+nodes/fragment/connections = PackedInt32Array(12, 0, 0, 0, 13, 0, 0, 1)

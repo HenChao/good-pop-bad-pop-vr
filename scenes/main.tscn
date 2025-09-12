@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjyq1ici8dgth"]
+[gd_scene load_steps=12 format=3 uid="uid://bjyq1ici8dgth"]
 
+[ext_resource type="Script" uid="uid://byngw4fm6w58y" path="res://scenes/main.gd" id="1_85g3d"]
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://cbddfyasu7hwi" path="res://scenes/entities/player/player.tscn" id="2_0wfyh"]
-[ext_resource type="Script" uid="uid://b7d56dxk37frb" path="res://scripts/level_manager.gd" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://b7d56dxk37frb" path="res://globals/managers/level_manager.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bsbv7nkwxoh1" path="res://scenes/ui/main_menu/main_menu.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bolsca47s82wm" path="res://scenes/levels/tutorial_level/TutorialLevel.tscn" id="4_tbgi4"]
-[ext_resource type="Script" uid="uid://bicrwbd7kk5kt" path="res://scripts/script_manager.gd" id="5_tefeu"]
+[ext_resource type="Script" uid="uid://bicrwbd7kk5kt" path="res://globals/managers/script_manager.gd" id="5_tefeu"]
+[ext_resource type="AudioStream" uid="uid://0vnjjsq6rbs6" path="res://resources/sfx/8-bit-game-sounds-68731.wav" id="6_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://b6hs5yojarnhh" path="res://scenes/ui/paused_menu/paused_menu.tscn" id="9_85g3d"]
 
 [sub_resource type="Environment" id="Environment_o5qli"]
 background_mode = 1
@@ -16,6 +19,8 @@ reflected_light_source = 1
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_tefeu"]
 
 [node name="Main" type="Node3D"]
+process_mode = 3
+script = ExtResource("1_85g3d")
 
 [node name="StartXR" parent="." instance=ExtResource("1_o5qli")]
 
@@ -31,20 +36,38 @@ shape = SubResource("WorldBoundaryShape3D_tefeu")
 unique_name_in_owner = true
 
 [node name="LevelManager" type="Node3D" parent="." node_paths=PackedStringArray("xr_camera_3d")]
+process_mode = 1
 script = ExtResource("3_jyhfs")
 xr_camera_3d = NodePath("../Player/XRCamera3D")
 tutorial_level_scene = ExtResource("4_tbgi4")
 
-[node name="ScriptManager" type="Node3D" parent="." node_paths=PackedStringArray("left_controller", "right_controller")]
+[node name="ScriptManager" type="Node3D" parent="." node_paths=PackedStringArray("left_controller", "right_controller", "audio_player")]
+process_mode = 1
 script = ExtResource("5_tefeu")
 left_controller = NodePath("../Player/XRController3D_Left")
 right_controller = NodePath("../Player/XRController3D_Right")
+audio_player = NodePath("ActorAudioPlayer")
+dad_sound = ExtResource("6_o6xl0")
+mom_sound = ExtResource("6_o6xl0")
+baby_sound = ExtResource("6_o6xl0")
+
+[node name="ActorAudioPlayer" type="AudioStreamPlayer" parent="ScriptManager"]
 
 [node name="GameObjects" type="Node3D" parent="."]
 unique_name_in_owner = true
+process_mode = 1
 
-[node name="MainMenu" parent="GameObjects" node_paths=PackedStringArray("player_body") instance=ExtResource("3_sugp2")]
+[node name="MainMenu" parent="GameObjects" node_paths=PackedStringArray("player_body", "level_manager") instance=ExtResource("3_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
 player_body = NodePath("../../Player/PlayerBody")
+level_manager = NodePath("../../LevelManager")
+
+[node name="PausedMenu" parent="." node_paths=PackedStringArray("player_body") instance=ExtResource("9_85g3d")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -11)
+visible = false
+player_body = NodePath("../Player/PlayerBody")
+
+[connection signal="menu_button_hit" from="Player" to="." method="_on_player_menu_button_hit"]
 
 [editable path="Player"]

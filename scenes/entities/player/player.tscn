@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbddfyasu7hwi"]
+[gd_scene load_steps=12 format=3 uid="uid://cbddfyasu7hwi"]
 
 [ext_resource type="Script" uid="uid://dhv7co4bj5sk3" path="res://scenes/entities/player/player.gd" id="1_1ie0h"]
 [ext_resource type="PackedScene" uid="uid://btknduttnmoxf" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_ucweq"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="4_d4qa6"]
 [ext_resource type="Shader" uid="uid://dubqcnpalvti8" path="res://resources/shaders/hands.tres" id="5_dnykm"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_ss7kx"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="6_1murt"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bj7e2"]
+radius = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dnykm"]
 render_priority = 0
@@ -16,32 +20,59 @@ shader = ExtResource("5_dnykm")
 render_priority = 0
 shader = ExtResource("5_dnykm")
 
-[node name="Player" type="XROrigin3D"]
+[node name="Player" type="XROrigin3D" groups=["Player"]]
+process_mode = 3
+current = true
 script = ExtResource("1_1ie0h")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889091, 0)
 
 [node name="VRCommonShaderCache" parent="XRCamera3D" instance=ExtResource("1_ucweq")]
 
-[node name="XRController3D_Left" type="XRController3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.3)
+[node name="MouthArea" type="Area3D" parent="XRCamera3D" groups=["PlayerMouth"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.22)
+collision_layer = 2147483648
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRCamera3D/MouthArea"]
+shape = SubResource("SphereShape3D_bj7e2")
+
+[node name="XRController3D_Left" type="XRController3D" parent="." groups=["XRController"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.452461, -0.3)
 tracker = &"left_hand"
 
 [node name="FunctionPointer" parent="XRController3D_Left" instance=ExtResource("2_08t41")]
+process_mode = 3
+show_laser = 2
+laser_length = 1
 
 [node name="LeftHand" parent="XRController3D_Left" instance=ExtResource("4_d4qa6")]
 hand_material_override = SubResource("ShaderMaterial_dnykm")
 
-[node name="XRController3D_Right" type="XRController3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.2)
+[node name="FunctionPickup" parent="XRController3D_Left" instance=ExtResource("6_1murt")]
+
+[node name="XRController3D_Right" type="XRController3D" parent="." groups=["XRController"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.452461, -0.2)
 tracker = &"right_hand"
 
 [node name="FunctionPointer" parent="XRController3D_Right" instance=ExtResource("2_08t41")]
+process_mode = 3
+show_laser = 2
+laser_length = 1
 
 [node name="RightHand" parent="XRController3D_Right" instance=ExtResource("5_ss7kx")]
 hand_material_override = SubResource("ShaderMaterial_c5rqy")
 
-[node name="PlayerBody" parent="." instance=ExtResource("4_42nxq")]
+[node name="FunctionPickup" parent="XRController3D_Right" instance=ExtResource("6_1murt")]
 
+[node name="PlayerBody" parent="." instance=ExtResource("4_42nxq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.523194, 0)
+collision_mask = 993
+push_rigid_bodies = false
+
+[connection signal="button_pressed" from="XRController3D_Left" to="." method="_on_xr_controller_3d_left_button_pressed"]
 [connection signal="pointing_event" from="XRController3D_Left/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]
 [connection signal="pointing_event" from="XRController3D_Right/FunctionPointer" to="." method="_on_function_pointer_pointing_event"]

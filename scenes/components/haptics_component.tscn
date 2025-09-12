@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3n3o0k81ajqi"]
+
+[ext_resource type="Script" uid="uid://c60e712m8ricw" path="res://scenes/components/haptics_component.gd" id="1_4e0me"]
+
+[node name="HapticsComponent" type="Node3D"]
+script = ExtResource("1_4e0me")

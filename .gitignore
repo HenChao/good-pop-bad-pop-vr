@@ -1,4 +1,10 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Local Development
 /addons/xr-simulator
+/Include
+/Lib
+/scripts
+pyvenv.cfg

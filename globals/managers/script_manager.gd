@@ -7,6 +7,12 @@ signal scene_complete
 @export var left_controller: XRController3D
 @export var right_controller: XRController3D
 
+@export_group("Audio Resources")
+@export var audio_player: AudioStreamPlayer
+@export var dad_sound: AudioStreamWAV
+@export var mom_sound: AudioStreamWAV
+@export var baby_sound: AudioStreamWAV
+
 var _dad_speech_bubble: SpeechBubble
 var _mom_puter: ComputerScreen
 var _baby: Baby
@@ -27,8 +33,10 @@ func start_scene(scene_text: String) -> Signal:
 	var parsed_script: Array[Dialogue] = _parse_script(scene_text)
 	for dialogue in parsed_script:
 		await _display_speech_bubble(dialogue)
+		if audio_player.playing:
+			audio_player.stop()
 	_silence_all_actors()
-	call_deferred("emit_signal", scene_complete)
+	scene_complete.emit()
 	return scene_complete
 
 
@@ -40,9 +48,9 @@ func start_scene(scene_text: String) -> Signal:
 func _parse_script(scene_text: String) -> Array[Dialogue]:
 	var script: Array[Dialogue] = []
 	var lines: PackedStringArray = scene_text.split("\n")
-	
+
 	for line in lines:
-		if not line: # Skip an empty line.
+		if not line:  # Skip an empty line.
 			continue
 		var dialogue = Dialogue.new()
 		var split_line: PackedStringArray = line.split(":")
@@ -54,7 +62,21 @@ func _parse_script(scene_text: String) -> Array[Dialogue]:
 			"Baby":
 				dialogue.speaker = Dialogue.Speakers.BABY
 		if split_line[1]:
-			dialogue.expression = split_line[1]
+			match split_line[1]:
+				"Crying":
+					dialogue.expression = Dialogue.Expressions.CRYING
+				"Scared":
+					dialogue.expression = Dialogue.Expressions.SCARED
+				"Annoyed":
+					dialogue.expression = Dialogue.Expressions.ANNOYED
+				"Neutral":
+					dialogue.expression = Dialogue.Expressions.NEUTRAL
+				"Surprised":
+					dialogue.expression = Dialogue.Expressions.SURPRISED
+				"Smiling":
+					dialogue.expression = Dialogue.Expressions.SMILING
+				"Joyful":
+					dialogue.expression = Dialogue.Expressions.JOYFUL
 		dialogue.line = split_line[2]
 		script.append(dialogue)
 	return script
@@ -69,6 +91,7 @@ func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 	var active_speech_bubble: SpeechBubble = _set_active_dialogue(dialogue)
 	active_speech_bubble.set_text(dialogue.line)
 	_bind_controller_inputs_to_speech_bubble(active_speech_bubble)
+	_play_audio(dialogue.speaker)
 	_last_active_speaker = dialogue.speaker
 	return active_speech_bubble.confirmed_input
 
@@ -85,6 +108,22 @@ func _silence_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
 			_baby.set_state(Baby.States.SILENT)
 			return _baby.get_speech_bubble()
 	return null
+
+
+func _play_audio(speaker: Dialogue.Speakers) -> void:
+	var stream: AudioStreamWAV
+	match speaker:
+		Dialogue.Speakers.MOM:
+			stream = mom_sound
+			audio_player.pitch_scale = randf_range(0.9, 1.1)
+		Dialogue.Speakers.DAD:
+			stream = dad_sound
+			audio_player.pitch_scale = randf_range(0.5, 0.6)
+		Dialogue.Speakers.BABY:
+			stream = baby_sound
+			audio_player.pitch_scale = randf_range(1.9, 2.0)
+	audio_player.stream = stream
+	audio_player.play()
 
 
 func _set_active_dialogue(dialogue: Dialogue) -> SpeechBubble:
@@ -125,3 +164,5 @@ func _silence_all_actors() -> void:
 	_mom_puter.set_state(ComputerScreen.States.SILENT)
 	_dad_speech_bubble.visible = false
 	_baby.set_state(Baby.States.SILENT)
+	if audio_player.playing:
+		audio_player.stop()

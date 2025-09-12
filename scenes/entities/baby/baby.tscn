@@ -117,6 +117,15 @@ modulate = Color(0.729412, 0.729412, 0.729412, 1)
 text = "~"
 font_size = 16
 
+[node name="Sweat" type="Label3D" parent="HeadMesh"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114081, 0.0810093, 0.0786652)
+visible = false
+text = "\""
+
+[node name="SweatAnimationTimer" type="Timer" parent="HeadMesh/Sweat"]
+autostart = true
+
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_31d5v")
 
@@ -160,6 +169,7 @@ text = "Debug"
 
 [connection signal="area_entered" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_area_entered"]
 [connection signal="area_exited" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_area_exited"]
+[connection signal="timeout" from="HeadMesh/Sweat/SweatAnimationTimer" to="." method="_on_sweat_animation_timer_timeout"]
 
 [editable path="SpeechBubble"]
 [editable path="SpeechBubble/curved_box"]

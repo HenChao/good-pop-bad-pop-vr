@@ -5,6 +5,8 @@ extends Node3D
 signal out_of_energy
 signal too_afraid
 signal sufficiently_entertained
+signal happiness_gate_reached
+signal fearfullness_gate_reached
 
 enum States { SILENT, TALKING }
 
@@ -22,9 +24,12 @@ enum States { SILENT, TALKING }
 @export var entertained_energy_rate: float = 2.0
 @export var fearful_energy_rate: float = -2.0
 @export var is_being_interrogated: bool = false
+@export var happiness_gate: float = 110.0
+@export var fearfullness_gate: float = -10.0
 
 var _is_entertained: bool = false
 var _is_afraid: bool = false
+var _crossed_fearfullness_gate: bool = false
 
 var _speech_pattern: Array[String] = ["-", "=", "o", "~"]
 var _speech_cycle: int = 0
@@ -41,11 +46,13 @@ var _update_tracking_period: float = 2.0
 @onready var mouth: Label3D = %Mouth
 @onready var energy_bar: MeshInstance3D = %EnergyBar
 @onready var energy_bar_shader_material: ShaderMaterial
+@onready var sweat: Label3D = %Sweat
 
 
 func _ready() -> void:
 	set_state(States.SILENT)
 	energy_bar.visible = false
+	sweat.visible = false
 	energy_bar_shader_material = energy_bar.get_surface_override_material(0)
 
 
@@ -148,18 +155,27 @@ func set_expression(expression: Dialogue.Expressions) -> void:
 func start_interrogation() -> void:
 	is_being_interrogated = true
 	energy_bar.visible = true
+	sweat.visible = false
 
 
 func stop_interrogation() -> void:
 	is_being_interrogated = false
 	energy_bar.visible = false
+	sweat.visible = false
 
 
 func _determine_mood() -> void:
+	if not _crossed_fearfullness_gate and current_mood <= fearfullness_gate:
+		fearfullness_gate_reached.emit()
+		_crossed_fearfullness_gate = true
+		sweat.visible = true
 	if current_mood <= 0.0:
 		too_afraid.emit()
 		stop_interrogation()
 		return
+	if current_mood >= happiness_gate:
+		happiness_gate_reached.emit()
+		current_mood = happiness_gate
 	if current_mood >= interrogation_mood_threshold:
 		sufficiently_entertained.emit()
 		stop_interrogation()
@@ -207,3 +223,7 @@ func _on_field_of_view_area_exited(area: Area3D) -> void:
 
 func _on_toy_interaction(value: float) -> void:
 	current_mood += value
+
+
+func _on_sweat_animation_timer_timeout() -> void:
+	sweat.text = "'" if sweat.text == "\"" else "\""

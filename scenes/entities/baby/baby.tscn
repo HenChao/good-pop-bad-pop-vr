@@ -16,7 +16,6 @@ shader = ExtResource("1_r3wtf")
 shader_parameter/ColorParameter = Color(1, 0.67, 0.67, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1y16u"]
-height = 1.0
 radius = 0.12
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vecyw"]
@@ -104,12 +103,11 @@ font = ExtResource("3_akj6c")
 font_size = 20
 
 [node name="FieldOfView" type="Area3D" parent="HeadMesh/Eyes"]
-collision_layer = 0
-collision_mask = 65536
-monitorable = false
+collision_layer = 65540
+collision_mask = 65540
 
 [node name="Cone" type="CollisionShape3D" parent="HeadMesh/Eyes/FieldOfView"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.499546)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 1)
 shape = SubResource("CylinderShape3D_1y16u")
 
 [node name="Mouth" type="Label3D" parent="HeadMesh"]

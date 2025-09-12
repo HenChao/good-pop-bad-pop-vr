@@ -3,13 +3,14 @@ class_name Toy
 extends XRToolsPickable
 
 ## Emit when toy is activated by player. Value is based on if player is good pop or bad pop.
-signal activated(value)
+signal activated(value: float)
 
 @export_group("Components Parameters")
 @export var active_component: ActivateComponent
 @export var audio_component: AudioComponent
 @export var haptics_component: HapticsComponent
 @export var return_to_snap_zone_node: XRToolsReturnToSnapZone
+@export var toy_tracking_area: Area3D
 
 @export_group("Timer Parameters")
 @export var points_randomizer_timer: Timer
@@ -36,6 +37,9 @@ func _ready() -> void:
 	)
 	assert(
 		return_to_snap_zone_node, "No XRToolsReturnToSnapZone assigned in %s of %s" % [name, get_parent().name]
+	)
+	assert(
+		toy_tracking_area, "No Toy Tracking Area assigned in %s of %s" % [name, get_parent().name]
 	)
 	_set_random_points_value()
 

@@ -31,7 +31,7 @@ metadata/_custom_type_script = "uid://nq23qxmu5sxt"
 [sub_resource type="BoxShape3D" id="BoxShape3D_ot5ll"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="RubberDuck" type="RigidBody3D" node_paths=PackedStringArray("active_component", "audio_component", "haptics_component", "return_to_snap_zone_node", "points_randomizer_timer")]
+[node name="RubberDuck" type="RigidBody3D" node_paths=PackedStringArray("active_component", "audio_component", "haptics_component", "return_to_snap_zone_node", "toy_tracking_area", "points_randomizer_timer")]
 collision_layer = 4
 collision_mask = 65543
 physics_material_override = SubResource("PhysicsMaterial_ot5ll")
@@ -40,6 +40,7 @@ active_component = NodePath("ActivateComponent")
 audio_component = NodePath("AudioComponent")
 haptics_component = NodePath("HapticsComponent")
 return_to_snap_zone_node = NodePath("XRToolsReturnToSnapZone")
+toy_tracking_area = NodePath("ToyTrackingArea")
 points_randomizer_timer = NodePath("PointsRandomizerTimer")
 ranged_grab_method = 2
 metadata/_custom_type_script = "uid://biwl5by0syfgs"

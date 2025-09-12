@@ -180,6 +180,8 @@ func _determine_mood() -> void:
 		set_expression(Dialogue.Expressions.SMILING)
 	elif _is_between(current_mood, 85.0, 100.0):
 		set_expression(Dialogue.Expressions.JOYFUL)
+	
+	$Debug.text = "Current mood: %f" % current_mood
 
 
 ## Helper function to determine if value is between lower (exclusive) and upper (inclusive)
@@ -193,7 +195,15 @@ func _update_energy_bar() -> void:
 
 func _on_field_of_view_area_entered(area: Area3D) -> void:
 	_tracked_toy_area = area
+	var tracked_toy: Toy = area.get_parent()
+	tracked_toy.activated.connect(_on_toy_interaction)
 
 
-func _on_field_of_view_area_exited(_area: Area3D) -> void:
+func _on_field_of_view_area_exited(area: Area3D) -> void:
 	_tracked_toy_area = null
+	var tracked_toy: Toy = area.get_parent()
+	tracked_toy.activated.disconnect(_on_toy_interaction)
+
+
+func _on_toy_interaction(value: float) -> void:
+	current_mood += value

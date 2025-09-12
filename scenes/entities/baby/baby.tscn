@@ -100,7 +100,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0458008, 0.0964422)
 modulate = Color(0.729412, 0.729412, 0.729412, 1)
 text = "><"
 font = ExtResource("3_akj6c")
-font_size = 20
+font_size = 30
 
 [node name="FieldOfView" type="Area3D" parent="HeadMesh/Eyes"]
 collision_layer = 65540
@@ -112,7 +112,7 @@ shape = SubResource("CylinderShape3D_1y16u")
 
 [node name="Mouth" type="Label3D" parent="HeadMesh"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0157096, 0.0555415)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0561547, 0.096)
 modulate = Color(0.729412, 0.729412, 0.729412, 1)
 text = "~"
 font_size = 16

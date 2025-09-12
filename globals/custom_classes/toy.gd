@@ -27,6 +27,7 @@ var _currently_held_hand: XRController3D
 
 
 func _ready() -> void:
+	super()
 	assert(points_randomizer_timer, "No timer defined in %s of %s" % [name, get_parent().name])
 	assert(active_component, "No Active Component defined in %s of %s" % [name, get_parent().name])
 	assert(audio_component, "No Audio Component defined in %s of %s" % [name, get_parent().name])

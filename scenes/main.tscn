@@ -34,7 +34,6 @@ shape = SubResource("WorldBoundaryShape3D_tefeu")
 
 [node name="Player" parent="." instance=ExtResource("2_0wfyh")]
 unique_name_in_owner = true
-process_mode = 3
 
 [node name="LevelManager" type="Node3D" parent="." node_paths=PackedStringArray("xr_camera_3d")]
 process_mode = 1
@@ -65,7 +64,6 @@ level_manager = NodePath("../../LevelManager")
 
 [node name="PausedMenu" parent="." node_paths=PackedStringArray("player_body") instance=ExtResource("9_85g3d")]
 unique_name_in_owner = true
-process_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -11)
 visible = false
 player_body = NodePath("../Player/PlayerBody")

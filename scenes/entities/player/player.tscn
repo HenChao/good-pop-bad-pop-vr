@@ -21,6 +21,7 @@ render_priority = 0
 shader = ExtResource("5_dnykm")
 
 [node name="Player" type="XROrigin3D" groups=["Player"]]
+process_mode = 3
 current = true
 script = ExtResource("1_1ie0h")
 
@@ -43,6 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.452461, -0.3)
 tracker = &"left_hand"
 
 [node name="FunctionPointer" parent="XRController3D_Left" instance=ExtResource("2_08t41")]
+process_mode = 3
 show_laser = 2
 laser_length = 1
 
@@ -57,6 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.452461, -0.2)
 tracker = &"right_hand"
 
 [node name="FunctionPointer" parent="XRController3D_Right" instance=ExtResource("2_08t41")]
+process_mode = 3
 show_laser = 2
 laser_length = 1
 
@@ -67,6 +70,7 @@ hand_material_override = SubResource("ShaderMaterial_c5rqy")
 
 [node name="PlayerBody" parent="." instance=ExtResource("4_42nxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.523194, 0)
+collision_mask = 993
 push_rigid_bodies = false
 
 [connection signal="button_pressed" from="XRController3D_Left" to="." method="_on_xr_controller_3d_left_button_pressed"]

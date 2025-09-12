@@ -124,9 +124,9 @@ func set_expression(expression: Dialogue.Expressions) -> void:
 			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.NEUTRAL:
 			eyes.text = "--"
-			mouth.text = "-"
+			mouth.text = ")"
 			mouth.font_size = 16
-			mouth.rotation_degrees = Vector3(0, 0, 0)
+			mouth.rotation_degrees = Vector3(0, 0, -90)
 		Dialogue.Expressions.SURPRISED:
 			eyes.text = "oo"
 			mouth.text = "o"

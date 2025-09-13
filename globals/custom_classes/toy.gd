@@ -77,7 +77,9 @@ func _set_random_points_value() -> void:
 func _on_hand_grab(_pickable: Variant, by: Variant) -> void:
 	if by.get_parent() is XRController3D:
 		_currently_held_hand = by.get_parent()
-		haptics_component.rumble_controller(_currently_held_hand, HAND_GRAB_HAPTIC_INTENSITY, HAND_GRAB_HAPTIC_TIMING_MS)
+		haptics_component.rumble_controller(
+			_currently_held_hand, HAND_GRAB_HAPTIC_INTENSITY, HAND_GRAB_HAPTIC_TIMING_MS
+		)
 		pick_up_hint.emit(toy_hint)
 
 

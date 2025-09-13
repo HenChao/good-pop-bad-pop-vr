@@ -112,6 +112,10 @@ func get_speech_bubble() -> SpeechBubble:
 	return speech_bubble
 
 
+func set_speaker_name(name: String) -> void:
+	speech_bubble.set_speaker_name(name)
+
+
 func set_expression(expression: Dialogue.Expressions) -> void:
 	match expression:
 		Dialogue.Expressions.CRYING:

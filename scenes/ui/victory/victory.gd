@@ -26,10 +26,12 @@ func _animate_menu_in() -> void:
 	_tween.tween_property(victory, "modulate:a", 1, ANIMATION_TIMING)
 	_tween.tween_method(next_level_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)
 	_tween.tween_method(quit_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)
-	_tween.tween_callback(func():
-		next_level_button.enabled = true
-		quit_button.enabled = true
+	_tween.tween_callback(
+		func():
+			next_level_button.enabled = true
+			quit_button.enabled = true
 	)
+
 
 func set_level_time(timing: float) -> void:
 	time_label.text = "Interrogation Time: %s" % timing

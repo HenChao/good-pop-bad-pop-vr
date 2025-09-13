@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://cyyjek045xf0n"]
+
+[ext_resource type="Script" uid="uid://c618xt501c5rg" path="res://scenes/levels/level_2/level_2.gd" id="1_142vn"]
+[ext_resource type="PackedScene" uid="uid://cdjftn4b2mqbp" path="res://scenes/objects/interrogation_table/interrogation_table.tscn" id="2_t7uvv"]
+[ext_resource type="PackedScene" uid="uid://dukpkgl3k7t4s" path="res://scenes/objects/toys/rubber_duck.tscn" id="3_rfw04"]
+[ext_resource type="PackedScene" uid="uid://d3k3vrx3x10k3" path="res://scenes/objects/toys/mooing_cow.tscn" id="4_kcicr"]
+[ext_resource type="PackedScene" uid="uid://cu8q81rh0xmot" path="res://scenes/objects/toys/kazoo.tscn" id="5_h0dic"]
+[ext_resource type="PackedScene" uid="uid://brm67naqlyh56" path="res://scenes/objects/toys/toy_rattle.tscn" id="6_qgycf"]
+[ext_resource type="PackedScene" uid="uid://b28tv5rnfncm1" path="res://scenes/objects/overhead_light/overhead_light.tscn" id="7_6m7ah"]
+[ext_resource type="PackedScene" uid="uid://bhc2iutvt1kg3" path="res://scenes/objects/computer_screen/computer_screen.tscn" id="8_miq25"]
+[ext_resource type="PackedScene" uid="uid://dstu4u4xea1r8" path="res://scenes/entities/baby/baby.tscn" id="9_jiyhf"]
+[ext_resource type="AudioStream" uid="uid://bo05y5snnyi8b" path="res://resources/sfx/creepy-church-bell-33827.wav" id="10_mmdu5"]
+
+[node name="Level2" type="Node3D"]
+script = ExtResource("1_142vn")
+
+[node name="InterrogationTable" parent="." instance=ExtResource("2_t7uvv")]
+unique_name_in_owner = true
+toys_array = Array[PackedScene]([ExtResource("3_rfw04"), ExtResource("4_kcicr"), ExtResource("5_h0dic"), ExtResource("6_qgycf")])
+
+[node name="PressToContinueLabel" parent="InterrogationTable/SpeechBubble" index="3"]
+text = "Press a/x to continue.."
+
+[node name="OverheadLight" parent="." instance=ExtResource("7_6m7ah")]
+unique_name_in_owner = true
+transform = Transform3D(0.999264, 0.0107134, -0.0368437, -0.0205064, 0.960704, -0.276816, 0.0324303, 0.277367, 0.960216, -0.0207067, 1.0398, 0.0758374)
+
+[node name="ComputerScreen" parent="." instance=ExtResource("8_miq25")]
+unique_name_in_owner = true
+transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
+
+[node name="MouthSprite3D" parent="ComputerScreen" index="4"]
+frame_progress = 0.703492
+
+[node name="Baby" parent="." instance=ExtResource("9_jiyhf")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.566528, 0.0628099, -0.731166)
+visible = false
+
+[node name="Mouth" parent="Baby/HeadMesh" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0467941, 0.0555415)
+
+[node name="SpeechBubble" parent="Baby" index="2"]
+speaker_name = "Oscar"
+billboard = true
+
+[node name="SpeakerLabel" parent="Baby/SpeechBubble" index="1"]
+text = "Oscar"
+
+[node name="PressToContinueLabel" parent="Baby/SpeechBubble" index="3"]
+text = "Press a/x to continue.."
+
+[node name="IntroSFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("10_mmdu5")
+volume_db = -10.0
+
+[connection signal="fearfullness_gate_reached" from="Baby" to="." method="_on_baby_fearfullness_gate_reached"]
+[connection signal="happiness_gate_reached" from="Baby" to="." method="_on_baby_happiness_gate_reached"]
+[connection signal="out_of_energy" from="Baby" to="." method="_on_baby_out_of_energy"]
+[connection signal="sufficiently_entertained" from="Baby" to="." method="_on_baby_sufficiently_entertained"]
+[connection signal="too_afraid" from="Baby" to="." method="_on_baby_too_afraid"]
+
+[editable path="InterrogationTable"]
+[editable path="InterrogationTable/SpeechBubble"]
+[editable path="InterrogationTable/SpeechBubble/curved_box"]
+[editable path="ComputerScreen"]
+[editable path="ComputerScreen/computer_monitor"]
+[editable path="ComputerScreen/SpeechBubble"]
+[editable path="ComputerScreen/SpeechBubble/curved_box"]
+[editable path="Baby"]
+[editable path="Baby/SpeechBubble"]
+[editable path="Baby/SpeechBubble/curved_box"]

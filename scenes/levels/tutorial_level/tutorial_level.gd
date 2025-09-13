@@ -2,6 +2,10 @@
 class_name TutorialLevel
 extends Node3D
 
+signal level_complete(level_time: float)
+signal out_of_energy
+signal too_afraid
+
 # gdlint: disable=max-line-length
 const INTRO_SCENE: String = """
 Mom::Well Dad, it's shaping up to be another busy night tonight.
@@ -61,9 +65,25 @@ Baby:Annoyed:You can send me away, but I'll be back on the streets in no time ag
 Mom::Well done Dad, you haven't missed a beat.
 Dad::Thanks Chief, it was a pretty straightforward case, but sometimes that's just how the cookie crumbles.
 """
+
+const OUT_OF_ENERGY: String = """
+Baby::That was fun Dad, but I think I hear the blankie calling my name.
+Mom::Good try Dad, but you ran out of time. Chances are we'll never find out who took the cookie now.
+Dad::Hmm, I'll keep in mind that the suspect responds differently to each toy, so I should vary it up if I'm getting stuck.
+Mom::True, and that over time, their interest can change even on the same toy, so it's not always consistent.
+"""
+
+const TOO_AFRAID: String = """
+Baby:Crying:WAAAAA!!! Dad's being a bully! Where's Mom? I want Mommy!!!
+Mom::You went a bit far there, Dad, and now the suspect asked for their lawyer. We'll have to stop now.
+Dad::Hmm, I'll have to keep an eye on the suspect's expressions and make sure I don't push them too far next time.
+"""
 # gdlint: enable=max-line-length
 
 var script_manager: ScriptManager
+var _current_round: int = 0
+var _level_timer: float = 0.0
+var _level_timer_active: bool = false
 
 @onready var dad_speech_bubble: SpeechBubble = $InterrogationTable/SpeechBubble
 @onready var mom_puter: ComputerScreen = %ComputerScreen
@@ -76,6 +96,10 @@ func _ready() -> void:
 	baby.visible = false
 
 
+func _process(delta: float) -> void:
+	if _level_timer_active:
+		_level_timer += delta
+
 func start_level() -> void:
 	# Play the intro dialogue.
 	await script_manager.start_scene(INTRO_SCENE)
@@ -86,32 +110,7 @@ func start_level() -> void:
 	baby.start_interrogation()
 	mom_puter.set_state(ComputerScreen.States.OFF_SCREEN)
 	_setup_toys()
-	await baby.sufficiently_entertained
-	# Baby is happy enought, start second round
-	await script_manager.start_scene(SECOND_ROUND)
-	# Set stats for the second round
-	baby.current_mood = 50.0
-	baby.happiness_gate = 80.0
-	baby.fearfullness_gate = 30.0
-	baby.max_energy = 200.0
-	baby.current_energy = 200.0
-	baby.start_interrogation()
-	# Hit a wall in the interrogation
-	await baby.happiness_gate_reached
-	baby.stop_interrogation()
-	mom_puter.set_state(ComputerScreen.States.SILENT)
-	await script_manager.start_scene(SECOND_ROUND_INTERLUDE)
-	# Continue interrogation, need to be bad pop now
-	mom_puter.set_state(ComputerScreen.States.OFF_SCREEN)
-	baby.start_interrogation()
-	await baby.fearfullness_gate_reached
-	baby.stop_interrogation()
-	await script_manager.start_scene(SECOND_ROUND_TURNABOUT)
-	# Continue interrogation, need to go back to good pop
-	baby.happiness_gate = 110.0
-	baby.start_interrogation()
-	await baby.sufficiently_entertained
-	await script_manager.start_scene(END_INTERROGATION)
+	_current_round = 1
 
 
 func set_script_manager(sm: ScriptManager) -> void:
@@ -135,3 +134,57 @@ func _on_pop_switch() -> void:
 
 func _on_toy_pickup(hint: String) -> void:
 	mom_puter.toy_hint.text = hint
+
+
+func _on_baby_sufficiently_entertained() -> void:
+	match _current_round:
+		1:
+			# Baby is happy enought, begin second round
+			await script_manager.start_scene(SECOND_ROUND)
+			# Set stats for the second round
+			baby.current_mood = 50.0
+			baby.happiness_gate = 80.0
+			baby.fearfullness_gate = 30.0
+			baby.max_energy = 200.0
+			baby.current_energy = 200.0
+			baby.start_interrogation()
+			_current_round = 2
+			_level_timer_active = true
+			# Wait for happiness gate to be reached
+		2:
+			_level_timer_active = false
+			await script_manager.start_scene(END_INTERROGATION)
+			level_complete.emit(_level_timer)
+
+
+func _on_baby_out_of_energy() -> void:
+	await script_manager.start_scene(OUT_OF_ENERGY)
+	out_of_energy.emit()
+
+
+func _on_baby_too_afraid() -> void:
+	await script_manager.start_scene(TOO_AFRAID)
+	too_afraid.emit()
+
+
+func _on_baby_happiness_gate_reached() -> void:
+	match _current_round:
+		2:
+			# Hit a wall in the interrogation
+			baby.stop_interrogation()
+			mom_puter.set_state(ComputerScreen.States.SILENT)
+			await script_manager.start_scene(SECOND_ROUND_INTERLUDE)
+			# Continue interrogation, need to be bad pop now
+			mom_puter.set_state(ComputerScreen.States.OFF_SCREEN)
+			baby.start_interrogation()
+			# Wait for fearfullness gate to be reached
+
+
+func _on_baby_fearfullness_gate_reached() -> void:
+	match _current_round:
+		2:
+			baby.stop_interrogation()
+			await script_manager.start_scene(SECOND_ROUND_TURNABOUT)
+			# Continue interrogation, need to go back to good pop
+			baby.happiness_gate = 110.0
+			baby.start_interrogation()

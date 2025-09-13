@@ -17,9 +17,6 @@ script = ExtResource("1_au04w")
 unique_name_in_owner = true
 toys_array = Array[PackedScene]([ExtResource("3_pbmwr"), ExtResource("4_cnuay"), ExtResource("5_lbvud"), ExtResource("6_d7pdh")])
 
-[node name="PressToContinueLabel" parent="InterrogationTable/SpeechBubble" index="3"]
-text = "Press a/x to continue.."
-
 [node name="OverheadLight" parent="." instance=ExtResource("2_wta6x")]
 unique_name_in_owner = true
 transform = Transform3D(0.999264, 0.0107134, -0.0368437, -0.0205064, 0.960704, -0.276816, 0.0324303, 0.277367, 0.960216, -0.0207067, 1.0398, 0.0758374)
@@ -28,14 +25,11 @@ transform = Transform3D(0.999264, 0.0107134, -0.0368437, -0.0205064, 0.960704, -
 unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
-[node name="ToyHint" parent="ComputerScreen" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.226154, 0.146278, 0.08566)
-
 [node name="MouthSprite3D" parent="ComputerScreen" index="4"]
-frame_progress = 0.00300101
+frame_progress = 0.749451
 
 [node name="PressToContinueLabel" parent="ComputerScreen/SpeechBubble" index="3"]
-text = "Press a/x to continue.."
+text = "Press a/x to continue."
 
 [node name="Baby" parent="." instance=ExtResource("5_v8k53")]
 unique_name_in_owner = true
@@ -48,8 +42,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0467941, 0.0555415)
 [node name="SpeechBubble" parent="Baby" index="2"]
 billboard = true
 
-[node name="PressToContinueLabel" parent="Baby/SpeechBubble" index="3"]
-text = "Press a/x to continue.."
+[connection signal="fearfullness_gate_reached" from="Baby" to="." method="_on_baby_fearfullness_gate_reached"]
+[connection signal="happiness_gate_reached" from="Baby" to="." method="_on_baby_happiness_gate_reached"]
+[connection signal="out_of_energy" from="Baby" to="." method="_on_baby_out_of_energy"]
+[connection signal="sufficiently_entertained" from="Baby" to="." method="_on_baby_sufficiently_entertained"]
+[connection signal="too_afraid" from="Baby" to="." method="_on_baby_too_afraid"]
 
 [editable path="InterrogationTable"]
 [editable path="InterrogationTable/SpeechBubble"]

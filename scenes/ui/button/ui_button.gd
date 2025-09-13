@@ -5,6 +5,7 @@ extends Node3D
 signal button_pressed
 
 @export var initial_text: String
+@export var enabled: bool = true
 
 var _shader_material: ShaderMaterial
 
@@ -27,8 +28,14 @@ func update_cursor_position(cursor_position: Vector3) -> void:
 
 ## Called when player hand pressed a button from a controller.
 func press_button() -> void:
-	button_pressed.emit()
+	if enabled:
+		button_pressed.emit()
 
 
 func set_button_text(text: String) -> void:
 	button_label.text = text
+
+
+func set_alpha(value: float) -> void:
+	_shader_material.set_shader_parameter("Alpha", value)
+	button_label.modulate.a = (value / 0.3)

@@ -91,9 +91,6 @@ text = "Dad"
 [node name="TextLabel" parent="SpeechBubble" index="2"]
 text = "What?"
 
-[node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
-text = "Press a/x to continue"
-
 [node name="ToySnapZone1" type="Area3D" parent="." groups=["ToySlot"]]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.15, 0.3)

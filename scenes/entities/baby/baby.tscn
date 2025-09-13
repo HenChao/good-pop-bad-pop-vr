@@ -145,6 +145,9 @@ text = "Baby"
 [node name="TextLabel" parent="SpeechBubble" index="2"]
 text = "I goo, therefore, I ga."
 
+[node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
+text = "Press a/x to continue"
+
 [node name="EnergyBar" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.271999, 0.465185, 0)
@@ -161,7 +164,6 @@ font_size = 16
 
 [node name="Debug" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.445752, 0.289776, 0)
-visible = false
 text = "Debug"
 
 [connection signal="area_entered" from="HeadMesh/Eyes/FieldOfView" to="." method="_on_field_of_view_area_entered"]

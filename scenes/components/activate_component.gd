@@ -2,6 +2,7 @@ class_name ActivateComponent
 extends Node3D
 
 signal activated(intensity: float)
+signal deactivate
 
 @export_group("Activation Type")
 @export var is_squeezed: bool = false
@@ -16,6 +17,7 @@ var _acceleration_threshold: float = 0.5
 
 @onready var debounce_timer: Timer = %DebounceTimer
 @onready var accelerometer: RigidBody3D = %Accelerometer
+@onready var continuous_timer: Timer = %ContinuousTimer
 
 
 func _ready() -> void:
@@ -40,7 +42,12 @@ func _on_controller_input_trigger(input_name: String, input_value: float) -> voi
 
 func _on_activation_area_area_entered(area: Area3D) -> void:
 	if is_in_area and area.is_in_group("PlayerMouth"):
-		activated.emit(1.0)
+		_continuous_signal()
+
+
+func _on_activation_area_area_exited(area: Area3D) -> void:
+	if is_in_area and area.is_in_group("PlayerMouth"):
+		deactivate.emit()
 
 
 func _is_upside_down() -> bool:
@@ -64,3 +71,13 @@ func _debounce_signal(type: String) -> void:
 	if debounce_timer.is_stopped():
 		debounce_timer.start()
 		activated.emit(_last_velocity_magnitude if type == "shaking" else 1.0)
+
+
+func _continuous_signal() -> void:
+	if continuous_timer.is_stopped():
+		continuous_timer.start()
+		activated.emit(1.0)
+
+
+func _on_continuous_timer_timeout() -> void:
+	_continuous_signal()

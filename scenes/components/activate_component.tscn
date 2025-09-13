@@ -33,4 +33,10 @@ gravity_scale = 0.0
 [node name="SphereCollision" type="CollisionShape3D" parent="Accelerometer"]
 shape = SubResource("SphereShape3D_ce1d5")
 
+[node name="ContinuousTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
 [connection signal="area_entered" from="ActivationArea" to="." method="_on_activation_area_area_entered"]
+[connection signal="area_exited" from="ActivationArea" to="." method="_on_activation_area_area_exited"]
+[connection signal="timeout" from="ContinuousTimer" to="." method="_on_continuous_timer_timeout"]

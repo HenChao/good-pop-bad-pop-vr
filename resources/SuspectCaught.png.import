@@ -3,16 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bohep4545e38t"
-path.s3tc="res://.godot/imported/SuspectCaught.png-b0987b50cd1b6bed8207206f3efebf1e.s3tc.ctex"
+path.etc2="res://.godot/imported/SuspectCaught.png-b0987b50cd1b6bed8207206f3efebf1e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/SuspectCaught.png"
-dest_files=["res://.godot/imported/SuspectCaught.png-b0987b50cd1b6bed8207206f3efebf1e.s3tc.ctex"]
+dest_files=["res://.godot/imported/SuspectCaught.png-b0987b50cd1b6bed8207206f3efebf1e.etc2.ctex"]
 
 [params]
 

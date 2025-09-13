@@ -96,9 +96,11 @@ func _ready() -> void:
 	baby.visible = false
 	baby.set_speaker_name("Oscar")
 
+
 func _process(delta: float) -> void:
 	if _level_timer_active:
 		_level_timer += delta
+
 
 func start_level() -> void:
 	intro_sfx.play()

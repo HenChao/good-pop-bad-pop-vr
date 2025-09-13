@@ -34,12 +34,12 @@ func _play_intro_animation() -> void:
 	_tween.tween_method(start_button.set_alpha, 0.0, 0.3, 2.0)
 	_tween.parallel().tween_method(set_height_button.set_alpha, 0.0, 0.3, 2.0)
 	_tween.parallel().tween_method(quit_button.set_alpha, 0.0, 0.3, 2.0)
-	_tween.tween_callback(func():
-		start_button.enabled = true
-		set_height_button.enabled = true
-		quit_button.enabled = true
+	_tween.tween_callback(
+		func():
+			start_button.enabled = true
+			set_height_button.enabled = true
+			quit_button.enabled = true
 	)
-	
 
 
 func _on_start_button_button_pressed() -> void:

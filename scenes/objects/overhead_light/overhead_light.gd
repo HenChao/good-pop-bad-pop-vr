@@ -11,6 +11,7 @@ extends XRToolsPickable
 @onready var spot_light_3d: SpotLight3D = %SpotLight3D
 @onready var flourescent_light_sound: AudioStreamPlayer3D = $FlourescentLightSound
 
+
 func _ready() -> void:
 	top_light.visible = false
 	bottom_light.visible = false
@@ -23,15 +24,15 @@ func update_lighting() -> void:
 
 
 func fade_in() -> Signal:
-	var _tween: Tween = create_tween()
-	_tween.tween_property(spot_light_3d, "light_energy", 1.0, fade_timing).from(0.0)
+	var tween: Tween = create_tween()
+	tween.tween_property(spot_light_3d, "light_energy", 1.0, fade_timing).from(0.0)
 	flourescent_light_sound.play()
 	top_light.visible = true
 	bottom_light.visible = true
-	return _tween.finished
+	return tween.finished
 
 
 func fade_out() -> Signal:
-	var _tween: Tween = create_tween()
-	_tween.tween_property(spot_light_3d, "light_energy", 0.0, fade_timing).from(1.0)
-	return _tween.finished
+	var tween: Tween = create_tween()
+	tween.tween_property(spot_light_3d, "light_energy", 0.0, fade_timing).from(1.0)
+	return tween.finished

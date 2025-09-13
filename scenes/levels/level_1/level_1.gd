@@ -1,5 +1,5 @@
 @tool
-class_name Level_1
+class_name Level1
 extends Node3D
 
 signal level_complete(level_time: float)
@@ -14,7 +14,7 @@ Dad::No choice, I suppose. What did this one do today?
 Mom::Bad case of assault. Seems that he hit Mayor Grandmom during tummy time today.
 Mom::The Governor isn't happy with this. He wants an apology from the suspect sooner rather than later.
 Dad::Governor Granddad already heard about this? Like I need any more pressure tonight.
-Mom::We're giving you a lot of leniency with this one, but results are expected. Good luck. 
+Mom::We're giving you a lot of leniency with this one, but results are expected. Good luck.
 """
 
 const FIRST_ROUND: String = """
@@ -83,6 +83,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if _level_timer_active:
 		_level_timer += delta
+
 
 func start_level() -> void:
 	intro_sfx.play()

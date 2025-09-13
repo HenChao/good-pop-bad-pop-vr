@@ -1,5 +1,5 @@
 @tool
-class_name Level_2
+class_name Level2
 extends Node3D
 
 signal level_complete(level_time: float)
@@ -85,6 +85,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if _level_timer_active:
 		_level_timer += delta
+
 
 func start_level() -> void:
 	intro_sfx.play()

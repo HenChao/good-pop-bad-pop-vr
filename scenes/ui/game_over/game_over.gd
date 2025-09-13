@@ -4,6 +4,7 @@ extends Node3D
 signal restart_pressed
 
 const ANIMATION_TIMING: float = 3.0
+# gdlint: disable=max-line-length
 const HINT_ARRAY: Array[String] = [
 	"Keep an eye on the suspect's expression to see if they're happy or scared.",
 	"Try different toys if it seems like you're progressing too slowly.",
@@ -15,6 +16,7 @@ const HINT_ARRAY: Array[String] = [
 	"Bring the kazoo up to your lips to make a sound.",
 	"Toys are only effective if the suspect is paying attention to it. Make sure to bring it up to their range of vision first."
 ]
+# gdlint: enable=max-line-length
 
 @onready var game_over: Sprite3D = %GameOver
 @onready var restart_button: UIButton = %RestartButton
@@ -38,11 +40,12 @@ func _animate_menu_in() -> void:
 	_tween.tween_property(game_over, "modulate:a", 1, ANIMATION_TIMING)
 	_tween.tween_method(restart_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)
 	_tween.tween_method(quit_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)
-	_tween.tween_callback(func():
-		hint_label.text = HINT_ARRAY.pick_random()
-		hint_label.visible = true
-		restart_button.enabled = true
-		quit_button.enabled = true
+	_tween.tween_callback(
+		func():
+			hint_label.text = HINT_ARRAY.pick_random()
+			hint_label.visible = true
+			restart_button.enabled = true
+			quit_button.enabled = true
 	)
 
 

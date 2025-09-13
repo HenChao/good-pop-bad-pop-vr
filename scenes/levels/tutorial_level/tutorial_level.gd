@@ -44,7 +44,7 @@ Dad::Chief, I've got a problem here. No matter what I do, I'm not getting any fu
 Mom::Hmm, it might be time for a shift in strategy.
 Mom::Rather than keeping the suspect relaxed, try and apply some pressure to see if they'll break.
 Mom::Raise your hands up to your eyes and play peek-a-boo. When the suspect sees you again, they'll see someone else.
-Mom::Play the role of the bad pop and be more aggressive with your questioning.
+Mom::Play the role of the bad pop and be more aggressive with your questioning and play time.
 Mom::Just remember, don't take it too far, or else they'll call for their lawyer.
 Mom::Once you think you've gotten them sufficiently scared, then play peek-a-boo again to switch back to good pop.
 Mom::You should then be able to play with them and get them back to a good spot.
@@ -94,7 +94,7 @@ var _level_timer_active: bool = false
 
 func _ready() -> void:
 	baby.visible = false
-
+	baby.set_speaker_name("Oscar")
 
 func _process(delta: float) -> void:
 	if _level_timer_active:

@@ -1,12 +1,16 @@
 class_name LevelManager
 extends Node3D
 
-enum Levels { TUTORIAL_LEVEL, LEVEL_1 }
+enum Levels { TUTORIAL_LEVEL, LEVEL_1, LEVEL_2, LEVEL_3, END_GAME }
 
 @export var xr_camera_3d: XRCamera3D
 @export var player: Player
 @export_group("Levels")
 @export var tutorial_level_scene: PackedScene
+@export var level_1_scene: PackedScene
+@export var level_2_scene: PackedScene
+@export var level_3_scene: PackedScene
+@export var end_game_scene: PackedScene
 @export_group("Transition Menus")
 @export var level_complete: PackedScene
 @export var level_failed: PackedScene
@@ -30,6 +34,14 @@ func set_level(level: Levels) -> void:
 	match level:
 		Levels.TUTORIAL_LEVEL:
 			new_level = tutorial_level_scene.instantiate()
+		Levels.LEVEL_1:
+			new_level = level_1_scene.instantiate()
+		Levels.LEVEL_2:
+			new_level = level_2_scene.instantiate()
+		Levels.LEVEL_3:
+			new_level = level_3_scene.instantiate()
+		Levels.END_GAME:
+			new_level = end_game_scene.instantiate()
 
 	# Remember current progress
 	_current_level = level
@@ -61,6 +73,12 @@ func _on_level_complete(timing: float) -> void:
 		match _current_level:
 			Levels.TUTORIAL_LEVEL:
 				set_level(Levels.LEVEL_1)
+			Levels.LEVEL_1:
+				set_level(Levels.LEVEL_2)
+			Levels.LEVEL_2:
+				set_level(Levels.LEVEL_3)
+			Levels.LEVEL_3:
+				set_level(Levels.END_GAME)
 	)
 
 

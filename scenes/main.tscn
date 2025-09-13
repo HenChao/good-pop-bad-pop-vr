@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bjyq1ici8dgth"]
+[gd_scene load_steps=14 format=3 uid="uid://bjyq1ici8dgth"]
 
 [ext_resource type="Script" uid="uid://byngw4fm6w58y" path="res://scenes/main.gd" id="1_85g3d"]
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_o5qli"]
@@ -7,12 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://bsbv7nkwxoh1" path="res://scenes/ui/main_menu/main_menu.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bolsca47s82wm" path="res://scenes/levels/tutorial_level/TutorialLevel.tscn" id="4_tbgi4"]
 [ext_resource type="Script" uid="uid://bicrwbd7kk5kt" path="res://globals/managers/script_manager.gd" id="5_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bqvlchsbi5wkm" path="res://scenes/ui/game_over/game_over.tscn" id="6_choun"]
 [ext_resource type="AudioStream" uid="uid://0vnjjsq6rbs6" path="res://resources/sfx/8-bit-game-sounds-68731.wav" id="6_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dnprn3fvdpujh" path="res://scenes/ui/victory/victory.tscn" id="6_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://b6hs5yojarnhh" path="res://scenes/ui/paused_menu/paused_menu.tscn" id="9_85g3d"]
 
 [sub_resource type="Environment" id="Environment_o5qli"]
 background_mode = 1
-background_energy_multiplier = 0.0
+background_energy_multiplier = 0.4
 ambient_light_source = 1
 reflected_light_source = 1
 
@@ -41,6 +43,8 @@ script = ExtResource("3_jyhfs")
 xr_camera_3d = NodePath("../Player/XRCamera3D")
 player = NodePath("../Player")
 tutorial_level_scene = ExtResource("4_tbgi4")
+level_complete = ExtResource("6_ya4ey")
+level_failed = ExtResource("6_choun")
 
 [node name="ScriptManager" type="Node3D" parent="." node_paths=PackedStringArray("left_controller", "right_controller", "audio_player")]
 process_mode = 1

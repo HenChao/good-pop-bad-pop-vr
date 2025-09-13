@@ -19,7 +19,7 @@ bounce = 0.3
 [sub_resource type="CylinderMesh" id="CylinderMesh_dlc71"]
 top_radius = 0.01
 bottom_radius = 0.01
-height = 0.1
+height = 0.08
 
 [sub_resource type="SphereMesh" id="SphereMesh_6lcba"]
 radius = 0.04
@@ -69,7 +69,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0484842, 0)
 mesh = SubResource("SphereMesh_6lcba")
 
 [node name="TailMesh" type="MeshInstance3D" parent="ToyMesh"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0664953, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0551497, 0)
 mesh = SubResource("TorusMesh_dlc71")
 
 [node name="CapsuleCollision" type="CollisionShape3D" parent="."]
@@ -78,6 +78,7 @@ shape = SubResource("CapsuleShape3D_dlc71")
 [node name="HighlightRing" parent="." instance=ExtResource("2_xx1in")]
 
 [node name="GrabPointSnap" parent="." instance=ExtResource("3_ybrwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0229526, 0)
 require_group = "ToySlot"
 exclude_group = "Handle"
 

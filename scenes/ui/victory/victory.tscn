@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnprn3fvdpujh"]
+
+[ext_resource type="Script" uid="uid://drp5c865dx4iv" path="res://scenes/ui/victory/victory.gd" id="1_koi02"]
+[ext_resource type="Texture2D" uid="uid://bohep4545e38t" path="res://resources/SuspectCaught.png" id="2_koi02"]
+[ext_resource type="PackedScene" uid="uid://cemvix3bvnnyc" path="res://scenes/ui/button/ui_button.tscn" id="3_6y2p0"]
+[ext_resource type="FontFile" uid="uid://b265opj1lmq2m" path="res://resources/Funnel_Sans/static/FunnelSans-Bold.ttf" id="4_oa5s8"]
+
+[node name="Victory" type="Node3D"]
+script = ExtResource("1_koi02")
+
+[node name="Victory" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+texture = ExtResource("2_koi02")
+
+[node name="TimeLabel" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+text = "Interrogation Time: "
+font = ExtResource("4_oa5s8")
+font_size = 72
+autowrap_mode = 2
+width = 2000.0
+
+[node name="NextLevelButton" parent="." instance=ExtResource("3_6y2p0")]
+unique_name_in_owner = true
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, -3, 0, 0)
+initial_text = "Next Level"
+
+[node name="QuitButton" parent="." instance=ExtResource("3_6y2p0")]
+unique_name_in_owner = true
+transform = Transform3D(0.906307, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906307, 3, 0, 0)
+initial_text = "Quit Game"
+
+[connection signal="button_pressed" from="NextLevelButton" to="." method="_on_next_level_button_button_pressed"]
+[connection signal="button_pressed" from="QuitButton" to="." method="_on_quit_button_button_pressed"]

@@ -89,6 +89,7 @@ var _level_timer_active: bool = false
 @onready var baby: Baby = %Baby
 @onready var interrogation_table: InterrogationTable = %InterrogationTable
 @onready var overhead_light: OverheadLight = %OverheadLight
+@onready var intro_sfx: AudioStreamPlayer = %IntroSFX
 
 
 func _ready() -> void:
@@ -100,6 +101,8 @@ func _process(delta: float) -> void:
 		_level_timer += delta
 
 func start_level() -> void:
+	intro_sfx.play()
+	await get_tree().create_timer(3.0).timeout
 	await overhead_light.fade_in()
 	# Play the intro dialogue.
 	await script_manager.start_scene(INTRO_SCENE)

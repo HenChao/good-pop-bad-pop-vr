@@ -3,8 +3,7 @@ class_name TutorialLevel
 extends Node3D
 
 signal level_complete(level_time: float)
-signal out_of_energy
-signal too_afraid
+signal level_failed
 
 # gdlint: disable=max-line-length
 const INTRO_SCENE: String = """
@@ -67,7 +66,7 @@ Dad::Thanks Chief, it was a pretty straightforward case, but sometimes that's ju
 """
 
 const OUT_OF_ENERGY: String = """
-Baby::That was fun Dad, but I think I hear the blankie calling my name.
+Baby:Annoyed:That was fun Dad, but I think I hear the blankie calling my name.
 Mom::Good try Dad, but you ran out of time. Chances are we'll never find out who took the cookie now.
 Dad::Hmm, I'll keep in mind that the suspect responds differently to each toy, so I should vary it up if I'm getting stuck.
 Mom::True, and that over time, their interest can change even on the same toy, so it's not always consistent.
@@ -89,7 +88,8 @@ var _level_timer_active: bool = false
 @onready var mom_puter: ComputerScreen = %ComputerScreen
 @onready var baby: Baby = %Baby
 @onready var interrogation_table: InterrogationTable = %InterrogationTable
-@onready var overhead_light: XRToolsPickable = %OverheadLight
+@onready var overhead_light: OverheadLight = %OverheadLight
+@onready var intro_sfx: AudioStreamPlayer = %IntroSFX
 
 
 func _ready() -> void:
@@ -101,6 +101,9 @@ func _process(delta: float) -> void:
 		_level_timer += delta
 
 func start_level() -> void:
+	intro_sfx.play()
+	await get_tree().create_timer(3.0).timeout
+	await overhead_light.fade_in()
 	# Play the intro dialogue.
 	await script_manager.start_scene(INTRO_SCENE)
 	# Bring in the suspect.
@@ -154,17 +157,20 @@ func _on_baby_sufficiently_entertained() -> void:
 		2:
 			_level_timer_active = false
 			await script_manager.start_scene(END_INTERROGATION)
+			await overhead_light.fade_out()
 			level_complete.emit(_level_timer)
 
 
 func _on_baby_out_of_energy() -> void:
 	await script_manager.start_scene(OUT_OF_ENERGY)
-	out_of_energy.emit()
+	await overhead_light.fade_out()
+	level_failed.emit()
 
 
 func _on_baby_too_afraid() -> void:
 	await script_manager.start_scene(TOO_AFRAID)
-	too_afraid.emit()
+	await overhead_light.fade_out()
+	level_failed.emit()
 
 
 func _on_baby_happiness_gate_reached() -> void:

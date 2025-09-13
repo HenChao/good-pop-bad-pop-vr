@@ -75,7 +75,9 @@ mesh = SubResource("BoxMesh_niuqm")
 surface_material_override/0 = SubResource("ShaderMaterial_cgjij")
 
 [node name="SpeechBubble" parent="." instance=ExtResource("2_cgjij")]
+unique_name_in_owner = true
 transform = Transform3D(0.1, 0, 0, 0, 0.0937628, 0.0347639, 0, -0.0347639, 0.0937628, 0, 0.327513, 0.364831)
+visible = false
 speaker_name = "Dad"
 example_text = "What?"
 billboard = true

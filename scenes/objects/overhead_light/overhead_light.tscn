@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b28tv5rnfncm1"]
+[gd_scene load_steps=12 format=3 uid="uid://b28tv5rnfncm1"]
 
 [ext_resource type="Script" uid="uid://dpm7c2drs72xu" path="res://scenes/objects/overhead_light/overhead_light.gd" id="1_qmbj8"]
 [ext_resource type="Shader" uid="uid://bc6085lx2a8ha" path="res://scenes/objects/overhead_light/lightbodyshader.tres" id="2_xcne0"]
 [ext_resource type="Shader" uid="uid://buih17g713p48" path="res://scenes/objects/overhead_light/lighthandleshader.tres" id="3_yc4jk"]
 [ext_resource type="PackedScene" uid="uid://c25yxb0vt53vc" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_left.tscn" id="4_qmbj8"]
 [ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_bwkto"]
+[ext_resource type="AudioStream" uid="uid://dueypb08pk58d" path="res://resources/sfx/flourescent-light-29596.wav" id="6_bwkto"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_l4i1h"]
 top_radius = 0.1
@@ -64,9 +65,14 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 
 light_color = Color(1, 0.6, 0.6, 1)
 
 [node name="TopLight" type="OmniLight3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425228, 0)
 omni_range = 0.6
 
 [node name="BottomLight" type="OmniLight3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.195339, 0)
 omni_range = 0.6
+
+[node name="FlourescentLightSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_bwkto")

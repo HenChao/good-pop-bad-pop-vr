@@ -13,12 +13,13 @@ config_version=5
 config/name="Good Pop Bad Pop VR"
 run/main_scene="uid://bjyq1ici8dgth"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://c3vjygc6b7gyj"
 
 [autoload]
 
 XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
 XRToolsRumbleManager="*res://addons/godot-xr-tools/rumble/rumble_manager.gd"
+XrSimulator="*res://addons/xr-simulator/XRSimulator.tscn"
 
 [display]
 

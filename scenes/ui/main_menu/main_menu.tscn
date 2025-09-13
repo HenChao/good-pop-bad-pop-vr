@@ -1,30 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsbv7nkwxoh1"]
+[gd_scene load_steps=5 format=3 uid="uid://bsbv7nkwxoh1"]
 
 [ext_resource type="Script" uid="uid://dh4dpfq6n5wx5" path="res://scenes/ui/main_menu/main_menu.gd" id="1_e8t4i"]
-[ext_resource type="FontFile" uid="uid://85203nd61s7c" path="res://resources/Funnel_Sans/static/FunnelSans-ExtraBold.ttf" id="2_e8t4i"]
+[ext_resource type="Texture2D" uid="uid://c37gf3bdlh7o5" path="res://resources/Logo.png" id="2_qt1dd"]
 [ext_resource type="PackedScene" uid="uid://cemvix3bvnnyc" path="res://scenes/ui/button/ui_button.tscn" id="3_qt1dd"]
+[ext_resource type="Texture2D" uid="uid://dcf3eyd8w2add" path="res://resources/NoHighlight.png" id="4_cmwxi"]
 
 [node name="MainMenu" type="Node3D"]
 script = ExtResource("1_e8t4i")
 
-[node name="TitleLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.23095, 0)
-double_sided = false
-text = "Good Pop, Bad Pop"
-font = ExtResource("2_e8t4i")
-font_size = 100
-outline_size = 24
+[node name="Logo" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+texture = ExtResource("2_qt1dd")
 
 [node name="StartButton" parent="." instance=ExtResource("3_qt1dd")]
+unique_name_in_owner = true
 initial_text = "Start"
 
 [node name="SetHeightButton" parent="." instance=ExtResource("3_qt1dd")]
+unique_name_in_owner = true
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -5, 0, 1)
 initial_text = "Reset Player Height"
 
 [node name="QuitButton" parent="." instance=ExtResource("3_qt1dd")]
+unique_name_in_owner = true
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 5, 0, 1)
 initial_text = "Quit Game"
+
+[node name="NoHighlight" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+texture = ExtResource("4_cmwxi")
 
 [connection signal="button_pressed" from="StartButton" to="." method="_on_start_button_button_pressed"]
 [connection signal="button_pressed" from="SetHeightButton" to="." method="_on_set_height_button_button_pressed"]

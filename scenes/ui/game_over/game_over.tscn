@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqvlchsbi5wkm"]
+
+[ext_resource type="Script" uid="uid://debuif3qggwkp" path="res://scenes/ui/game_over/game_over.gd" id="1_gwgfp"]
+[ext_resource type="Texture2D" uid="uid://dkohj54crg58t" path="res://resources/GameOver.png" id="1_ufeuh"]
+[ext_resource type="PackedScene" uid="uid://cemvix3bvnnyc" path="res://scenes/ui/button/ui_button.tscn" id="3_neav2"]
+[ext_resource type="FontFile" uid="uid://b265opj1lmq2m" path="res://resources/Funnel_Sans/static/FunnelSans-Bold.ttf" id="4_spb8m"]
+
+[node name="GameOver" type="Node3D"]
+script = ExtResource("1_gwgfp")
+
+[node name="GameOver" type="Sprite3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+texture = ExtResource("1_ufeuh")
+
+[node name="RestartButton" parent="." instance=ExtResource("3_neav2")]
+unique_name_in_owner = true
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, -3, 0, 0)
+initial_text = "Restart Level"
+
+[node name="QuitButton" parent="." instance=ExtResource("3_neav2")]
+unique_name_in_owner = true
+transform = Transform3D(0.906307, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906307, 3, 0, 0)
+initial_text = "Quit Game"
+
+[node name="HintLabel" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+text = "Gameplay Hints."
+font = ExtResource("4_spb8m")
+font_size = 72
+autowrap_mode = 2
+width = 2000.0
+
+[connection signal="button_pressed" from="RestartButton" to="." method="_on_restart_button_button_pressed"]
+[connection signal="button_pressed" from="QuitButton" to="." method="_on_quit_button_button_pressed"]

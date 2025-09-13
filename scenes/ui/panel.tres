@@ -5,8 +5,10 @@ parameter_name = "PrimaryColor"
 default_value_enabled = true
 default_value = Color(0.53, 1, 0.984333, 1)
 
-[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_tsyrg"]
-constant = 0.3
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_tsyrg"]
+parameter_name = "Alpha"
+default_value_enabled = true
+default_value = 0.3
 
 [resource]
 code = "shader_type spatial;
@@ -17,6 +19,7 @@ render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_s
 varying float var_debug_vector_length;
 
 uniform vec4 PrimaryColor : source_color = vec4(0.530000, 1.000000, 0.984333, 1.000000);
+uniform float Alpha = 0.30000001192093;
 
 
 
@@ -25,23 +28,24 @@ void fragment() {
 	vec4 n_out12p0 = PrimaryColor;
 
 
-// FloatConstant:13
-	float n_out13p0 = 0.300000;
+// FloatParameter:14
+	float n_out14p0 = Alpha;
 
 
 // Output:0
 	ALBEDO = vec3(n_out12p0.xyz);
-	ALPHA = n_out13p0;
+	ALPHA = n_out14p0;
 
 
 	var_debug_vector_length = 0.0;
 }
 "
+graph_offset = Vector2(8.93193, -31.9646)
 flags/unshaded = true
 varyings/debug_vector_length = "1,0"
 nodes/fragment/0/position = Vector2(920, 240)
 nodes/fragment/12/node = SubResource("VisualShaderNodeColorParameter_t1l5u")
-nodes/fragment/12/position = Vector2(600, 160)
-nodes/fragment/13/node = SubResource("VisualShaderNodeFloatConstant_tsyrg")
-nodes/fragment/13/position = Vector2(660, 360)
-nodes/fragment/connections = PackedInt32Array(12, 0, 0, 0, 13, 0, 0, 1)
+nodes/fragment/12/position = Vector2(460, -20)
+nodes/fragment/14/node = SubResource("VisualShaderNodeFloatParameter_tsyrg")
+nodes/fragment/14/position = Vector2(440, 300)
+nodes/fragment/connections = PackedInt32Array(12, 0, 0, 0, 14, 0, 0, 1)

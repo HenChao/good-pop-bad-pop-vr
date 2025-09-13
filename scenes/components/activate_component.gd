@@ -51,7 +51,7 @@ func _on_activation_area_area_exited(area: Area3D) -> void:
 
 
 func _is_upside_down() -> bool:
-	return global_rotation_degrees.x <= -110 or global_rotation_degrees.x >= 110
+	return get_parent().global_rotation_degrees.z <= -110 or get_parent().global_rotation_degrees.z >= 110
 
 
 ## Helper function to determine if object is being shaken.

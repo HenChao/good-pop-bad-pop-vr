@@ -59,10 +59,6 @@ afraid_point_max = -0.1
 
 [node name="Kazoo" parent="InterrogationTable" instance=ExtResource("8_ubo8g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.373657, 0.15, 0.307704)
-entertained_point_min = 0.1
-entertained_point_max = 1.5
-afraid_point_min = -1.5
-afraid_point_max = -0.1
 
 [node name="MooingCow" parent="InterrogationTable" instance=ExtResource("7_b2erf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0999999, 0.307704)

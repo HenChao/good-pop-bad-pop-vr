@@ -30,7 +30,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
 [node name="MouthSprite3D" parent="ComputerScreen" index="4"]
-frame_progress = 0.703264
+frame_progress = 0.472242
 
 [node name="Baby" parent="." instance=ExtResource("5_v8k53")]
 unique_name_in_owner = true

@@ -19,8 +19,9 @@ func _ready() -> void:
 
 func initialize_toys() -> void:
 	toys_array.shuffle()
+	var copy_toys_array = toys_array.duplicate(true)
 	for zone in toy_snap_zones:
-		var toy: Toy = (toys_array.pop_front() as PackedScene).instantiate()
+		var toy: Toy = (copy_toys_array.pop_front() as PackedScene).instantiate()
 		toys_tree.add_child(toy)
 		zone.initial_object = toy.get_path()
 		zone.pick_up_object(toy)

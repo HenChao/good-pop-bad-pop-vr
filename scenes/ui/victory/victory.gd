@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 func _animate_menu_in() -> void:
-	_tween.parallel().set_ease(Tween.EASE_OUT)
+	_tween.set_parallel()
 	_tween.tween_property(victory, "modulate:a", 1, ANIMATION_TIMING)
 	_tween.tween_method(next_level_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)
 	_tween.tween_method(quit_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)

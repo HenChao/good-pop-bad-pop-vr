@@ -89,14 +89,13 @@ surface_material_override/0 = SubResource("ShaderMaterial_85tyx")
 [node name="ToyHint" type="Label3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.226154, 0.146278, 0.08566)
-visible = false
+pixel_size = 0.001
 font = ExtResource("4_hhtu7")
-font_size = 12
+font_size = 40
 outline_size = 6
 horizontal_alignment = 0
 vertical_alignment = 0
 autowrap_mode = 2
-width = 100.0
 
 [node name="ScreenMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -113,7 +112,7 @@ pixel_size = 0.001
 sprite_frames = SubResource("SpriteFrames_hhtu7")
 animation = &"talking"
 autoplay = "talking"
-frame_progress = 0.391376
+frame_progress = 0.0936737
 
 [node name="EyesSprite3D" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
@@ -140,7 +139,7 @@ text = "Chief of Police Mom"
 text = "Get on the case!"
 
 [node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
-text = "Press a/x to continue..."
+text = "Press a/x to continue.."
 
 [editable path="computer_monitor"]
 [editable path="SpeechBubble"]

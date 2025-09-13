@@ -51,7 +51,7 @@ physics_material_override = SubResource("PhysicsMaterial_ot5ll")
 script = ExtResource("1_6lcba")
 toy_hint = "Toy Rattle
 
-Shake the toy."
+Give it a shake."
 active_component = NodePath("ActivateComponent")
 audio_component = NodePath("AudioComponent")
 haptics_component = NodePath("HapticsComponent")

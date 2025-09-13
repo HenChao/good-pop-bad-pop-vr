@@ -4,6 +4,14 @@ extends XRToolsPickable
 
 ## Emit when toy is activated by player. Value is based on if player is good pop or bad pop.
 signal activated(value: float)
+## Emit when picked up by player. Passes the hint text for the toy.
+signal pick_up_hint(hint: String)
+
+const HAND_GRAB_HAPTIC_INTENSITY: float = 0.2
+const HAND_GRAB_HAPTIC_TIMING_MS: float = 100
+
+## How the toy is activated
+@export_multiline var toy_hint: String
 
 @export_group("Components Parameters")
 @export var active_component: ActivateComponent
@@ -17,10 +25,10 @@ signal activated(value: float)
 @export var timer_timeout: float = 30.0
 
 @export_group("Points Parameters")
-@export var entertained_point_min: float = 1.0
-@export var entertained_point_max: float = 5.0
-@export var afraid_point_min: float = -5.0
-@export var afraid_point_max: float = -1.0
+@export var entertained_point_min: float = 0.1
+@export var entertained_point_max: float = 1.5
+@export var afraid_point_min: float = -1.5
+@export var afraid_point_max: float = -0.1
 
 var _current_entertained_points: float = 0.0
 var _current_afraid_points: float = 0.0
@@ -36,7 +44,8 @@ func _ready() -> void:
 		haptics_component, "No Haptics Component defined in %s of %s" % [name, get_parent().name]
 	)
 	assert(
-		return_to_snap_zone_node, "No XRToolsReturnToSnapZone assigned in %s of %s" % [name, get_parent().name]
+		return_to_snap_zone_node,
+		"No XRToolsReturnToSnapZone assigned in %s of %s" % [name, get_parent().name]
 	)
 	assert(
 		toy_tracking_area, "No Toy Tracking Area assigned in %s of %s" % [name, get_parent().name]
@@ -68,11 +77,14 @@ func _set_random_points_value() -> void:
 func _on_hand_grab(_pickable: Variant, by: Variant) -> void:
 	if by.get_parent() is XRController3D:
 		_currently_held_hand = by.get_parent()
-		haptics_component.rumble_controller(_currently_held_hand, 0.2, 100)
+		haptics_component.rumble_controller(_currently_held_hand, HAND_GRAB_HAPTIC_INTENSITY, HAND_GRAB_HAPTIC_TIMING_MS)
+		pick_up_hint.emit(toy_hint)
 
 
 func _on_hand_release(_pickable: Variant, by: Variant) -> void:
 	if _currently_held_hand == by.get_parent():
+		haptics_component.stop_rumble(_currently_held_hand)
+		audio_component.stop_sound()
 		_currently_held_hand = null
 
 

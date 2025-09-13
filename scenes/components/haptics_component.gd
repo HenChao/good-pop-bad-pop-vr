@@ -17,3 +17,7 @@ func rumble_controller(
 		rumble_event.magnitude = clamp(intensity, 0.1, 1.0)
 	rumble_event.duration_ms = duration
 	XRToolsRumbleManager.add(get_parent().name, rumble_event, [controller])
+
+
+func stop_rumble(controller: XRController3D) -> void:
+	XRToolsRumbleManager.clear(get_parent().name, [controller])

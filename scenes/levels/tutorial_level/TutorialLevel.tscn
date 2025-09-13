@@ -1,18 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://bolsca47s82wm"]
+[gd_scene load_steps=10 format=3 uid="uid://bolsca47s82wm"]
 
 [ext_resource type="Script" uid="uid://d0quyyui5hkie" path="res://scenes/levels/tutorial_level/tutorial_level.gd" id="1_au04w"]
 [ext_resource type="PackedScene" uid="uid://cdjftn4b2mqbp" path="res://scenes/objects/interrogation_table/interrogation_table.tscn" id="1_hrctv"]
 [ext_resource type="PackedScene" uid="uid://b28tv5rnfncm1" path="res://scenes/objects/overhead_light/overhead_light.tscn" id="2_wta6x"]
 [ext_resource type="PackedScene" uid="uid://bhc2iutvt1kg3" path="res://scenes/objects/computer_screen/computer_screen.tscn" id="3_3ee13"]
-[ext_resource type="PackedScene" uid="uid://dukpkgl3k7t4s" path="res://scenes/objects/toys/rubber_duck/rubber_duck.tscn" id="3_pbmwr"]
+[ext_resource type="PackedScene" uid="uid://dukpkgl3k7t4s" path="res://scenes/objects/toys/rubber_duck.tscn" id="3_pbmwr"]
+[ext_resource type="PackedScene" uid="uid://d3k3vrx3x10k3" path="res://scenes/objects/toys/mooing_cow.tscn" id="4_cnuay"]
+[ext_resource type="PackedScene" uid="uid://cu8q81rh0xmot" path="res://scenes/objects/toys/kazoo.tscn" id="5_lbvud"]
 [ext_resource type="PackedScene" uid="uid://dstu4u4xea1r8" path="res://scenes/entities/baby/baby.tscn" id="5_v8k53"]
+[ext_resource type="PackedScene" uid="uid://brm67naqlyh56" path="res://scenes/objects/toys/toy_rattle.tscn" id="6_d7pdh"]
 
 [node name="TutorialLevel" type="Node3D"]
 script = ExtResource("1_au04w")
 
 [node name="InterrogationTable" parent="." instance=ExtResource("1_hrctv")]
 unique_name_in_owner = true
-toys_array = Array[PackedScene]([ExtResource("3_pbmwr"), ExtResource("3_pbmwr"), ExtResource("3_pbmwr")])
+toys_array = Array[PackedScene]([ExtResource("3_pbmwr"), ExtResource("4_cnuay"), ExtResource("5_lbvud"), ExtResource("6_d7pdh")])
 
 [node name="OverheadLight" parent="." instance=ExtResource("2_wta6x")]
 unique_name_in_owner = true
@@ -22,11 +25,11 @@ transform = Transform3D(0.999264, 0.0107134, -0.0368437, -0.0205064, 0.960704, -
 unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
-[node name="MouthSprite3D" parent="ComputerScreen" index="3"]
-frame_progress = 0.168439
+[node name="MouthSprite3D" parent="ComputerScreen" index="4"]
+frame_progress = 0.749451
 
 [node name="PressToContinueLabel" parent="ComputerScreen/SpeechBubble" index="3"]
-text = "Press a/x to continue.."
+text = "Press a/x to continue."
 
 [node name="Baby" parent="." instance=ExtResource("5_v8k53")]
 unique_name_in_owner = true
@@ -39,8 +42,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0467941, 0.0555415)
 [node name="SpeechBubble" parent="Baby" index="2"]
 billboard = true
 
-[node name="PressToContinueLabel" parent="Baby/SpeechBubble" index="3"]
-text = "Press a/x to continue.."
+[connection signal="fearfullness_gate_reached" from="Baby" to="." method="_on_baby_fearfullness_gate_reached"]
+[connection signal="happiness_gate_reached" from="Baby" to="." method="_on_baby_happiness_gate_reached"]
+[connection signal="out_of_energy" from="Baby" to="." method="_on_baby_out_of_energy"]
+[connection signal="sufficiently_entertained" from="Baby" to="." method="_on_baby_sufficiently_entertained"]
+[connection signal="too_afraid" from="Baby" to="." method="_on_baby_too_afraid"]
 
 [editable path="InterrogationTable"]
 [editable path="InterrogationTable/SpeechBubble"]

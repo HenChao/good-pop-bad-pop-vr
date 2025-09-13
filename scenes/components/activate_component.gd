@@ -23,9 +23,7 @@ func _ready() -> void:
 	var controllers: Array[Node] = get_tree().get_nodes_in_group("XRController")
 	if controllers.size() > 0:
 		for controller in controllers:
-			(controller as XRController3D).input_float_changed.connect(
-				_on_controller_input_trigger
-			)
+			(controller as XRController3D).input_float_changed.connect(_on_controller_input_trigger)
 
 
 func _physics_process(delta: float) -> void:

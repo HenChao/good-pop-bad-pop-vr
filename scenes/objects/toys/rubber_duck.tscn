@@ -36,6 +36,9 @@ collision_layer = 4
 collision_mask = 65543
 physics_material_override = SubResource("PhysicsMaterial_ot5ll")
 script = ExtResource("1_po5dv")
+toy_hint = "Rubber Duck
+
+Sqeeze with trigger."
 active_component = NodePath("ActivateComponent")
 audio_component = NodePath("AudioComponent")
 haptics_component = NodePath("HapticsComponent")
@@ -86,9 +89,9 @@ return_delay = 3.0
 metadata/_custom_type_script = "uid://bptmedpopls3j"
 
 [node name="ToyTrackingArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.071, 0)
 collision_layer = 65536
 collision_mask = 65536
 
 [node name="BoxShape" type="CollisionShape3D" parent="ToyTrackingArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.070834, 0)
 shape = SubResource("BoxShape3D_ot5ll")

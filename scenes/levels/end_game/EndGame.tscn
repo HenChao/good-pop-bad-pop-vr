@@ -18,9 +18,6 @@ script = ExtResource("1_gpa52")
 unique_name_in_owner = true
 toys_array = Array[PackedScene]([ExtResource("3_32tff"), ExtResource("4_yx6rv"), ExtResource("5_7ntnr"), ExtResource("6_qmayd")])
 
-[node name="PressToContinueLabel" parent="InterrogationTable/SpeechBubble" index="3"]
-text = "Press a/x to continue..."
-
 [node name="OverheadLight" parent="." instance=ExtResource("7_ectne")]
 unique_name_in_owner = true
 transform = Transform3D(0.999264, 0.0107134, -0.0368437, -0.0205064, 0.960704, -0.276816, 0.0324303, 0.277367, 0.960216, -0.0207067, 1.0398, 0.0758374)
@@ -30,7 +27,10 @@ unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
 [node name="MouthSprite3D" parent="ComputerScreen" index="4"]
-frame_progress = 0.191518
+frame_progress = 0.199776
+
+[node name="PressToContinueLabel" parent="ComputerScreen/SpeechBubble" index="3"]
+text = "Press a/x to continue."
 
 [node name="Baby" parent="." instance=ExtResource("9_jmvp1")]
 unique_name_in_owner = true
@@ -48,11 +48,11 @@ billboard = true
 text = "Mr. Big"
 
 [node name="PressToContinueLabel" parent="Baby/SpeechBubble" index="3"]
-text = "Press a/x to continue..."
+text = "Press a/x to continue."
 
 [node name="Credits" type="Label3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395758, -0.445179, -1.48417)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124632, -0.445179, -1.48417)
 text = "Good Pop, Bad Pop
 
 A game by Henry Chao.

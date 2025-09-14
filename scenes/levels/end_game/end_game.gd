@@ -28,15 +28,18 @@ func _ready() -> void:
 
 
 func start_level() -> void:
-	var tween: Tween = create_tween()
 	await get_tree().create_timer(3.0).timeout
 	await overhead_light.fade_in()
 	# Play the final dialogue.
 	await script_manager.start_scene(FINAL_SCENE)
 	mom_puter.set_state(ComputerScreen.States.OFF_SCREEN)
-	tween.tween_property(credits, "position:y", 3, 10)
+	
+	var tween: Tween = create_tween()
+	tween.tween_property(credits, "position:y", 3, 20)
+	tween.tween_property(credits, "modulate:a", 0.0, 2)
+	await tween.finished
 	await overhead_light.fade_out()
-	level_complete.emit()
+	level_complete.emit(0.0)
 
 
 func set_script_manager(sm: ScriptManager) -> void:

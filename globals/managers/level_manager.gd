@@ -87,6 +87,10 @@ func set_level(level: Levels) -> void:
 func _on_level_complete(timing: float) -> void:
 	for child in game_objects.get_children():
 		child.queue_free()
+	
+	if _current_level == Levels.END_GAME:
+		return set_level(Levels.MAIN_MENU)
+	
 	var victory_menu: Victory = level_complete.instantiate()
 	game_objects.add_child(victory_menu)
 	victory_menu.position = Vector3(0, 1.5, -10)
@@ -102,8 +106,6 @@ func _on_level_complete(timing: float) -> void:
 					set_level(Levels.LEVEL_3)
 				Levels.LEVEL_3:
 					set_level(Levels.END_GAME)
-				Levels.END_GAME:
-					set_level(Levels.MAIN_MENU)
 	)
 
 ## Called when the player fails the level. Either due to timeout or low mood.
@@ -120,7 +122,9 @@ func _on_level_failed() -> void:
 
 
 func _setup_main_menu() -> void:
-	var menu_objects: Node3D = main_menu_scene.instantiate()
+	var menu_objects: MainMenu = main_menu_scene.instantiate()
+	menu_objects.player_body = player.get_node("PlayerBody")
+	menu_objects.level_manager = self
 	game_objects.add_child(menu_objects)
 	menu_objects.position = Vector3(0, 1.5, -10)
 	_current_level = Levels.MAIN_MENU

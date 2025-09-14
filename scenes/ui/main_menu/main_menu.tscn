@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsbv7nkwxoh1"]
+[gd_scene load_steps=6 format=3 uid="uid://bsbv7nkwxoh1"]
 
 [ext_resource type="Script" uid="uid://dh4dpfq6n5wx5" path="res://scenes/ui/main_menu/main_menu.gd" id="1_e8t4i"]
 [ext_resource type="Texture2D" uid="uid://c37gf3bdlh7o5" path="res://resources/Logo.png" id="2_qt1dd"]
 [ext_resource type="PackedScene" uid="uid://cemvix3bvnnyc" path="res://scenes/ui/button/ui_button.tscn" id="3_qt1dd"]
 [ext_resource type="Texture2D" uid="uid://dcf3eyd8w2add" path="res://resources/NoHighlight.png" id="4_cmwxi"]
+[ext_resource type="AudioStream" uid="uid://dub0mj8s2b5si" path="res://resources/Main_Menu_Intro.wav" id="5_r70wa"]
 
 [node name="MainMenu" type="Node3D"]
 script = ExtResource("1_e8t4i")
@@ -31,6 +32,11 @@ initial_text = "Quit Game"
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 texture = ExtResource("4_cmwxi")
+
+[node name="IntroPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_r70wa")
+volume_db = -5.0
+autoplay = true
 
 [connection signal="button_pressed" from="StartButton" to="." method="_on_start_button_button_pressed"]
 [connection signal="button_pressed" from="SetHeightButton" to="." method="_on_set_height_button_button_pressed"]

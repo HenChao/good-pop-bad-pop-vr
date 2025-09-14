@@ -27,7 +27,7 @@ func _ready() -> void:
 
 
 func _play_intro_animation() -> void:
-	_tween.tween_property(no_highlight, "position", Vector3(0.0, 2.8, 0.0), 5.0)
+	_tween.tween_property(no_highlight, "position", Vector3(0.0, 2.8, 0.0), 9.0)
 	_tween.tween_property(logo, "modulate:a", 1.0, 1.0)
 	_tween.tween_property(no_highlight, "modulate:a", 0, 1.0)
 	# Fade in buttons

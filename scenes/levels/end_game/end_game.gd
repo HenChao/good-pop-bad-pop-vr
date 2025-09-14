@@ -9,7 +9,8 @@ signal level_failed
 const FINAL_SCENE: String = """
 Mom::Well Dad, we did good today. It wasn't easy, but you closed all your cases.
 Dad::Yep, the house is safe from those kids for another day.
-Mom::Get some rest now. You've got about another two hours before those kids wake up.
+Mom::Get some rest now. You've got about another two hours before those kids wake up and we do this all over again.
+Dad::I guess the house never sleeps, and so won't I...
 """
 # gdlint: enable=max-line-length
 

@@ -8,12 +8,12 @@ signal level_failed
 # gdlint: disable=max-line-length
 const INTRO_SCENE: String = """
 Mom::This is a big one, Dad. Our suspect is thought to be the serial vandal, Bonksky.
-Dad::The one who's been writting graffiti in the hallway walls? I know they're a big hit with the kids.
+Dad::The one who's been writting graffiti in the hallway walls? I know they're a big hit with the rest of the kids.
 Mom::Yep, that's the one. She was caught tonight tagging the nursery room door with a new message.
-Mom::\"Down with bedtimes, up with snacks.\""
+Mom::\"Down with bedtimes, up with ice cream.\""
 Dad::Catchy. Has a certain type of poetry to it.
 Mom::Poetic or not, it doesn't help to rile up the other kids like that.
-Mom::We caught her red-handed with this last one, but we need you to get her to confess for all the other ones.
+Mom::We caught her red-handed with this last one, but we need you to get her to confess to all the other ones.
 Dad::I'm on it.
 """
 
@@ -25,7 +25,7 @@ Dad::I've seen you leave things in your diaper less stinky than that lie.
 
 const SECOND_ROUND: String = """
 Baby:Smiling:Well, that was fun, but if there's nothing else, I want to go back to play.
-Dad::No can do, we're not done here.
+Dad::Sorry princess, but we're not done here.
 """
 
 const SECOND_ROUND_INTERLUDE: String = """
@@ -34,18 +34,18 @@ Dad::It's just been revoked.
 """
 
 const SECOND_ROUND_TURNABOUT: String = """
-Baby:Annoyed:Alright alright, if I tell you about a big heist that's being planned, will you let me go?
+Baby:Annoyed:Alright alright, if I tell you about a big candy heist that's being planned, will you let me go?
 Dad::Seeing as you're in a sharing-is-caring mood, I might consider it.
 """
 
 const END_INTERROGATION: String = """
 Baby::Okay, fine, I admit to it. I am the one known as Bonksky.
 Baby::If nothing else, I'll finally get the recognition I deserve.
-Dad::The only thing you deserve is a long time out.
+Dad::The only thing you deserve is a long time-out.
 Mom::Great job Dad! They'll be talking about this one in the PTA for sure.
 Dad::It's not about the glory for me. I'm just glad to see the streets clean of loose Lego bricks.
 Mom::The heist that she mentioned concerns me. I haven't heard of anything close to this being planned.
-Mom::If it's true, then it means there's a big player out there, operating under our noses.
+Mom::If it's true, then it means there's a big player out there, operating right under our noses.
 Dad::Then there's no time to waste. Lets roll.
 """
 
@@ -53,7 +53,7 @@ const OUT_OF_ENERGY: String = """
 Baby::Daddy, it's getting late. Can I get my juice box now?
 Mom:Annoyed:What happened, Dad? You seem off on this one.
 Dad::Sorry Chief. It looks like she's not as energetic than her brothers.
-Dad::Next time, I'll have to keep a close eye on her energy levels.
+Dad::Next time, I'll have to keep a close eye on her energy levels and move fast.
 """
 
 const TOO_AFRAID: String = """

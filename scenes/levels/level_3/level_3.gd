@@ -7,7 +7,7 @@ signal level_failed
 
 # gdlint: disable=max-line-length
 const INTRO_SCENE: String = """
-Mom::We followed up on the lead about the heist, and it lead us to this suspect.
+Mom::We followed up on the lead about the candy heist, and it lead us to this suspect.
 Mom::He's going to be a handful. He's insisting on being called \"Mr. Big\" for some reason.
 Dad::That's a new one. Anything we need to worry about?
 Mom::No, I think Governor Granddad just let him watch too many mafia movies together.
@@ -15,16 +15,16 @@ Dad::Alright then. I'll see what he knows and report back.
 """
 
 const FIRST_ROUND: String = """
-Dad::So, what's this I hear about a heist?
+Dad::So, what's this I hear about a candy heist?
 Baby::Nice try, pop, but I wasn't born yesterday. More like a few months ago.
 Dad::I see. So nothing you want to tell us?
-Baby:Annoyed:Maybe I do, maybe I don't. What's it to ya, pop?
+Baby:Annoyed:Maybe I do, maybe I don't. What's it to ya, Pop?
 """
 
 const SECOND_ROUND: String = """
 Baby:Smiling:Alright, how about I make you an offer you can't refuse?
 Dad::What did you have in mind?
-Baby:Smiling:Maybe I've heard about a heist, sure. And maybe that information might be worth, lets say, two cookies?
+Baby:Smiling:Maybe I've heard about a candy heist, sure. And maybe that information might be worth, lets say, one cookie?
 """
 
 const SECOND_ROUND_INTERLUDE: String = """
@@ -33,14 +33,15 @@ Dad::Sorry kid, nothing personal.
 """
 
 const SECOND_ROUND_TURNABOUT: String = """
-Baby:Annoyed:I see you're one of those serious dads. Maybe we can make a reasonable deal.
+Baby:Annoyed:I see you're one of those Untouchable Pops. Maybe we can make a reasonable deal.
 Dad::Now we're getting somewhere.
 """
 
 const END_INTERROGATION: String = """
 Baby::Well well, this has been fun. A deal's a deal, I'll tell you what I know.
 Dad::I'm glad you see reason.
-Mom::As always, another great job with this case, Dad.
+Mom::As always, another great job with this case, Dad. I think there's a promotion in this for you this time.
+Dad::Thanks, but no thanks, Chief. I was born to walk the beat.
 """
 
 const OUT_OF_ENERGY: String = """
@@ -52,7 +53,8 @@ Dad::Sorry Chief. Timing is tight with this case, I definitely don't have a lot 
 const TOO_AFRAID: String = """
 Baby:Crying:You over played your hand this time, popper. I believe I'll ask for my lawyer now.
 Mom:Annoyed:This was a big fish to have to let go, Dad. I'm not happy about this.
-Dad::He definitely is a tough one. It'll take a lot to break him, and a little bit more is too far.
+Dad::It'll take a lot to break him, and a bit more is enough for him to lawyer up.
+Dad::I'll have to take my time and make sure I use the right toy for the job.
 """
 # gdlint: enable=max-line-length
 

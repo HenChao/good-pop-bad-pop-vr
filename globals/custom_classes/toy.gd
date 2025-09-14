@@ -1,18 +1,23 @@
 @tool
 class_name Toy
 extends XRToolsPickable
+## Base class used by all toy objects in game.
+## Each toy will have a randomly generated point which will add or subtract to
+## the baby's mood, based on the current persona of the player. The point values
+## will periodically change, to keep the game a bit more dynamic.
 
-## Emit when toy is activated by player. Value is based on if player is good pop or bad pop.
+## Emit when toy is activated by player. Value passed is based on if player is good pop or bad pop.
 signal activated(value: float)
-## Emit when picked up by player. Passes the hint text for the toy.
+## Emit when picked up by player. Passes the hint text for the toy to be displayed on the computer monitor.
 signal pick_up_hint(hint: String)
 
 const HAND_GRAB_HAPTIC_INTENSITY: float = 0.2
 const HAND_GRAB_HAPTIC_TIMING_MS: float = 100
 
-## How the toy is activated
+## Context hint on how the toy should be activated.
 @export_multiline var toy_hint: String
 
+## References to nodes in tree for various components to handle interaction logic.
 @export_group("Components Parameters")
 @export var active_component: ActivateComponent
 @export var audio_component: AudioComponent
@@ -30,13 +35,18 @@ const HAND_GRAB_HAPTIC_TIMING_MS: float = 100
 @export var afraid_point_min: float = -3.0
 @export var afraid_point_max: float = -1.0
 
+## The current value of points which is added to the baby's mood if the Player is Good Pop.
 var _current_entertained_points: float = 0.0
+## The current value of points which is removed from the baby's mood if the Player is Bad Pop.
 var _current_afraid_points: float = 0.0
+## Reference to the controller holding this toy for haptic feedback.
 var _currently_held_hand: XRController3D
 
 
 func _ready() -> void:
-	super()
+	super() # Super call is required, as this extends the XRToolsPickable class.
+	
+	# Assert checks to ensure required components are assigned.
 	assert(points_randomizer_timer, "No timer defined in %s of %s" % [name, get_parent().name])
 	assert(active_component, "No Active Component defined in %s of %s" % [name, get_parent().name])
 	assert(audio_component, "No Audio Component defined in %s of %s" % [name, get_parent().name])
@@ -50,26 +60,30 @@ func _ready() -> void:
 	assert(
 		toy_tracking_area, "No Toy Tracking Area assigned in %s of %s" % [name, get_parent().name]
 	)
+	
+	# Set initial set of point values for the toy.
 	_set_random_points_value()
 
-	# Setup timer to periodically randomize the points value, to keep folks on their toes.
+	# Setup timer to periodically randomize the points value.
 	points_randomizer_timer.timeout.connect(func(): _set_random_points_value())
 	points_randomizer_timer.one_shot = false
 	points_randomizer_timer.start(timer_timeout)
 
+	# Programmatically connect signals to handle toy interaction.
 	active_component.activated.connect(_on_toy_activation)
 	active_component.deactivate.connect(_on_toy_deactivation)
 
-	# Connect to pickable signals to play the appropriate haptics control
+	# Connect to base class pickable signals to play the appropriate haptics control.
 	grabbed.connect(_on_hand_grab)
 	released.connect(_on_hand_release)
 
 
+## Called externally to assign this toy to the appropriate XRToolsSnapZone on drop.
 func assign_snap_zone(zone: XRToolsSnapZone) -> void:
 	return_to_snap_zone_node.set_snap_zone(zone)
 
 
-## Helper function to randomize both the entertained and afraid point values.
+## Internal helper function to randomize both the entertained and afraid point values.
 func _set_random_points_value() -> void:
 	_current_entertained_points = randf_range(entertained_point_min, entertained_point_max)
 	_current_afraid_points = randf_range(afraid_point_min, afraid_point_max)

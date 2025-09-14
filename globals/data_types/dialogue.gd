@@ -1,5 +1,7 @@
 class_name Dialogue
 extends RefCounted
+## Data type to store lines of dialogue for the game script.
+## Used to ensure consistency and help enable autocompletes and code hints in editor.
 
 ## Possible speakers of the dialogue
 enum Speakers { MOM, DAD, BABY }

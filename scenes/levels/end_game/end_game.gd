@@ -20,6 +20,7 @@ var script_manager: ScriptManager
 @onready var baby: Baby = %Baby
 @onready var interrogation_table: InterrogationTable = %InterrogationTable
 @onready var overhead_light: OverheadLight = %OverheadLight
+@onready var credits: Label3D = %Credits
 
 
 func _ready() -> void:
@@ -27,10 +28,15 @@ func _ready() -> void:
 
 
 func start_level() -> void:
+	var tween: Tween = create_tween()
 	await get_tree().create_timer(3.0).timeout
 	await overhead_light.fade_in()
 	# Play the final dialogue.
 	await script_manager.start_scene(FINAL_SCENE)
+	mom_puter.set_state(ComputerScreen.States.OFF_SCREEN)
+	tween.tween_property(credits, "position:y", 3, 10)
+	await overhead_light.fade_out()
+	level_complete.emit()
 
 
 func set_script_manager(sm: ScriptManager) -> void:

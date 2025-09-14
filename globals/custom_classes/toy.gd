@@ -8,7 +8,8 @@ extends XRToolsPickable
 
 ## Emit when toy is activated by player. Value passed is based on if player is good pop or bad pop.
 signal activated(value: float)
-## Emit when picked up by player. Passes the hint text for the toy to be displayed on the computer monitor.
+## Emit when picked up by player.
+## Passes the hint text for the toy to be displayed on the computer monitor.
 signal pick_up_hint(hint: String)
 
 const HAND_GRAB_HAPTIC_INTENSITY: float = 0.2
@@ -44,8 +45,8 @@ var _currently_held_hand: XRController3D
 
 
 func _ready() -> void:
-	super() # Super call is required, as this extends the XRToolsPickable class.
-	
+	super()  # Super call is required, as this extends the XRToolsPickable class.
+
 	# Assert checks to ensure required components are assigned.
 	assert(points_randomizer_timer, "No timer defined in %s of %s" % [name, get_parent().name])
 	assert(active_component, "No Active Component defined in %s of %s" % [name, get_parent().name])
@@ -60,7 +61,7 @@ func _ready() -> void:
 	assert(
 		toy_tracking_area, "No Toy Tracking Area assigned in %s of %s" % [name, get_parent().name]
 	)
-	
+
 	# Set initial set of point values for the toy.
 	_set_random_points_value()
 

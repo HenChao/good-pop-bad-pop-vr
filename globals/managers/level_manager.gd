@@ -31,7 +31,7 @@ func _ready() -> void:
 	assert(player, "Player node not set in LevelManager.")
 	assert(game_objects, "Game Objects node not set in LevelManager.")
 	assert(script_manager, "Script Manager node not set in LevelManager.")
-	
+
 	assert(tutorial_level_scene, "Tutorial level scene not set in LevelManager.")
 	assert(level_1_scene, "Level 1 scene not set in LevelManager.")
 	assert(level_2_scene, "Level 2 scene not set in LevelManager.")
@@ -78,7 +78,7 @@ func set_level(level: Levels) -> void:
 	new_level.global_position = (
 		xr_camera_3d.global_position + Vector3(0.0, -0.35 * xr_camera_3d.global_position.y, -1.0)
 	)
-	
+
 	# Now ready to start the level.
 	new_level.start_level()
 
@@ -87,11 +87,11 @@ func set_level(level: Levels) -> void:
 func _on_level_complete(timing: float) -> void:
 	for child in game_objects.get_children():
 		child.queue_free()
-	
+
 	## If at the end of the game, don't show the victory screen. Just go to the Main Menu level.
 	if _current_level == Levels.END_GAME:
 		return set_level(Levels.MAIN_MENU)
-	
+
 	var victory_menu: Victory = level_complete.instantiate()
 	game_objects.add_child(victory_menu)
 	victory_menu.position = Vector3(0, 1.5, -10)
@@ -108,6 +108,7 @@ func _on_level_complete(timing: float) -> void:
 				Levels.LEVEL_3:
 					set_level(Levels.END_GAME)
 	)
+
 
 ## Called when the player fails the level. Either due to timeout or low mood.
 ## Transition and show the game over menu scene.

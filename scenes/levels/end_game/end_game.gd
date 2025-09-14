@@ -33,7 +33,7 @@ func start_level() -> void:
 	# Play the final dialogue.
 	await script_manager.start_scene(FINAL_SCENE)
 	mom_puter.set_state(ComputerScreen.States.OFF_SCREEN)
-	
+
 	var tween: Tween = create_tween()
 	tween.tween_property(credits, "position:y", 3, 20)
 	tween.tween_property(credits, "modulate:a", 0.0, 2)

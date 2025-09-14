@@ -37,10 +37,10 @@ func start_scene(scene_text: String) -> Signal:
 		await _display_speech_bubble(dialogue)
 		if audio_player.playing:
 			audio_player.stop()
-	
+
 	# Always end with no one speaking
 	_silence_all_actors()
-	
+
 	scene_complete.emit()
 	return scene_complete
 

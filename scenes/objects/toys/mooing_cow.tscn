@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d3k3vrx3x10k3"]
+[gd_scene load_steps=17 format=3 uid="uid://d3k3vrx3x10k3"]
 
 [ext_resource type="Script" uid="uid://cy63rik3kjg82" path="res://globals/custom_classes/toy.gd" id="1_8n1g2"]
 [ext_resource type="PackedScene" uid="uid://da2qgxxwwitl6" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" id="3_0v325"]
@@ -10,7 +10,6 @@
 [ext_resource type="AudioStream" uid="uid://cwxst0qhqsqcl" path="res://resources/sfx/cow-box-96547.wav" id="8_drxdp"]
 [ext_resource type="PackedScene" uid="uid://b3n3o0k81ajqi" path="res://scenes/components/haptics_component.tscn" id="10_hqufm"]
 [ext_resource type="Script" uid="uid://nq23qxmu5sxt" path="res://addons/godot-xr-tools/rumble/rumble_event.gd" id="11_0papn"]
-[ext_resource type="Script" uid="uid://1hll6knntmg7" path="res://scenes/objects/toys/debug.gd" id="12_8n1g2"]
 [ext_resource type="Script" uid="uid://bptmedpopls3j" path="res://addons/godot-xr-tools/objects/return_to_snap_zone.gd" id="12_nyvee"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ot5ll"]
@@ -102,9 +101,3 @@ collision_mask = 65536
 
 [node name="BoxShape" type="CollisionShape3D" parent="ToyTrackingArea"]
 shape = SubResource("BoxShape3D_ot5ll")
-
-[node name="Debug" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.203334, 0.22173, 0)
-text = "Debug"
-font_size = 16
-script = ExtResource("12_8n1g2")

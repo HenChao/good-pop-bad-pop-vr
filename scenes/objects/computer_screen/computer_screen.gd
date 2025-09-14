@@ -1,6 +1,8 @@
 @tool
 class_name ComputerScreen
 extends Node3D
+## Computer screen object, displaying Chief of Police Mom. Will also provide context hints for
+## toys during the interrogation.
 
 enum States { OFF_SCREEN, SILENT, TALKING }
 

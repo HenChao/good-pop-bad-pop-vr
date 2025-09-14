@@ -9,26 +9,26 @@ signal level_failed
 const INTRO_SCENE: String = """
 Mom::Well Dad, it's shaping up to be another busy night tonight.
 Dad::It always is around here. Sometimes I wonder if what we do makes any difference.
-Mom::Of course it does. Never forget that we're the last line between order and chaos.
-Dad::You're right of course. So what do you have for me first?
+Mom::Of course it does. Never forget that we're the last line here between order and chaos.
+Dad::You're right of course. So what do we have first for tonight?
 Mom::I know it's been a while, so we'll start off with a simple case.
-Mom::I'll also walk you through the process step-by-step, just as a quick refresher.
+Mom::I'll also walk you through the interrogation process step-by-step, just as a quick refresher.
 Dad::Sounds good. I appreciate the help.
 Mom::Don't mention it. I'm sure it'll be like riding a bike.
-Mom::Our first case is a 211, straight B and E. It looks like someone stole a cookie from the cookie jar.
-Mom::We'll bring the suspect into the room. Your job is to get a confession from them.
-Mom::Start by talking with them, get their side of the story. Then press them for more information.
-Mom::Note that you have only a small window of time to get a confession.
-Mom::If you take too long, then they can get bored and sleepy, and we'll have to put them down for a nap.
+Mom::Our first case is a straight B and E. It looks like someone stole a cookie from the cookie jar.
+Mom::I'll bring the suspect into the room. Your job is to get a confession from him.
+Mom::Start by talking with him, get his side of the story. Then press him for more information.
+Mom::Note that you'll only have a small window of time to get a confession.
+Mom::If you take too long, then the suspects can get bored and sleepy, and we'll have to put them down for a nap.
 Mom::The interrogation room can be a scary place, so try and make them feel comfortable.
 Mom::We'll have some toys available on the table for you to use to soothe them.
 Dad::Sounds good, I think I'm ready to start.
-Mom::Good. We'll bring in the suspect now.
+Mom::Good. I'll bring in the suspect now.
 """
 
 const FIRST_ROUND: String = """
 Dad::Well well well, I had a feeling I'd see you in here again one of these days.
-Baby:Scared:I know I've been in trouble before, but I didn't do anything!
+Baby:Scared:I know I've been in trouble before, but I didn't do anything this time!
 Dad::We'll see about that. What do you know about the cookie from the cookie jar?
 Baby:Annoyed:Cookie? What's a cookie? Never heard of any cookies.
 """
@@ -47,7 +47,7 @@ Mom::Raise your hands up to your eyes and play peek-a-boo. When the suspect sees
 Mom::Play the role of the bad pop and be more aggressive with your questioning and play time.
 Mom::Just remember, don't take it too far, or else they'll call for their lawyer.
 Mom::Once you think you've gotten them sufficiently scared, then play peek-a-boo again to switch back to good pop.
-Mom::You should then be able to play with them and get them back to a good spot.
+Mom::You should then be able to coax them back to a good spot.
 Dad::Alright Chief, I'll give it a shot.
 """
 
@@ -60,16 +60,16 @@ const END_INTERROGATION: String = """
 Baby:Surprised:Oh, you know what, I just remembered. I did eat a cookie today!
 Baby:Joyful:I didn't realize it was from the cookie jar you were asking about. I had my eyes closed while I was getting it.
 Dad::A likely story, but that won't save you from your punishment. You're in for a time-out now mister.
-Baby:Annoyed:You can send me away, but I'll be back on the streets in no time again.
+Baby:Annoyed:You can send me away, but I'll be out of the crib in no time again.
 Mom::Well done Dad, you haven't missed a beat.
-Dad::Thanks Chief, it was a pretty straightforward case, but sometimes that's just how the cookie crumbles.
+Dad::Thanks Chief. Criminals never think they'd get caught, but that's just how the cookie crumbles.
 """
 
 const OUT_OF_ENERGY: String = """
 Baby:Annoyed:That was fun Dad, but I think I hear the blankie calling my name.
 Mom::Good try Dad, but you ran out of time. Chances are we'll never find out who took the cookie now.
 Dad::Hmm, I'll keep in mind that the suspect responds differently to each toy, so I should vary it up if I'm getting stuck.
-Mom::True, and that over time, their interest can change even on the same toy, so it's not always consistent.
+Mom::True, and that over time, their interest can change even on the same toy, variety is key.
 """
 
 const TOO_AFRAID: String = """

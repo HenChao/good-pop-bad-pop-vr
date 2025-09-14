@@ -1,20 +1,24 @@
 class_name GameOver
 extends Node3D
+## Game Over menu. Displayed when a player fails an interrogation.
 
+## Emits when the restart button is pressed.
 signal restart_pressed
 
 const ANIMATION_TIMING: float = 3.0
+
+## Display a hint message to provide some assistance/feedback to player.
 # gdlint: disable=max-line-length
 const HINT_ARRAY: Array[String] = [
 	"Keep an eye on the suspect's expression to see if they're happy or scared.",
-	"Try different toys if it seems like you're progressing too slowly.",
+	"Try using different toys if it seems like you're progressing too slowly.",
 	"Avoid using a toy that gets the suspect scared too fast as Bad Pop.",
-	"If you're not sure how a toy works, take a look at the monitor when you pick it up.",
+	"If you're not sure how a toy works, take a look at the monitor for a hint.",
 	"The rubber duck will quack on trigger pull.",
-	"The cow tow will moo when it's flipped upside down.",
+	"The mooing cow will play a sound when it's flipped upside down.",
 	"Shake the rattle to get the suspect's attention.",
 	"Bring the kazoo up to your lips to make a sound.",
-	"Toys are only effective if the suspect is paying attention to it. Make sure to bring it up to their range of vision first."
+	"Toys are only effective if the suspect is paying attention to it. Make sure it's in their range of vision first."
 ]
 # gdlint: enable=max-line-length
 

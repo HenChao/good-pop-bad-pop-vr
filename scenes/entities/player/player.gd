@@ -1,17 +1,27 @@
 class_name Player
 extends XROrigin3D
+## Player entity. Contains logic to handle controller interaction with menus.
+## Also contains logic for changing Good Pop/Bad Pop persona through playing
+## peek-a-boo.
 
+## Emit when player hits the menu button on their controller.
 signal menu_button_hit
+## Emits when player switches between Good Pop/Bad Pop
 signal player_persona_changed
 
+## Static reference to current persona. Easier as a static variable to reference from
+## other scripts, and we assume only one player is active within the game.
 static var is_currently_good_pop: bool = true
 
+## Internal reference to hands in the peek-a-boo area. Needed to drive the logic for tracking
+## persona changes.
 var _hands_tracked: Array[Area3D] = []
 
 @onready var left_function_pointer: XRToolsFunctionPointer = $XRController3D_Left/FunctionPointer
 @onready var right_function_pointer: XRToolsFunctionPointer = $XRController3D_Right/FunctionPointer
 
 
+## Handle interaction with game menus.
 func _on_function_pointer_pointing_event(event: Variant) -> void:
 	if (event is XRToolsPointerEvent) and event.target.get_parent() is UIButton:
 		var button_target: UIButton = event.target.get_parent()

@@ -7,14 +7,14 @@ signal level_failed
 
 # gdlint: disable=max-line-length
 const INTRO_SCENE: String = """
-Mom::Got another case for you Dad. This one's a real career criminal. 4 time outs in the last 3 days.
+Mom::Got another case for you Dad. This one's a real career criminal. 4 time-outs in the last 3 days.
 Dad::Jeez. I'm getting too old for this stuff, Chief. Don't you know that I'm 18 years away from retirement.
-Mom::Well keep the boat docked for now, you still have a job to do.
+Mom::Well keep your boat docked for now, you still have a job to do.
 Dad::No choice, I suppose. What did this one do today?
 Mom::Bad case of assault. Seems that he hit Mayor Grandmom during tummy time today.
 Mom::The Governor isn't happy with this. He wants an apology from the suspect sooner rather than later.
 Dad::Governor Granddad already heard about this? Like I need any more pressure tonight.
-Mom::We're giving you a lot of leniency with this one, but results are expected. Good luck.
+Mom::We're giving you a lot of leeway with this one, but results are expected. Good luck.
 """
 
 const FIRST_ROUND: String = """
@@ -42,23 +42,23 @@ const END_INTERROGATION: String = """
 Baby::Oh alright. I'll give them an apology tomorrow. Happy?
 Dad::I'd be more happy if you just avoid hitting people in the future.
 Baby::That's a big ask. Maybe if my allowance went up a few cents?
-Dad::Sorry, department policy is to not negotiate with a toddler-ist.
+Dad::Sorry, department policy is to not negotiate with toddlers.
 Mom::Good job, Dad. The apology will go a long way with the higher ups.
 Dad::Thanks Chief, but I can't help but feel like we were only doing the biddings of the Mayor and Governor tonight.
 Mom::Deal with it. In the toy box of life, we're just the left over scraps of Play-Doh at the bottle of the container.
 """
 
 const OUT_OF_ENERGY: String = """
-Baby:Annoyed:Well pop, if that's all you've got, I think it's time for my nap.
+Baby:Annoyed:Well Pop, if that's all you've got, I think it's time for my nap.
 Mom:Annoyed:The higher ups won't be happy about this one, Dad. We needed that apology.
 Dad::Sorry Chief. Maybe switching up the toys more often might help next time.
 """
 
 const TOO_AFRAID: String = """
-Baby:Crying:Alright pop, that's going too far now. Lawyer Mom, now.
+Baby:Crying:Alright Pop, that's going too far now. Lawyer Mom, now.
 Mom:Annoyed:I know he's a tough customer, Dad, but you really need to be careful about cross the line.
 Dad::Hmm, I'll have to be cautious about this one. He has a higher threshold than most for being afraid.
-Dad::But that also means it's easy to go too far. As the Bad Pop, I'll have to go slowly.
+Dad::But that also means it's easy to go too far. As the Bad Pop, I'll have to go slowly to avoid pushing him too far.
 """
 # gdlint: enable=max-line-length
 

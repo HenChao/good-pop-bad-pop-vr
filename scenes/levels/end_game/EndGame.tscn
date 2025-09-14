@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cakiswpgqnnyf"]
+[gd_scene load_steps=11 format=3 uid="uid://cakiswpgqnnyf"]
 
 [ext_resource type="Script" uid="uid://8j8j6j0j5ak5" path="res://scenes/levels/end_game/end_game.gd" id="1_gpa52"]
 [ext_resource type="PackedScene" uid="uid://cdjftn4b2mqbp" path="res://scenes/objects/interrogation_table/interrogation_table.tscn" id="2_j3euf"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b28tv5rnfncm1" path="res://scenes/objects/overhead_light/overhead_light.tscn" id="7_ectne"]
 [ext_resource type="PackedScene" uid="uid://bhc2iutvt1kg3" path="res://scenes/objects/computer_screen/computer_screen.tscn" id="8_wm2y6"]
 [ext_resource type="PackedScene" uid="uid://dstu4u4xea1r8" path="res://scenes/entities/baby/baby.tscn" id="9_jmvp1"]
+[ext_resource type="FontFile" uid="uid://b265opj1lmq2m" path="res://resources/Funnel_Sans/static/FunnelSans-Bold.ttf" id="10_gpa52"]
 
 [node name="EndGame" type="Node3D"]
 script = ExtResource("1_gpa52")
@@ -16,9 +17,6 @@ script = ExtResource("1_gpa52")
 [node name="InterrogationTable" parent="." instance=ExtResource("2_j3euf")]
 unique_name_in_owner = true
 toys_array = Array[PackedScene]([ExtResource("3_32tff"), ExtResource("4_yx6rv"), ExtResource("5_7ntnr"), ExtResource("6_qmayd")])
-
-[node name="PressToContinueLabel" parent="InterrogationTable/SpeechBubble" index="3"]
-text = "Press a/x to continue.."
 
 [node name="OverheadLight" parent="." instance=ExtResource("7_ectne")]
 unique_name_in_owner = true
@@ -29,7 +27,10 @@ unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
 [node name="MouthSprite3D" parent="ComputerScreen" index="4"]
-frame_progress = 0.508772
+frame_progress = 0.199776
+
+[node name="PressToContinueLabel" parent="ComputerScreen/SpeechBubble" index="3"]
+text = "Press a/x to continue."
 
 [node name="Baby" parent="." instance=ExtResource("9_jmvp1")]
 unique_name_in_owner = true
@@ -47,13 +48,24 @@ billboard = true
 text = "Mr. Big"
 
 [node name="PressToContinueLabel" parent="Baby/SpeechBubble" index="3"]
-text = "Press a/x to continue.."
+text = "Press a/x to continue."
 
-[connection signal="fearfullness_gate_reached" from="Baby" to="." method="_on_baby_fearfullness_gate_reached"]
-[connection signal="happiness_gate_reached" from="Baby" to="." method="_on_baby_happiness_gate_reached"]
-[connection signal="out_of_energy" from="Baby" to="." method="_on_baby_out_of_energy"]
-[connection signal="sufficiently_entertained" from="Baby" to="." method="_on_baby_sufficiently_entertained"]
-[connection signal="too_afraid" from="Baby" to="." method="_on_baby_too_afraid"]
+[node name="Credits" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124632, -0.445179, -1.48417)
+text = "Good Pop, Bad Pop
+
+A game by Henry Chao.
+
+For the 4th Godot XR Game Jam.
+
+Thank you for playing my game. I hope it brought you at least one smile while playing. Have a good day!"
+font = ExtResource("10_gpa52")
+font_size = 24
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 2
+width = 300.0
 
 [editable path="InterrogationTable"]
 [editable path="InterrogationTable/SpeechBubble"]

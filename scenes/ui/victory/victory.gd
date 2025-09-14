@@ -1,5 +1,8 @@
 class_name Victory
 extends Node3D
+## Victory menu screen, displayed when player successfully complets an interview.
+## Shows the amount of time taken in the last level. Also provides player a button
+## to continue to the next level.
 
 signal next_level_pressed
 
@@ -37,10 +40,10 @@ func _animate_menu_in() -> void:
 func set_level_time(timing: float) -> void:
 	var timing_string: String = str(timing)
 	var split_timing_string: PackedStringArray = timing_string.split(".")
-	time_label.text = "Interrogation Time: %s.%s seconds" % [
-		split_timing_string[0],
-		split_timing_string[1].substr(0, 1)
-		]
+	time_label.text = (
+		"Interrogation Time: %s.%s seconds"
+		% [split_timing_string[0], split_timing_string[1].substr(0, 1)]
+	)
 
 
 func _on_next_level_button_button_pressed() -> void:

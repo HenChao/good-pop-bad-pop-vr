@@ -1,5 +1,6 @@
 class_name HapticsComponent
 extends Node3D
+## Haptic component to rumble controller on toy activation.
 
 @export var rumble_event: XRToolsRumbleEvent
 ## Set a constant intensity for rumble magnitude if value is greater than 0.

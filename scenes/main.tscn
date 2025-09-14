@@ -41,11 +41,14 @@ shape = SubResource("WorldBoundaryShape3D_tefeu")
 [node name="Player" parent="." instance=ExtResource("2_0wfyh")]
 unique_name_in_owner = true
 
-[node name="LevelManager" type="Node3D" parent="." node_paths=PackedStringArray("xr_camera_3d", "player")]
+[node name="LevelManager" type="Node3D" parent="." node_paths=PackedStringArray("xr_camera_3d", "player", "game_objects", "script_manager")]
 process_mode = 1
 script = ExtResource("3_jyhfs")
 xr_camera_3d = NodePath("../Player/XRCamera3D")
 player = NodePath("../Player")
+game_objects = NodePath("../GameObjects")
+script_manager = NodePath("../ScriptManager")
+main_menu_scene = ExtResource("3_sugp2")
 tutorial_level_scene = ExtResource("4_tbgi4")
 level_1_scene = ExtResource("6_eb6dy")
 level_2_scene = ExtResource("7_a8y0u")
@@ -82,5 +85,6 @@ visible = false
 player_body = NodePath("../Player/PlayerBody")
 
 [connection signal="menu_button_hit" from="Player" to="." method="_on_player_menu_button_hit"]
+[connection signal="resume_game_button_pressed" from="PausedMenu" to="." method="_on_paused_menu_resume_game_button_pressed"]
 
 [editable path="Player"]

@@ -1,6 +1,8 @@
 @tool
 class_name SpeechBubble
 extends Node3D
+## Speech Bubble object to display dialogue lines for a given speaker.
+## Waits for user input before progressing to the next line or scene.
 
 signal confirmed_input
 
@@ -10,6 +12,7 @@ const ANIMATION_RATE: float = 1.0
 	set = set_speaker_name
 @export var example_text: String:
 	set = set_text
+## Enable to always have the Speech Bubble facing the player.
 @export var billboard: bool = true
 @export var display_press_to_continue_prompt: bool = true
 

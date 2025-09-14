@@ -1,6 +1,8 @@
 @tool
 class_name OverheadLight
 extends XRToolsPickable
+## Overhead lights, provides illumination and atmosphere to the interrogation room.
+## Also provides visual feedback on the current player persona.
 
 @export var good_pop_color: Color = Color("99ddff")
 @export var bad_pop_color: Color = Color("ff9999")
@@ -35,4 +37,6 @@ func fade_in() -> Signal:
 func fade_out() -> Signal:
 	var tween: Tween = create_tween()
 	tween.tween_property(spot_light_3d, "light_energy", 0.0, fade_timing).from(1.0)
+	top_light.visible = false
+	bottom_light.visible = false
 	return tween.finished

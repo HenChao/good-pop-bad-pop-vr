@@ -83,11 +83,12 @@ func set_level(level: Levels) -> void:
 	new_level.start_level()
 
 
-## Called when the player completes the level. Transition and show the victory menu scene.
+## Called when the player completes the level. Transition and show the appropriate menu scene.
 func _on_level_complete(timing: float) -> void:
 	for child in game_objects.get_children():
 		child.queue_free()
 	
+	## If at the end of the game, don't show the victory screen. Just go to the Main Menu level.
 	if _current_level == Levels.END_GAME:
 		return set_level(Levels.MAIN_MENU)
 	
@@ -121,6 +122,7 @@ func _on_level_failed() -> void:
 	game_over_menu.restart_pressed.connect(set_level.bind(_current_level))
 
 
+## Set up the main menu objects after restarting from the end of the game.
 func _setup_main_menu() -> void:
 	var menu_objects: MainMenu = main_menu_scene.instantiate()
 	menu_objects.player_body = player.get_node("PlayerBody")

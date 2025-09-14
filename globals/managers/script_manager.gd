@@ -3,6 +3,7 @@ extends Node3D
 
 signal scene_complete
 
+## References to controllers to in order to bind inputs to speech bubbles to progress text.
 @export_group("Player Controllers")
 @export var left_controller: XRController3D
 @export var right_controller: XRController3D
@@ -13,6 +14,7 @@ signal scene_complete
 @export var mom_sound: AudioStreamWAV
 @export var baby_sound: AudioStreamWAV
 
+# Internal references to entities and speech bubbles to push lines and control display.
 var _dad_speech_bubble: SpeechBubble
 var _mom_puter: ComputerScreen
 var _baby: Baby
@@ -25,17 +27,20 @@ func set_actors(mom: ComputerScreen, dad: SpeechBubble, baby: Baby) -> void:
 	_baby = baby
 
 
+## Begin a scene. Input is one long string, which is then parsed and displayed.
 func start_scene(scene_text: String) -> Signal:
-	_mom_puter.set_state(ComputerScreen.States.SILENT)
-	_dad_speech_bubble.visible = false
-	_baby.set_state(Baby.States.SILENT)
+	# Always start a scene with no one speaking
+	_silence_all_actors()
 
 	var parsed_script: Array[Dialogue] = _parse_script(scene_text)
 	for dialogue in parsed_script:
 		await _display_speech_bubble(dialogue)
 		if audio_player.playing:
 			audio_player.stop()
+	
+	# Always end with no one speaking
 	_silence_all_actors()
+	
 	scene_complete.emit()
 	return scene_complete
 
@@ -50,7 +55,7 @@ func _parse_script(scene_text: String) -> Array[Dialogue]:
 	var lines: PackedStringArray = scene_text.split("\n")
 
 	for line in lines:
-		if not line:  # Skip an empty line.
+		if not line:  # Skip a empty lines.
 			continue
 		var dialogue = Dialogue.new()
 		var split_line: PackedStringArray = line.split(":")
@@ -82,12 +87,13 @@ func _parse_script(scene_text: String) -> Array[Dialogue]:
 	return script
 
 
+## Show the appropriate speech bubble for a given line of dialogue. Hides speech bubbles for anyone
+## who isn't actively speaking.
 func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 	# Determine who is talking, and set the appropriate visibility to their speech bubble.
 	if _last_active_speaker != dialogue.speaker:
 		# New speaker for this line, so hide last speaker's speech bubble
-		var prev_speech_bubble: SpeechBubble = _silence_speaker(_last_active_speaker)
-		_unbind_controller_inputs_to_speech_bubble(prev_speech_bubble)
+		_silence_speaker_and_unbind_input(_last_active_speaker)
 	var active_speech_bubble: SpeechBubble = _set_active_dialogue(dialogue)
 	active_speech_bubble.set_text(dialogue.line)
 	_bind_controller_inputs_to_speech_bubble(active_speech_bubble)
@@ -96,22 +102,26 @@ func _display_speech_bubble(dialogue: Dialogue) -> Signal:
 	return active_speech_bubble.confirmed_input
 
 
-func _silence_speaker(speaker: Dialogue.Speakers) -> SpeechBubble:
+## Hide the speech bubble for the given speaker. Unbind player input from SpeechBubble as well.
+func _silence_speaker_and_unbind_input(speaker: Dialogue.Speakers) -> void:
+	var prev_speech_bubble: SpeechBubble
 	match speaker:
 		Dialogue.Speakers.MOM:
 			_mom_puter.set_state(ComputerScreen.States.SILENT)
-			return _mom_puter.get_speech_bubble()
+			prev_speech_bubble = _mom_puter.get_speech_bubble()
 		Dialogue.Speakers.DAD:
 			_dad_speech_bubble.visible = false
-			return _dad_speech_bubble
+			prev_speech_bubble = _dad_speech_bubble
 		Dialogue.Speakers.BABY:
 			_baby.set_state(Baby.States.SILENT)
-			return _baby.get_speech_bubble()
-	return null
+			prev_speech_bubble = _baby.get_speech_bubble()
+	_unbind_controller_inputs_to_speech_bubble(prev_speech_bubble)
 
 
+## Play the audio stream for the given speaker. Modify pitch scale to distinguish between speakers.
 func _play_audio(speaker: Dialogue.Speakers) -> void:
 	var stream: AudioStreamWAV
+	# Randomize pitch scale to avoid audio fatigue.
 	match speaker:
 		Dialogue.Speakers.MOM:
 			stream = mom_sound
@@ -126,6 +136,8 @@ func _play_audio(speaker: Dialogue.Speakers) -> void:
 	audio_player.play()
 
 
+## Show the speech bubble for the given speaker. Returns the SpeechBubble object so that script
+## progression is tied to when user input signal is emitted.
 func _set_active_dialogue(dialogue: Dialogue) -> SpeechBubble:
 	match dialogue.speaker:
 		Dialogue.Speakers.MOM:

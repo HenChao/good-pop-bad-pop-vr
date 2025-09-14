@@ -1,5 +1,7 @@
 class_name InterrogationTable
 extends StaticBody3D
+## Interrogation table object in game. Contains snap zones binding toys to specific areas.
+## Also anchors the player speech bubble in game.
 
 @export var toys_array: Array[PackedScene] = []
 
@@ -19,6 +21,8 @@ func _ready() -> void:
 
 func initialize_toys() -> void:
 	toys_array.shuffle()
+	# Use a deep-copy of the toys array, rather than the one setup in the scene.
+	# This way, if the player needs to replay the level, we always start with a fresh set of toys.
 	var copy_toys_array = toys_array.duplicate(true)
 	for zone in toy_snap_zones:
 		var toy: Toy = (copy_toys_array.pop_front() as PackedScene).instantiate()

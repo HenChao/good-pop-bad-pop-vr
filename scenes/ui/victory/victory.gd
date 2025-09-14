@@ -1,5 +1,8 @@
 class_name Victory
 extends Node3D
+## Victory menu screen, displayed when player successfully complets an interview.
+## Shows the amount of time taken in the last level. Also provides player a button
+## to continue to the next level.
 
 signal next_level_pressed
 

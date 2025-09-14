@@ -85,5 +85,6 @@ visible = false
 player_body = NodePath("../Player/PlayerBody")
 
 [connection signal="menu_button_hit" from="Player" to="." method="_on_player_menu_button_hit"]
+[connection signal="resume_game_button_pressed" from="PausedMenu" to="." method="_on_paused_menu_resume_game_button_pressed"]
 
 [editable path="Player"]

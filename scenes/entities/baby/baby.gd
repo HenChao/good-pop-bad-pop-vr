@@ -1,11 +1,20 @@
 @tool
 class_name Baby
 extends Node3D
+## Baby entity in game. Runs off of two main systems.
+## - Energy level decreases over time during an interrogation. Rate of decrease changes based on
+##   player interaction.
+## - Mood level changes based on player intereaction. Also drives the shown expression on baby.
 
+## Emits when time runs out during the interrogation.
 signal out_of_energy
+## Emits when mood level drops too low during the interrogation.
 signal too_afraid
+## Emits when mood level is at highest value.
 signal sufficiently_entertained
+## Emits when mood level reaches a game threshold value for happiness.
 signal happiness_gate_reached
+## Emits when mood level reaches a game threshold value for fear.
 signal fearfullness_gate_reached
 
 enum States { SILENT, TALKING }
@@ -15,6 +24,9 @@ enum States { SILENT, TALKING }
 @export var current_expression: Dialogue.Expressions:
 	set = set_expression
 
+# Adjust game difficulty based on baby stats.
+# For example, give more max_energy to give players more time to figure out puzzle.
+# Or adjust energy rates to make Good Pop/Bad Pop interactions easier or harder.
 @export_group("Baby stats")
 @export var current_mood: float = 50.0
 @export var interrogation_mood_threshold: float = 95.0
@@ -27,9 +39,15 @@ enum States { SILENT, TALKING }
 @export var happiness_gate: float = 110.0
 @export var fearfullness_gate: float = -10.0
 
+## Internal reference to if baby is being entertained by the player,
+## based on toy activation and player persona.
 var _is_entertained: bool = false
+## Internal reference to if baby is being pressured by the player,
+## based on toy activation and player persona.
 var _is_afraid: bool = false
+## Has the player hit the happiness gate mood value already.
 var _hit_happiness_gate: bool = false
+## Has the player hit the fearfullness gate mood value already.
 var _crossed_fearfullness_gate: bool = false
 
 var _speech_pattern: Array[String] = ["-", "=", "o", "~"]
@@ -37,6 +55,7 @@ var _speech_cycle: int = 0
 var _speech_time: float = 0.0
 var _speech_rate: float = 1.0
 
+## Internal references to observed toy by the baby.
 var _tracked_toy_area: Area3D
 var _update_tracking_timing: float = 0.0
 var _update_tracking_period: float = 2.0
@@ -58,6 +77,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Animate mouth if baby is in the TALKING state.
 	if current_state == States.TALKING:
 		_speech_time += delta
 		if _speech_time >= _speech_rate:
@@ -68,6 +88,7 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
+	# Update where the baby is looking.
 	_update_tracking_timing += delta
 	if _update_tracking_timing >= _update_tracking_period:
 		_update_tracking_timing = 0.0
@@ -82,6 +103,7 @@ func _physics_process(delta: float) -> void:
 	# Only perform next block if is actively interrogated.
 	if not is_being_interrogated:
 		return
+
 	# Recalculate mood based on entertainment level
 	_determine_mood()
 
@@ -118,41 +140,32 @@ func set_speaker_name(speaker_name: String) -> void:
 
 
 func set_expression(expression: Dialogue.Expressions) -> void:
+	mouth.font_size = 16
+	mouth.rotation_degrees = Vector3(0, 0, 0)
 	match expression:
 		Dialogue.Expressions.CRYING:
 			eyes.text = "><"
 			mouth.text = "~"
-			mouth.font_size = 16
-			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.SCARED:
 			eyes.text = "~~"
 			mouth.text = "-"
-			mouth.font_size = 16
-			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.ANNOYED:
 			eyes.text = "¬¬"
 			mouth.text = "-"
-			mouth.font_size = 16
-			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.NEUTRAL:
 			eyes.text = "--"
 			mouth.text = ")"
-			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, -90)
 		Dialogue.Expressions.SURPRISED:
 			eyes.text = "oo"
 			mouth.text = "o"
-			mouth.font_size = 16
-			mouth.rotation_degrees = Vector3(0, 0, 0)
 		Dialogue.Expressions.SMILING:
 			eyes.text = "^^"
 			mouth.text = ")"
-			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, -90)
 		Dialogue.Expressions.JOYFUL:
 			eyes.text = "><"
 			mouth.text = "D"
-			mouth.font_size = 16
 			mouth.rotation_degrees = Vector3(0, 0, -90)
 	current_expression = expression
 
@@ -233,6 +246,8 @@ func _on_field_of_view_area_exited(area: Area3D) -> void:
 
 func _on_toy_interaction(value: float) -> void:
 	current_mood += value
+	_is_entertained = true if value > 0 else false
+	_is_afraid = true if value < 0 else false
 
 
 func _on_sweat_animation_timer_timeout() -> void:

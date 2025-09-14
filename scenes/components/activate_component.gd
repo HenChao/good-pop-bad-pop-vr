@@ -1,22 +1,32 @@
 class_name ActivateComponent
 extends Node3D
+## Toy component which handles player interaction logic.
+## Boolean parameters control which type of interaction is listened for by the toy.
 
+## Emitted when toy should be considered activated for scoring.
+## Intensity value will help determine haptic feedback value.
 signal activated(intensity: float)
+## Emitted by some toys to stop scoring early.
 signal deactivate
 
 @export_group("Activation Type")
+## Toy is activated by squeezing controller trigger.
 @export var is_squeezed: bool = false
+## Toy is activated by flipping object upside down.
 @export var is_flipped: bool = false
+## Toy is activated by shaking object quickly.
 @export var is_shaken: bool = false
+## Toy is activated when in a specific area.
 @export var is_in_area: bool = false
 
-# Internal variables to calculate acceleration
+# Internal variables to calculate acceleration for shaking interaction.
 var _parent_last_global_position: Vector3
 var _last_velocity: Vector3 = Vector3.ZERO
 var _last_velocity_delta_magnitude: float = 0.0
 ## Acceleration threshold value at which the toy is considered shaken.
 var _acceleration_threshold: float = 0.5
 
+## Tracks if toy is held in specific area for is_in_area activation.
 var _held_in_area: bool = false
 
 @onready var debounce_timer: Timer = %DebounceTimer
@@ -30,6 +40,7 @@ func _ready() -> void:
 		for controller in controllers:
 			(controller as XRController3D).input_float_changed.connect(_on_controller_input_trigger)
 	_parent_last_global_position = get_parent().global_position
+
 
 func _physics_process(delta: float) -> void:
 	if is_flipped and _is_upside_down():

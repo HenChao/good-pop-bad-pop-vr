@@ -1,5 +1,6 @@
 class_name AudioComponent
 extends Node3D
+## Audio component for a toy to play sound when activated.
 
 @export var audio_stream: AudioStream
 
@@ -16,6 +17,7 @@ func play_sound() -> void:
 	# Randomize pitch to avoid repetitive sounds.
 	# If Good Pop, play normal sound.
 	# If Bad Pop, play at lower pitch.
+	# Provides audio feedback to distinguish player persona.
 	if Player.is_currently_good_pop:
 		audio_stream_player_3d.pitch_scale = randf_range(0.8, 1.2)
 	else:

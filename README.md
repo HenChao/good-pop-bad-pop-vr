@@ -41,7 +41,7 @@ With the environment setup complete, the development workflow was as followed:
 * Commit and push changes through git to GitHub.
 * On laptop, pull the changes.
 
-And continue with the pull/push process between both devices as needed. Overall, once the majority of the work was completed on the environment setup, the rest of the process and workflow was simple. Though I will admit that having previous knowledge of working with Linux, terminal environment, and git helped greatly with troubleshooting problems with the environment setup.
+And continue with the pull/push process between both devices as needed. Overall, once the majority of the work was completed on the environment setup, the rest of the process and workflow was simple. Though I will admit that having previous knowledge of working with Linux, working in a terminal environment, and git helped greatly with troubleshooting problems with the environment setup.
 
 ## Limitations
 
@@ -49,5 +49,40 @@ A few known bugs and limitations in the game.
 
 * Pause menu interaction is not working. Pausing is still possible, but triggering any of the menu objects does not work. I suspect I'm doing something wrong with the tree pausing and cursor interactions in the scene, but no time to figure that out now.
 * Toy interactions sometimes gets dropped, and tracking is lost by the baby. Unable to determine why so far.
-* Player and object positioning is off on some scene loads. Resetting the position through the device recentering function.
+* Player and object positioning is off on some scene loads. Resetting the position through the device recentering function works fine.
 * Lots of optimizations possible through the game, including with textures and images. Can also probably refactor key portions of the code (like the levels) to reduce duplication.
+* Game balance is way off. Duck is over powered.
+
+# Credits
+
+## Font
+
+Funnel Sans - Copyright 2024 The Funnel Project Authors (https://github.com/Dicotype/Funnel)  - SIL OPEN FONT LICENSE Version 1.1
+
+## Models
+
+Rubber Duck - Author Plat251 - https://polyhaven.com/a/rubber\_duck\_toy - CC0 Licensed
+
+## Sound Effects
+
+Duck Quacking - by Freesound Community via Pixabay - https://pixabay.com/sound-effects/075176-duck-quack-40345/
+
+Pop - by u_8e8ungop1x via Pixabay - https://pixabay.com/sound-effects/pop-268648/
+
+8 bit game sounds - by lyd4tuna (Freesound) via Pixabay - https://pixabay.com/sound-effects/8-bit-game-sounds-68731/
+
+COW BOX - by SamuelGremaud (Freesound) via Pixabay - https://pixabay.com/sound-effects/cow-box-96547/
+
+kazoo - by insanity54 (Freesound) via Pixabay - https://pixabay.com/sound-effects/kazoo-99784/
+
+Rattle Toy infant stuffet animal_2.L - by AGFX (Freesound) via Pixabay - https://pixabay.com/sound-effects/rattle-toy-infant-stuffet-animal-2l-108230/
+
+flourescent light - by samwd (Freesound) via Pixabay - https://pixabay.com/sound-effects/flourescent-light-29596/
+
+Creepy church bell - by Aeonemi (Freesound) via Pixabay - https://pixabay.com/sound-effects/creepy-church-bell-33827/
+
+## Addons
+
+Godot XR Tools - https://github.com/GodotVR/godot-xr-tools - MIT License
+
+Godot OpenXR Vendors plugin - https://github.com/GodotVR/godot_openxr_vendors - MIT License

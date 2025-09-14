@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://b265opj1lmq2m" path="res://resources/Funnel_Sans/static/FunnelSans-Bold.ttf" id="4_cjkhj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fd516"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_cjkhj")
 shader_parameter/PrimaryColor = Color(0.53, 1, 0.984333, 1)

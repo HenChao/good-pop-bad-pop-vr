@@ -17,6 +17,8 @@ var _last_velocity_delta_magnitude: float = 0.0
 ## Acceleration threshold value at which the toy is considered shaken.
 var _acceleration_threshold: float = 0.5
 
+var _held_in_area: bool = false
+
 @onready var debounce_timer: Timer = %DebounceTimer
 @onready var continuous_timer: Timer = %ContinuousTimer
 
@@ -43,11 +45,13 @@ func _on_controller_input_trigger(input_name: String, input_value: float) -> voi
 
 func _on_activation_area_area_entered(area: Area3D) -> void:
 	if is_in_area and area.is_in_group("PlayerMouth"):
+		_held_in_area = true
 		_continuous_signal()
 
 
 func _on_activation_area_area_exited(area: Area3D) -> void:
 	if is_in_area and area.is_in_group("PlayerMouth"):
+		_held_in_area = false
 		deactivate.emit()
 
 
@@ -84,4 +88,5 @@ func _continuous_signal() -> void:
 
 
 func _on_continuous_timer_timeout() -> void:
-	_continuous_signal()
+	if _held_in_area:
+		_continuous_signal()

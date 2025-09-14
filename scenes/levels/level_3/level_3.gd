@@ -125,7 +125,7 @@ func _on_baby_sufficiently_entertained() -> void:
 			await script_manager.start_scene(SECOND_ROUND)
 			# Set stats for the second round
 			baby.current_mood = 50.0
-			baby.happiness_gate = 95.0
+			baby.happiness_gate = 90.0
 			baby.fearfullness_gate = 5.0
 			baby.max_energy = 120.0
 			baby.current_energy = 120.0

@@ -18,10 +18,12 @@ shape = SubResource("SphereShape3D_dluk3")
 
 [node name="DebounceTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+wait_time = 0.2
 one_shot = true
 
 [node name="ContinuousTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+wait_time = 0.2
 one_shot = true
 
 [connection signal="area_entered" from="ActivationArea" to="." method="_on_activation_area_area_entered"]

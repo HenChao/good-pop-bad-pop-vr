@@ -24,6 +24,7 @@ func _ready() -> void:
 func _animate_menu_in() -> void:
 	_tween.set_parallel()
 	_tween.tween_property(victory, "modulate:a", 1, ANIMATION_TIMING)
+	_tween.set_ease(Tween.EASE_IN)
 	_tween.tween_method(next_level_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)
 	_tween.tween_method(quit_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)
 	_tween.tween_callback(
@@ -34,7 +35,12 @@ func _animate_menu_in() -> void:
 
 
 func set_level_time(timing: float) -> void:
-	time_label.text = "Interrogation Time: %s" % timing
+	var timing_string: String = str(timing)
+	var split_timing_string: PackedStringArray = timing_string.split(".")
+	time_label.text = "Interrogation Time: %s.%s seconds" % [
+		split_timing_string[0],
+		split_timing_string[1].substr(0, 1)
+		]
 
 
 func _on_next_level_button_button_pressed() -> void:

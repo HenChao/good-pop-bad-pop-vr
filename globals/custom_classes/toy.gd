@@ -25,10 +25,10 @@ const HAND_GRAB_HAPTIC_TIMING_MS: float = 100
 @export var timer_timeout: float = 30.0
 
 @export_group("Points Parameters")
-@export var entertained_point_min: float = 0.1
-@export var entertained_point_max: float = 1.5
-@export var afraid_point_min: float = -1.5
-@export var afraid_point_max: float = -0.1
+@export var entertained_point_min: float = 1.0
+@export var entertained_point_max: float = 3.0
+@export var afraid_point_min: float = -3.0
+@export var afraid_point_max: float = -1.0
 
 var _current_entertained_points: float = 0.0
 var _current_afraid_points: float = 0.0
@@ -58,6 +58,7 @@ func _ready() -> void:
 	points_randomizer_timer.start(timer_timeout)
 
 	active_component.activated.connect(_on_toy_activation)
+	active_component.deactivate.connect(_on_toy_deactivation)
 
 	# Connect to pickable signals to play the appropriate haptics control
 	grabbed.connect(_on_hand_grab)
@@ -98,3 +99,7 @@ func _on_toy_activation(intensity: float) -> void:
 	)
 	audio_component.play_sound()
 	haptics_component.rumble_controller(_currently_held_hand, intensity)
+
+
+func _on_toy_deactivation() -> void:
+	audio_component.stop_sound()

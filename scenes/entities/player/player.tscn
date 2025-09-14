@@ -20,7 +20,7 @@ render_priority = 0
 shader = ExtResource("5_dnykm")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1murt"]
-radius = 0.1
+radius = 0.15
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c5rqy"]
 render_priority = 0
@@ -37,7 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889091, 0)
 [node name="VRCommonShaderCache" parent="XRCamera3D" instance=ExtResource("1_ucweq")]
 
 [node name="MouthArea" type="Area3D" parent="XRCamera3D" groups=["PlayerMouth"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0512444, -0.156146)
 collision_layer = 2147483648
 collision_mask = 0
 
@@ -45,7 +45,7 @@ collision_mask = 0
 shape = SubResource("SphereShape3D_bj7e2")
 
 [node name="PeekABooArea" type="Area3D" parent="XRCamera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.263435, -0.329088)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210479, -0.433774)
 collision_layer = 131072
 collision_mask = 131072
 
@@ -67,6 +67,7 @@ laser_length = 1
 hand_material_override = SubResource("ShaderMaterial_dnykm")
 
 [node name="HandArea" type="Area3D" parent="XRController3D_Left/LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08)
 collision_layer = 131072
 collision_mask = 131072
 
@@ -89,6 +90,7 @@ laser_length = 1
 hand_material_override = SubResource("ShaderMaterial_c5rqy")
 
 [node name="HandArea" type="Area3D" parent="XRController3D_Right/RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08)
 collision_layer = 131072
 collision_mask = 131072
 

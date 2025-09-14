@@ -51,6 +51,10 @@ haptics_component = NodePath("HapticsComponent")
 return_to_snap_zone_node = NodePath("XRToolsReturnToSnapZone")
 toy_tracking_area = NodePath("ToyTrackingArea")
 points_randomizer_timer = NodePath("PointsRandomizerTimer")
+entertained_point_min = 0.1
+entertained_point_max = 1.5
+afraid_point_min = -1.5
+afraid_point_max = -0.1
 ranged_grab_method = 2
 metadata/_custom_type_script = "uid://biwl5by0syfgs"
 
@@ -71,10 +75,10 @@ require_group = "ToySlot"
 exclude_group = "Handle"
 
 [node name="GrabPointHandLeft" parent="." instance=ExtResource("4_sqlgf")]
-transform = Transform3D(1, 0, 0, 0, 0.848446, -0.529283, 0, 0.529283, 0.848446, -0.01, 0.048, -0.08)
+transform = Transform3D(1, 0, 0, 0, 0.315003, -0.949091, 0, 0.949091, 0.315003, -0.01, 0.0784208, -0.0287813)
 
 [node name="GrabPointHandRight" parent="." instance=ExtResource("5_ydnbf")]
-transform = Transform3D(1, 0, 0, 0, 0.848446, -0.529283, 0, 0.529283, 0.848446, 0.01, 0.048, -0.08)
+transform = Transform3D(1, 0, 0, 0, 0.315003, -0.949091, 0, 0.949091, 0.315003, 0.01, 0.0784208, -0.0287813)
 
 [node name="PointsRandomizerTimer" type="Timer" parent="."]
 unique_name_in_owner = true

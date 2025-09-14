@@ -11,6 +11,7 @@ default_value_enabled = true
 default_value = 0.3
 
 [resource]
+resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
 
@@ -40,7 +41,6 @@ void fragment() {
 	var_debug_vector_length = 0.0;
 }
 "
-graph_offset = Vector2(8.93193, -31.9646)
 flags/unshaded = true
 varyings/debug_vector_length = "1,0"
 nodes/fragment/0/position = Vector2(920, 240)

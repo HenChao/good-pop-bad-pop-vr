@@ -29,6 +29,7 @@ enum States { SILENT, TALKING }
 
 var _is_entertained: bool = false
 var _is_afraid: bool = false
+var _hit_happiness_gate: bool = false
 var _crossed_fearfullness_gate: bool = false
 
 var _speech_pattern: Array[String] = ["-", "=", "o", "~"]
@@ -112,8 +113,8 @@ func get_speech_bubble() -> SpeechBubble:
 	return speech_bubble
 
 
-func set_speaker_name(name: String) -> void:
-	speech_bubble.set_speaker_name(name)
+func set_speaker_name(speaker_name: String) -> void:
+	speech_bubble.set_speaker_name(speaker_name)
 
 
 func set_expression(expression: Dialogue.Expressions) -> void:
@@ -178,7 +179,9 @@ func _determine_mood() -> void:
 		stop_interrogation()
 		return
 	if current_mood >= happiness_gate:
-		happiness_gate_reached.emit()
+		if not _hit_happiness_gate:
+			happiness_gate_reached.emit()
+		_hit_happiness_gate = true
 		current_mood = happiness_gate
 	if current_mood >= interrogation_mood_threshold:
 		sufficiently_entertained.emit()
@@ -214,13 +217,16 @@ func _update_energy_bar() -> void:
 
 
 func _on_field_of_view_area_entered(area: Area3D) -> void:
-	_tracked_toy_area = area
+	if _tracked_toy_area != area:
+		_tracked_toy_area = area
 	var tracked_toy: Toy = area.get_parent()
-	tracked_toy.activated.connect(_on_toy_interaction)
+	if not tracked_toy.activated.is_connected(_on_toy_interaction):
+		tracked_toy.activated.connect(_on_toy_interaction)
 
 
 func _on_field_of_view_area_exited(area: Area3D) -> void:
-	_tracked_toy_area = null
+	if _tracked_toy_area == area:
+		_tracked_toy_area = null
 	var tracked_toy: Toy = area.get_parent()
 	tracked_toy.activated.disconnect(_on_toy_interaction)
 

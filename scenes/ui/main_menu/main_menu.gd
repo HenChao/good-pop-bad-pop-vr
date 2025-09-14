@@ -31,6 +31,7 @@ func _play_intro_animation() -> void:
 	_tween.tween_property(logo, "modulate:a", 1.0, 1.0)
 	_tween.tween_property(no_highlight, "modulate:a", 0, 1.0)
 	# Fade in buttons
+	_tween.set_ease(Tween.EASE_IN)
 	_tween.tween_method(start_button.set_alpha, 0.0, 0.3, 2.0)
 	_tween.parallel().tween_method(set_height_button.set_alpha, 0.0, 0.3, 2.0)
 	_tween.parallel().tween_method(quit_button.set_alpha, 0.0, 0.3, 2.0)

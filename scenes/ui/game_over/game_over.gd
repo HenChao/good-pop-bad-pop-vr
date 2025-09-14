@@ -37,6 +37,7 @@ func _ready() -> void:
 
 func _animate_menu_in() -> void:
 	_tween.set_parallel()
+	_tween.set_ease(Tween.EASE_IN)
 	_tween.tween_property(game_over, "modulate:a", 1, ANIMATION_TIMING)
 	_tween.tween_method(restart_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)
 	_tween.tween_method(quit_button.set_alpha, 0.0, 0.3, ANIMATION_TIMING)

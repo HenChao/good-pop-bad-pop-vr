@@ -99,7 +99,7 @@ autowrap_mode = 2
 
 [node name="ScreenMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0857154)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00915083, 0.0713513)
 visible = false
 mesh = SubResource("PlaneMesh_85tyx")
 surface_material_override/0 = SubResource("StandardMaterial3D_xpwu8")
@@ -112,11 +112,11 @@ pixel_size = 0.001
 sprite_frames = SubResource("SpriteFrames_hhtu7")
 animation = &"talking"
 autoplay = "talking"
-frame_progress = 0.0936737
+frame_progress = 0.615812
 
 [node name="EyesSprite3D" type="AnimatedSprite3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00999495, 0.0780618)
 visible = false
 pixel_size = 0.001
 sprite_frames = SubResource("SpriteFrames_652pl")
@@ -139,7 +139,7 @@ text = "Chief of Police Mom"
 text = "Get on the case!"
 
 [node name="PressToContinueLabel" parent="SpeechBubble" index="3"]
-text = "Press a/x to continue.."
+text = "Press a/x to continue..."
 
 [editable path="computer_monitor"]
 [editable path="SpeechBubble"]

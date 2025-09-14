@@ -18,6 +18,9 @@ script = ExtResource("1_cc7qt")
 unique_name_in_owner = true
 toys_array = Array[PackedScene]([ExtResource("3_40ep0"), ExtResource("4_20mfy"), ExtResource("5_5sdnp"), ExtResource("6_7a0x5")])
 
+[node name="PressToContinueLabel" parent="InterrogationTable/SpeechBubble" index="3"]
+text = "Press a/x to continue.."
+
 [node name="OverheadLight" parent="." instance=ExtResource("7_65wjr")]
 unique_name_in_owner = true
 transform = Transform3D(0.999264, 0.0107134, -0.0368437, -0.0205064, 0.960704, -0.276816, 0.0324303, 0.277367, 0.960216, -0.0207067, 1.0398, 0.0758374)
@@ -27,10 +30,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.875363, 0, 0.483466, 0, 1, 0, -0.483466, 0, 0.875363, -0.485855, 0.329269, -0.244517)
 
 [node name="MouthSprite3D" parent="ComputerScreen" index="4"]
-frame_progress = 0.94335
-
-[node name="PressToContinueLabel" parent="ComputerScreen/SpeechBubble" index="3"]
-text = "Press a/x to continue."
+frame_progress = 0.236518
 
 [node name="Baby" parent="." instance=ExtResource("9_aal6a")]
 unique_name_in_owner = true
@@ -41,11 +41,14 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0467941, 0.0555415)
 
 [node name="SpeechBubble" parent="Baby" index="2"]
-speaker_name = "Oscar"
+speaker_name = "Mr. Big"
 billboard = true
 
 [node name="SpeakerLabel" parent="Baby/SpeechBubble" index="1"]
-text = "Oscar"
+text = "Mr. Big"
+
+[node name="PressToContinueLabel" parent="Baby/SpeechBubble" index="3"]
+text = "Press a/x to continue.."
 
 [node name="IntroSFX" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
